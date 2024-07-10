@@ -1,0 +1,44 @@
+parameters:
+  - name: environments
+    type: object
+    default:
+      - dev
+      # - qa
+      # - uat
+      # - staging
+      # - prod
+
+stages:
+  - ${{ each environment in parameters.environments }}:
+      - stage: "Deploy_${{ environment }}"
+        displayName: "Deploy [${{ environment }}]"
+        variables:
+          - group: "web-react-skeleton-${{ environment }}"
+          - name: commandOptions
+            value: >
+              --var-file=env/${{ environment }}.tfvars
+              -var="project_short_name=$(PROJECT_SHORT_NAME)"
+              -input=false
+        jobs:
+          - template: terraform_plan.yml
+            parameters:
+              environment: ${{ environment }}
+              commandOptions: ${{ variables.commandOptions }}
+          - template: build_frontend.yml
+            parameters:
+              environment: ${{ environment }}
+          - ${{ if eq(environment, 'prod') }}:
+              - template: deploy_validation.yml
+                parameters:
+                  environment: ${{ environment }}
+                  depends_on:
+                    - Terraform_Plan_${{ environment }}
+          - template: deploy_frontend.yml
+            parameters:
+              environment: ${{ environment }}
+              commandOptions: ${{ variables.commandOptions }}
+              depends_on:
+                - ${{ if eq(environment, 'prod') }}:
+                    - Deploy_Validation_${{ environment }}
+                - Terraform_Plan_${{ environment }}
+                - Build_Frontend_${{ environment }}

@@ -1,0 +1,10 @@
+trigger:
+  - releases/*
+
+name: v0.01$(Rev:.rr)
+
+variables:
+  - group: web-react-skeleton-azure
+
+stages:
+  - template: azure-pipeline/environments_loop.yml

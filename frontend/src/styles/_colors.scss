@@ -1,0 +1,34 @@
+/* ============================================
+=                  Colors                     =
+============================================ */
+/* stylelint-disable color-no-hex */
+
+$color-primary: (
+  light: #5bc5f2,
+  main: #0d59d1,
+  dark: #001e60,
+);
+
+$color-secondary: (
+  light: #5bc5f2,
+  main: #0d59d1,
+  dark: #001e60,
+);
+
+$color-basic: (
+  brightest: #fff,
+  darkest: #000,
+  background: #fafafb,
+  text: #333,
+  body: #666,
+  error: #d32f2f,
+  success: #388e3c,
+  info: #1976d2,
+  warning: #fbc02d,
+);
+
+$color: (
+  primary: $color-primary,
+  secondary: $color-secondary,
+  basic: $color-basic,
+);

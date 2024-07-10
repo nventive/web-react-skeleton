@@ -1,0 +1,53 @@
+parameters:
+  - name: environment
+    type: string
+  - name: commandOptions
+    type: string
+  - name: depends_on
+    type: object
+    default: ""
+
+jobs:
+  - deployment: "Deploy_Frontend_${{ parameters.environment }}"
+    displayName: "Deploy Frontend [${{ parameters.environment }}]"
+    environment: ${{ parameters.environment }}
+    pool:
+      vmImage: "windows-latest"
+    ${{ if ne(parameters.depends_on, '')}}:
+      dependsOn: ${{ parameters.depends_on }}
+
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: self
+
+            - template: terraform_steps.yml
+              parameters:
+                environment: ${{ parameters.environment }}
+                commandOptions: ${{ parameters.commandOptions }}
+                lastCommand: "apply"
+
+            - task: AzureCLI@2
+              displayName: "Empty container and copy React build to blob storage"
+              inputs:
+                azureSubscription: "$(ARM_SERVICE_CONNECTION_NAME)"
+                scriptType: ps
+                scriptLocation: "inlineScript"
+                addSpnToEnvironment: true
+                inlineScript: |
+                  $storageAccountName = "sa$(PROJECT_SHORT_NAME)${{ parameters.environment }}"
+                  $buildSourcePath = "$(Pipeline.Workspace)/build_frontend_${{ parameters.environment }}"
+                  $containerName = '$web'
+
+                  az storage blob delete-batch --account-name $storageAccountName --source $containerName
+                  az storage blob upload-batch --account-name $storageAccountName --destination $containerName --source $buildSourcePath
+
+            - task: AzureCLI@2
+              displayName: "Purge CDN after React build deployment"
+              inputs:
+                azureSubscription: "$(ARM_SERVICE_CONNECTION_NAME)"
+                scriptType: ps
+                scriptLocation: "inlineScript"
+                inlineScript: |
+                  az cdn endpoint purge -g rg-${{ parameters.environment }}-$(PROJECT_SHORT_NAME) -n cdne-${{ parameters.environment }}-$(PROJECT_SHORT_NAME) --profile-name cdnp-${{ parameters.environment }}-$(PROJECT_SHORT_NAME) --content-paths '/*' --no-wait

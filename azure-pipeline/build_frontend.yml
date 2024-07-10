@@ -1,0 +1,46 @@
+parameters:
+  - name: environment
+    type: string
+
+jobs:
+  - job: Build_Frontend_${{ parameters.environment }}
+    displayName: "Build Frontend [${{ parameters.environment }}]"
+    pool:
+      vmImage: "ubuntu-latest"
+    variables:
+      - name: VITE_VERSION_NUMBER
+        value: $(Build.BuildNumber)
+      - name: VITE_ENV
+        value: "${{ parameters.environment }}"
+      - name: VITE_API_URL
+        value: "$(api-url-${{ parameters.environment }})"
+      - name: VITE_GA_TRACKING_ID
+        value: "$(ga-tracking-id-${{ parameters.environment }})"
+      - name: VITE_GENERATE_SOURCEMAP
+        value: false
+
+    steps:
+      - task: NodeTool@0
+        displayName: "Node.js Version"
+        inputs:
+          versionSpec: "22.x"
+
+      - script: |
+          cd frontend
+          npm install -g yarn
+          yarn
+          yarn build
+        displayName: "Install and Build using Yarn"
+
+      - task: CopyFiles@2
+        displayName: "Copy files to build folder"
+        inputs:
+          sourceFolder: "$(System.DefaultWorkingDirectory)/frontend/dist"
+          targetFolder: "$(Build.ArtifactStagingDirectory)"
+          cleanTargetFolder: true
+
+      - task: PublishBuildArtifacts@1
+        displayName: "Publish artifact"
+        inputs:
+          pathtoPublish: "$(Build.ArtifactStagingDirectory)"
+          artifactName: "build_frontend_${{ parameters.environment }}"

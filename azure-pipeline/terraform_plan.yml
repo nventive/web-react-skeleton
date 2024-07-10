@@ -1,0 +1,17 @@
+parameters:
+  - name: environment
+    type: string
+  - name: commandOptions
+    type: string
+
+jobs:
+  - job: Terraform_Plan_${{ parameters.environment }}
+    displayName: "Terraform Plan [${{ parameters.environment }}]"
+    pool:
+      vmImage: "ubuntu-latest"
+    steps:
+      - template: terraform_steps.yml
+        parameters:
+          environment: ${{ parameters.environment }}
+          commandOptions: ${{ parameters.commandOptions }}
+          lastCommand: "plan"

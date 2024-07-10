@@ -1,0 +1,56 @@
+/* ============================================
+=                 Globals                     =
+============================================ */
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  width: 100%;
+  font-family: InterTight, sans-serif;
+  font-size: 16px;
+  overflow-y: scroll;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  height: 100%;
+  width: 100%;
+  animation: get-time(slow) fade-in forwards;
+}
+
+.flex {
+  display: flex;
+
+  &-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-1 {
+    flex: 1;
+  }
+
+  &-grow {
+    flex-grow: 1;
+  }
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.text-center {
+  text-align: center;
+}

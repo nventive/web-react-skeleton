@@ -1,0 +1,20 @@
+parameters:
+  - name: environment
+    type: string
+  - name: depends_on
+    type: object
+    default: ""
+
+jobs:
+  - job: Deploy_Validation_${{ parameters.environment }}
+    displayName: "Deploy Validation [${{ parameters.environment }}]"
+    ${{ if ne(parameters.depends_on, '')}}:
+      dependsOn: ${{ parameters.depends_on }}
+    pool: server
+    timeoutInMinutes: 60
+    steps:
+      - task: ManualValidation@0
+        timeoutInMinutes: 60
+        inputs:
+          instructions: "Please validate the Terraform plan for the environment before deploying. Approving this will deploy in the [${{ parameters.environment }}] environment."
+          onTimeout: "reject"

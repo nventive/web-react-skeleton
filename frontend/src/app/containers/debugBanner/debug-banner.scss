@@ -1,0 +1,33 @@
+/* stylelint-disable color-no-hex */
+.debug-banner {
+  position: absolute;
+  width: 100%;
+  height: 8px;
+
+  &__container {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: get-z(100);
+  }
+
+  &__local {
+    background-color: #d4e157;
+  }
+
+  &__dev {
+    background-color: #42a5f5;
+  }
+
+  &__qa {
+    background-color: #ffca28;
+  }
+
+  &__uat {
+    background-color: #7e57c2;
+  }
+
+  &__staging {
+    background-color: #8d6e63;
+  }
+}

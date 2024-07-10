@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "stylelint-config-prettier-scss",
+    "stylelint-config-standard-scss"
+  ],
+  "plugins": ["stylelint-prettier", "stylelint-scss"],
+  "customSyntax": "postcss-scss",
+  "rules": {
+    "value-keyword-case": null,
+    "at-rule-empty-line-before": null,
+    "scss/dollar-variable-empty-line-before": null,
+    "selector-pseudo-element-colon-notation": "single",
+    "selector-pseudo-class-no-unknown": null,
+    "color-no-hex": true,
+    "color-named": "never"
+  }
+}
