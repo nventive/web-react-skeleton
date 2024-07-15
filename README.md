@@ -35,10 +35,6 @@ to install, sample code, etc.}
 
 {More details/listing of features of the project}
 
-## Breaking Changes
-
-Please consult [BREAKING_CHANGES.md](BREAKING_CHANGES.md) for more information about version
-history and compatibility.
 
 ## License
 

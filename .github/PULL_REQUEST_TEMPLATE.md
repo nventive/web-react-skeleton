@@ -1,6 +1,6 @@
-GitHub Issue: #
-<!-- Link to relevant GitHub issue if applicable.
-     All PRs should be associated with an issue -->
+GitHub Issue or Internal Use Azure Devops Work Item ID: 
+<!-- Relevant GitHub issue or Azure Devops Work Item ID
+ -->
 
 ## Proposed Changes
 <!-- Please check one or more that apply to this PR. -->
@@ -28,11 +28,6 @@ GitHub Issue: #
 Please check that your PR fulfills the following requirements:
 
 - [ ] Documentation has been added/updated.
-- [ ] Automated tests for the changes have been added/updated.
-- [ ] Updated [BREAKING_CHANGES.md](../BREAKING_CHANGES.md) (if you introduced a breaking change).
-
-<!-- If this PR contains a breaking change, please describe the impact
-     and migration path for existing applications below. -->
 
 ## Other information
 <!-- Please provide any additional information if necessary -->
