@@ -3,17 +3,22 @@ import classNames from "classnames";
 import "./debug-banner.scss";
 import Button from "@components/button/Button";
 
-const IS_BANNER_OPEN = "isBannerOpen";
+const HIDE_BANNER_UNTIL_KEY = "hideBannerUntil";
+const FOUR_HOURS = 4 * 60 * 60 * 1000;
 
 export default function DebugBanner() {
-  const localStorageValue = localStorage.getItem(IS_BANNER_OPEN);
+  const hideBannerUntil = localStorage.getItem(HIDE_BANNER_UNTIL_KEY);
+
   const [isBannerOpen, setIsBannerOpen] = useState(
-    localStorageValue === "true" || localStorageValue === null,
+    hideBannerUntil ? Number(hideBannerUntil) < Date.now() : true,
   );
 
   const closeBanner = () => {
     setIsBannerOpen(false);
-    localStorage.setItem(IS_BANNER_OPEN, "false");
+    localStorage.setItem(
+      HIDE_BANNER_UNTIL_KEY,
+      String(Date.now() + FOUR_HOURS),
+    );
   };
 
   return __ENV__ !== "prod" && isBannerOpen ? (
