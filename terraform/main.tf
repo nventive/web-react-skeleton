@@ -119,3 +119,13 @@ resource "azurerm_cdn_endpoint" "cdne" {
     environment = var.environment
   }
 }
+
+# resource "azurerm_static_web_app" "default" {
+#   name                = "swa-${var.environment}-${var.project_short_name}"
+#   resource_group_name = data.azurerm_resource_group.rg_env.name
+#   location            = "eastus2"
+#   tags = {
+#     description = "Managed by Terraform"
+#     environment = var.environment
+#   }
+# }
