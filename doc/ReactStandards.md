@@ -32,10 +32,6 @@ function showButton(): boolean {
 
 - Functions that aren't React components should be camel case: `onChange` not `OnChange`
 
-## Enums
-
-- Don't start enum names with E, only auto-defined API enums should be named this way
-
 ## Labels
 
 - Labels should always be passed between components as the translated value
@@ -149,4 +145,4 @@ const [hasModification, setHasModification] = useState<boolean>(false);
 
 - Never use `dangerouslySetInnerHTML`
 - Only use functionnal components.
-- Business logic should be in the API instead of the client when possible. This is to avoid duplicating the logic across multiple clients
+- Business logic should be in the API instead of the client when possible
