@@ -1,0 +1,7 @@
+{
+  "i18n-ally.localesPaths": ["frontend/src/assets/locales"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsdk": "frontend/node_modules/typescript/lib"
+}

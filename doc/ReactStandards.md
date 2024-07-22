@@ -18,30 +18,28 @@
   - For example:
 
 ```ts
-function showButton(): boolean {
+const showButton = (): boolean => {
   return providerId === client.providerId;
-}
+};
 ```
 
 - Should be a constant variable
   `const showButton = providerId === client.providerId;`
-
 - Callbacks should be named after the event
 - For example a `onClick` callback function name should always start with "onClick"
   `onClick={onClickAmountOption}`
 
 - Functions that aren't React components should be camel case: `onChange` not `OnChange`
+- Use arrow functions
+- Use a normal function for react components. (The benefit of lexical scope of `this` is not present for components)
 
 ## Labels
 
 - Labels should always be passed between components as the translated value
-
 - You should never see code like below where a property is being translated:
   `<Button>{t(props.label)}</Button>`
-
 - The translate function should be called in the parent component and the child just renders the property as is:
   `<Button>{props.label}</Button>`
-
 - Use the built in [interpolation functionality](https://www.i18next.com/translation-function/interpolation) instead of `.replace()` for example:
 
 ```ts
