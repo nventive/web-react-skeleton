@@ -1,8 +1,31 @@
+import { useState } from "react";
 import classNames from "classnames";
 import "./debug-banner.scss";
+import Button from "@components/button/Button";
+
+const HIDE_BANNER_UNTIL_KEY = "hideBannerUntil";
+const FOUR_HOURS = 4 * 60 * 60 * 1000;
 
 export default function DebugBanner() {
-  return __ENV__ !== "prod" ? (
+  const hideBannerUntil = localStorage.getItem(HIDE_BANNER_UNTIL_KEY);
+
+  const [isBannerOpen, setIsBannerOpen] = useState(
+    hideBannerUntil ? Number(hideBannerUntil) < Date.now() : true,
+  );
+
+  const closeBanner = () => {
+    setIsBannerOpen(false);
+    localStorage.setItem(
+      HIDE_BANNER_UNTIL_KEY,
+      String(Date.now() + FOUR_HOURS),
+    );
+  };
+
+  if (__ENV__ === "prod" || !isBannerOpen) {
+    return null;
+  }
+
+  return (
     <div className={"debug-banner__container"}>
       <div
         className={classNames("debug-banner", {
@@ -12,7 +35,11 @@ export default function DebugBanner() {
           "debug-banner__uat": __ENV__ === "uat",
           "debug-banner__staging": __ENV__ === "staging",
         })}
-      />
+      >
+        <Button variant="contained" size="small" onClick={closeBanner}>
+          Hide
+        </Button>
+      </div>
     </div>
-  ) : undefined;
+  );
 }
