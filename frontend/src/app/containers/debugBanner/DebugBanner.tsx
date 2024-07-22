@@ -21,7 +21,11 @@ export default function DebugBanner() {
     );
   };
 
-  return __ENV__ !== "prod" && isBannerOpen ? (
+  if (__ENV__ === "prod" || !isBannerOpen) {
+    return null;
+  }
+
+  return (
     <div className={"debug-banner__container"}>
       <div
         className={classNames("debug-banner", {
@@ -37,5 +41,5 @@ export default function DebugBanner() {
         </Button>
       </div>
     </div>
-  ) : undefined;
+  );
 }
