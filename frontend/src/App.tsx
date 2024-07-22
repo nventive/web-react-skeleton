@@ -1,5 +1,4 @@
 import Loading from "@components/loading/Loading";
-import DebugBanner from "@containers/debugBanner/DebugBanner";
 import Router from "@routes/Router";
 import "@shared/i18n";
 import "@styles/index.scss";
@@ -18,7 +17,6 @@ function App() {
 
   return (
     <Suspense fallback={<Loading />}>
-      <DebugBanner />
       <ToastContainer
         position="top-right"
         autoClose={5000}
