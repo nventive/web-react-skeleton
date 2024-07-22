@@ -26,7 +26,6 @@ export default function UiKit() {
         <TextField label={t("login__username")} />
         <FieldHelperText
           fieldNames="username"
-          formErrors={[]}
           helperText="Name must be minimum 1 character"
         />
       </div>
@@ -34,10 +33,8 @@ export default function UiKit() {
         <code className="lang-tsx">
           {`<FieldHelperText
       fieldNames="username"
-      formErrors={[]}
       helperText="Name must be minimum 1 character"
-  />
-  `}
+  />`}
         </code>
       </pre>
     </Layout.Container>

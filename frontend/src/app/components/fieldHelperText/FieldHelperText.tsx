@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import { ValidationError } from "yup";
 
 interface IFormHelper {
-  formErrors: ValidationError[];
   fieldNames: string[] | string;
+  formErrors?: ValidationError[];
   helperText?: string;
 }
 
@@ -20,13 +20,13 @@ export default function FieldHelperText({
     ? fieldNames
     : [fieldNames];
 
-  const fieldErrors = formErrors.filter(
+  const fieldErrors = formErrors?.filter(
     (formError) =>
       formError.path && normalizedFieldNames.includes(formError.path),
   );
 
-  return fieldErrors.length > 0 ? (
-    fieldErrors.map((error, index) => (
+  if (fieldErrors && fieldErrors.length > 0) {
+    return fieldErrors.map((error, index) => (
       <ErrorHelperText
         key={index}
         message={t(error.message, {
@@ -36,10 +36,16 @@ export default function FieldHelperText({
           field: t(error.params?.label as string),
         })}
       />
-    ))
-  ) : helperText ? (
+    ));
+  }
+
+  if (!helperText) {
+    return null;
+  }
+
+  return (
     <Typography.Caption className="mt-xxs ml-md">
       {helperText}
     </Typography.Caption>
-  ) : undefined;
+  );
 }

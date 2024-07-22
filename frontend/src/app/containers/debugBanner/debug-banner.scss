@@ -2,7 +2,8 @@
 .debug-banner {
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
+  gap: get-spacing(xs);
 
   &__container {
     position: fixed;
