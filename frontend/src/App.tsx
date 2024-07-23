@@ -16,7 +16,7 @@ function App() {
   }, []);
 
   return (
-    <Suspense fallback={<Loading />}>
+    <Suspense fallback={<Loading fullscreen />}>
       <ToastContainer
         position="top-right"
         autoClose={5000}

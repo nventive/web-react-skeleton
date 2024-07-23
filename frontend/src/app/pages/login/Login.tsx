@@ -22,7 +22,7 @@ export default function Login() {
 
   return (
     <>
-      <Loading isLoading={isLoading} />
+      <Loading isLoading={isLoading} fullscreen />
       <Layout.Auth>
         <div className="flex-column mb-lg">
           <Typography.Heading4 className="mb-md">

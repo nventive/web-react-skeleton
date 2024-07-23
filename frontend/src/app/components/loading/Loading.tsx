@@ -2,12 +2,17 @@ import Spinner from "@components/spinner/Spinner";
 import { RefObject, useRef } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./loading.scss";
+import classNames from "classnames";
 
 interface ILoading {
   isLoading?: boolean;
+  fullscreen?: boolean;
 }
 
-export default function Loading({ isLoading = true }: ILoading) {
+export default function Loading({
+  isLoading = true,
+  fullscreen = false,
+}: ILoading) {
   const nodeRef: RefObject<HTMLDivElement> = useRef(null);
 
   return (
@@ -23,7 +28,12 @@ export default function Loading({ isLoading = true }: ILoading) {
           timeout={500}
           nodeRef={nodeRef}
         >
-          <div ref={nodeRef} className="loading">
+          <div
+            ref={nodeRef}
+            className={classNames("loading", {
+              loading__fullscreen: fullscreen,
+            })}
+          >
             <div className="loading__spinner">
               <Spinner />
             </div>
