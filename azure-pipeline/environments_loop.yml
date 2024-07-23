@@ -3,7 +3,7 @@ parameters:
     type: object
     default:
       - dev
-      # - qa
+      - qa
       # - uat
       # - staging
       # - prod
