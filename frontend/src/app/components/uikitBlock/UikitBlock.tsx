@@ -1,8 +1,6 @@
 import { ReactNode } from "react";
 import { Typography } from "@mui/material";
 
-import "./uikit-block.scss";
-
 interface IUikitBlock {
   title: string;
   codeBlock: string;
@@ -15,7 +13,7 @@ export default function UikitBlock({
   children,
 }: IUikitBlock) {
   return (
-    <div className="uikit-block">
+    <div className="flex-column gap-xs">
       <Typography variant="h5">{title}</Typography>
       <div>{children}</div>
       <pre>
