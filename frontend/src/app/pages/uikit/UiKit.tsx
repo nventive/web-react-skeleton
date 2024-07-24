@@ -11,6 +11,7 @@ import FieldHelperText from "@components/fieldHelperText/FieldHelperText";
 import Loading from "@components/loading/Loading";
 import UikitBlock from "@components/uikitBlock/UikitBlock";
 import { ValidationError } from "yup";
+import Link from "@components/link/Link";
 
 export default function UiKit() {
   const [t] = useTranslation();
@@ -53,9 +54,17 @@ export default function UiKit() {
   return (
     <Layout.Container className="mb-lg">
       <Typography variant="h1">UiKit</Typography>
-      {/* To add: FieldHelperText Loading Spinner */}
+      <Typography variant="body1">
+        This is where you can display all your custom components/containers.
+      </Typography>
+      <Typography variant="body1" className="flex gap-xxs">
+        For all the Styled MUI components, please refer to
+        <Link href="https://mui.com/material-ui/all-components/">
+          MUI documentation
+        </Link>
+      </Typography>
 
-      <div className="flex-column gap-md">
+      <div className="flex-column mt-lg gap-md">
         <UikitBlock
           title="FieldHelperText.tsx"
           codeBlock={`<TextField label="Username" />
@@ -90,7 +99,7 @@ export default function UiKit() {
 
         <UikitBlock
           title="Loading.tsx"
-          codeBlock="<Loading isLoading={condition} /> // Add fullscreen in component to make overlay everything"
+          codeBlock="<Loading isLoading={condition} /> // Add fullscreen in component to make it overlay everything"
         >
           <Loading />
         </UikitBlock>
