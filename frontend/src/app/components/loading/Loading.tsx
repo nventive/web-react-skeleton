@@ -1,8 +1,9 @@
 import Spinner from "@components/spinner/Spinner";
 import { RefObject, useRef } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import "./loading.scss";
 import classNames from "classnames";
+
+import "./loading.scss";
 
 interface ILoading {
   isLoading?: boolean;

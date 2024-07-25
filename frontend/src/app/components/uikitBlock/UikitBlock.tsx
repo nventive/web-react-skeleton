@@ -15,7 +15,7 @@ export default function UikitBlock({
   return (
     <div className="flex-column gap-xs">
       <Typography variant="h5">{title}</Typography>
-      <div>{children}</div>
+      {children}
       <pre>
         <code className="lang-tsx">{codeBlock}</code>
       </pre>
