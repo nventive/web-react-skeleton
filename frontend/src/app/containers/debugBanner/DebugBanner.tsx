@@ -22,11 +22,11 @@ export default function DebugBanner() {
 
   const pages = [
     {
-      name: t("home__page_title"),
+      name: t(homeRoute.name),
       to: homeRoute.paths[t("locale__key")],
     },
     {
-      name: "UiKit",
+      name: t(uikitRoute.name),
       to: uikitRoute.paths[t("locale__key")],
     },
   ];
@@ -59,7 +59,7 @@ export default function DebugBanner() {
             <MuiButton
               component={Link}
               variant="text"
-              key={`debugbar-${page.name}`}
+              key={`debug-banner-${page.name}`}
               to={page.to}
             >
               {page.name}
@@ -68,7 +68,7 @@ export default function DebugBanner() {
         </div>
 
         <Button variant="contained" size="small" onClick={closeBanner}>
-          Hide
+          {t("global__hide")}
         </Button>
       </div>
     </div>
