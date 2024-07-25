@@ -25,3 +25,11 @@
     }
   }
 }
+
+@each $propertyKey, $propertyValue in $property-without-direction {
+  @each $spacingKey, $spacingValue in $spacing {
+    #root .#{$propertyKey}-#{$spacingKey} {
+      #{$propertyValue}: $spacingValue;
+    }
+  }
+}
