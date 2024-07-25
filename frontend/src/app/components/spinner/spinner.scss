@@ -1,18 +1,19 @@
-@keyframes spinner-rotate {
+.spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 0.25rem solid get-color(primary, dark);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 800ms linear infinite;
+}
+
+@keyframes rotation {
   0% {
     transform: rotate(0deg);
   }
-
-  50% {
-    transform: rotate(180deg);
-  }
-
   100% {
     transform: rotate(360deg);
   }
-}
-
-.spinner {
-  display: flex;
-  animation: spinner-rotate 1s linear infinite;
 }
