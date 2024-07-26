@@ -1,7 +1,6 @@
 import { useState } from "react";
 import classNames from "classnames";
 import Button from "@components/button/Button";
-import { Button as MuiButton } from "@mui/material";
 import homeRoute from "@pages/home/home.route";
 import uikitRoute from "@pages/uikit/uikit.route";
 import { useTranslation } from "react-i18next";
@@ -56,14 +55,9 @@ export default function DebugBanner() {
       >
         <div className="debug-banner__pages">
           {pages.map((page) => (
-            <MuiButton
-              component={Link}
-              variant="text"
-              key={`debug-banner-${page.name}`}
-              to={page.to}
-            >
-              {page.name}
-            </MuiButton>
+            <Link key={`debug-banner-${page.name}`} to={page.to}>
+              <Button>{page.name}</Button>
+            </Link>
           ))}
         </div>
 
