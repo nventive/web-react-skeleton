@@ -1,11 +1,5 @@
-import { useEffect } from "react";
 import { TextField, Typography } from "@mui/material";
 import Layout from "@components/layout/Layout";
-import Prism from "prismjs";
-import "prismjs/components/prism-jsx";
-import "prismjs/components/prism-typescript";
-import "prismjs/components/prism-tsx";
-import "prismjs/themes/prism.css";
 import { useTranslation } from "react-i18next";
 import FieldHelperText from "@components/fieldHelperText/FieldHelperText";
 import Loading from "@components/loading/Loading";
@@ -15,9 +9,6 @@ import Link from "@components/link/Link";
 
 export default function UiKit() {
   const [t] = useTranslation();
-  useEffect(() => {
-    Prism.highlightAll();
-  }, []);
 
   // this is for mocking, yup will format the error correctly for you
   const formErrors: ValidationError[] = [

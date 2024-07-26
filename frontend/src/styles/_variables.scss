@@ -132,10 +132,10 @@ $direction: (
 );
 
 $property: (
-  m: margin,
-  p: padding,
+  gap: gap,
 );
 
-$property-without-direction: (
-  gap: gap,
+$property-with-direction: (
+  m: margin,
+  p: padding,
 );

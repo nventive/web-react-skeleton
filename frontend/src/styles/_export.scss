@@ -12,6 +12,14 @@
 
 @each $propertyKey, $propertyValue in $property {
   @each $spacingKey, $spacingValue in $spacing {
+    #root .#{$propertyKey}-#{$spacingKey} {
+      #{$propertyValue}: $spacingValue;
+    }
+  }
+}
+
+@each $propertyKey, $propertyValue in $property-with-direction {
+  @each $spacingKey, $spacingValue in $spacing {
     @each $directionKey, $directionValues in $direction {
       #root .#{$propertyKey}#{$directionKey}-#{$spacingKey} {
         @if $directionValues == all {
@@ -22,14 +30,6 @@
           }
         }
       }
-    }
-  }
-}
-
-@each $propertyKey, $propertyValue in $property-without-direction {
-  @each $spacingKey, $spacingValue in $spacing {
-    #root .#{$propertyKey}-#{$spacingKey} {
-      #{$propertyValue}: $spacingValue;
     }
   }
 }

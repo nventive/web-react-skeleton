@@ -1,5 +1,8 @@
 import { ReactNode } from "react";
 import { Typography } from "@mui/material";
+import { Highlight, themes } from "prism-react-renderer";
+
+import "./uikit-block.scss";
 
 interface IUikitBlock {
   title: string;
@@ -13,12 +16,22 @@ export default function UikitBlock({
   children,
 }: IUikitBlock) {
   return (
-    <div className="flex-column gap-xs">
+    <div className="uikit-block">
       <Typography variant="h5">{title}</Typography>
       {children}
-      <pre>
-        <code className="lang-tsx">{codeBlock}</code>
-      </pre>
+      <Highlight theme={themes.vsDark} code={codeBlock} language="tsx">
+        {({ style, tokens, getLineProps, getTokenProps }) => (
+          <pre style={style} className="uikit-block__pre">
+            {tokens.map((line, i) => (
+              <div key={i} {...getLineProps({ line })}>
+                {line.map((token, key) => (
+                  <span key={key} {...getTokenProps({ token })} />
+                ))}
+              </div>
+            ))}
+          </pre>
+        )}
+      </Highlight>
     </div>
   );
 }
