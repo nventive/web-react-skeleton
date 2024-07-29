@@ -12,6 +12,7 @@ stages:
   - ${{ each environment in parameters.environments }}:
       - stage: "Deploy_${{ environment }}"
         displayName: "Deploy [${{ environment }}]"
+        condition: and(not(or(failed(), canceled())), not(eq(variables['Build.Reason'], 'PullRequest')))
         variables:
           - group: "web-react-skeleton-${{ environment }}"
           - name: commandOptions
