@@ -1,5 +1,7 @@
 trigger:
-  - releases/*
+  branches:
+    include:
+      - releases/*
 
 name: v0.01$(Rev:.rr)
 
@@ -7,4 +9,12 @@ variables:
   - group: web-react-skeleton-azure
 
 stages:
+  - stage: Pull_request_build_stage
+    displayName: "Pull Request Build Stage"
+    condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
+    jobs:
+      - template: azure-pipeline/build_frontend.yml
+        parameters:
+          environment: "dev"
+
   - template: azure-pipeline/environments_loop.yml
