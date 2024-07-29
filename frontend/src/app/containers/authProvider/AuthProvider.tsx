@@ -47,5 +47,5 @@ export default function AuthProvider({
     // TODO: validate permission
   }, [navigate, permission, setUser, t, user]);
 
-  return !user ? <Loading fullscreen /> : children;
+  return !user ? <Loading /> : children;
 }

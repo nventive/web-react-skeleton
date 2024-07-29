@@ -6,7 +6,6 @@ import "./loading.scss";
 
 interface ILoading {
   isLoading?: boolean;
-  fullscreen?: boolean;
 }
 
 export default function Loading({ isLoading = true }: ILoading) {
