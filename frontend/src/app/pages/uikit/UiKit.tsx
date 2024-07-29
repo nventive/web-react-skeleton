@@ -6,9 +6,21 @@ import Loading from "@components/loading/Loading";
 import UikitBlock from "@components/uikitBlock/UikitBlock";
 import { ValidationError } from "yup";
 import Link from "@components/link/Link";
+import Spinner from "@components/spinner/Spinner";
+import { useState } from "react";
+import Button from "@components/button/Button";
 
 export default function UiKit() {
   const [t] = useTranslation();
+  const [showLoading, setShowLoading] = useState(false);
+
+  const onClickShowLoading = () => {
+    setShowLoading(true);
+
+    setTimeout(() => {
+      setShowLoading(false);
+    }, 3000);
+  };
 
   // this is for mocking, yup will format the error correctly for you
   const formErrors: ValidationError[] = [
@@ -88,11 +100,13 @@ export default function UiKit() {
           />
         </UikitBlock>
 
-        <UikitBlock
-          title="Loading.tsx"
-          codeBlock="<Loading isLoading={condition} /> // Add fullscreen in component to make it overlay everything"
-        >
-          <Loading />
+        <UikitBlock title="Spinner.tsx" codeBlock="<Spinner />">
+          <Spinner />
+        </UikitBlock>
+
+        <UikitBlock title="Loading.tsx" codeBlock="<Loading />">
+          <Button onClick={onClickShowLoading}>Show Loading</Button>
+          {showLoading && <Loading />}
         </UikitBlock>
       </div>
     </Layout.Container>

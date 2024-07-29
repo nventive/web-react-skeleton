@@ -1,5 +1,12 @@
 .loading {
   display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+  background: get-color(basic, brightest);
+  z-index: get-z(1000);
 
   &__enter {
     opacity: 0;
@@ -17,16 +24,6 @@
       opacity: 0;
       transition: opacity get-time(slow) ease-out;
     }
-  }
-
-  &__fullscreen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100dvw;
-    height: 100dvh;
-    background: get-color(basic, brightest);
-    z-index: get-z(1000);
   }
 
   &__spinner {
