@@ -3,7 +3,7 @@ import fr from "@assets/locales/fr.json";
 import { IRoute } from "@routes/interfaces/IRoute";
 import { lazy } from "react";
 
-const loadRequestRoute: IRoute = {
+const loginRoute: IRoute = {
   name: "login__page_title",
   component: lazy(() => import("./Login")),
   paths: {
@@ -12,4 +12,4 @@ const loadRequestRoute: IRoute = {
   },
 };
 
-export default loadRequestRoute;
+export default loginRoute;
