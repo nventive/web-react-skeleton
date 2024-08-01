@@ -33,6 +33,53 @@ const showButton = (): boolean => {
 - Use arrow functions
 - Use a normal function for react components. (The benefit of lexical scope of `this` is not present for components)
 
+## Interfaces and Types
+
+- We favor using `interface` most of the time, but `type` can be used in certain scenarios
+- We avoid `any` or `unknown` as much as possible
+- Use an `interface` to define an object
+
+```ts
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+const user: User = { id: 1, name: "John Doe", email: "john.doe@gmail.com" };
+```
+
+- Use an `interface` to extend another `interface`
+
+```ts
+interface Admin extends User {
+  canDeleteUsers: boolean;
+}
+
+const adminUser: Admin = {
+  id: 2,
+  name: "Jane Doe",
+  email: "jane.doe@gmail.com",
+  canDeleteUsers: true,
+};
+```
+
+Use `type` when defining a complex type
+
+```ts
+type ID = number | string;
+type UserResponse = User | null;
+type Dictionary<T> = { [key: string]: T };
+```
+
+Use `type` when you want a simpler `enum` using a string union.
+Results with easier type inference(intellisense can be easier with this than `enum`)
+and can simplify usage for API endpoints return objects
+
+```ts
+type Status = "success" | "info" | "warning" | "error";
+```
+
 ## Labels
 
 - Labels should always be passed between components as the translated value
