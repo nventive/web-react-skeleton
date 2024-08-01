@@ -10,6 +10,14 @@
   }
 }
 
+@each $colorKey, $colorValue in $color {
+  @each $colorSubkey, $colorSubvalue in $colorValue {
+    #root .bg-#{$colorKey}-#{$colorSubkey} {
+      background-color: $colorSubvalue;
+    }
+  }
+}
+
 @each $propertyKey, $propertyValue in $property {
   @each $spacingKey, $spacingValue in $spacing {
     #root .#{$propertyKey}-#{$spacingKey} {

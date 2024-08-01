@@ -103,6 +103,7 @@ export default function UiKit() {
 
         <UikitBlock title="Colors">
           <Grid container>
+            <UikitColor color="primary" />
             <UikitColor color="secondary" />
             <UikitColor color="info" />
             <UikitColor color="success" />
