@@ -6,7 +6,7 @@ import "./uikit-block.scss";
 
 interface IUikitBlock {
   title: string;
-  codeBlock: string;
+  codeBlock?: string;
   children: ReactNode;
 }
 
@@ -17,21 +17,23 @@ export default function UikitBlock({
 }: IUikitBlock) {
   return (
     <div className="uikit-block">
-      <Typography variant="h5">{title}</Typography>
+      <Typography variant="h4">{title}</Typography>
       {children}
-      <Highlight theme={themes.vsDark} code={codeBlock} language="tsx">
-        {({ style, tokens, getLineProps, getTokenProps }) => (
-          <pre style={style} className="uikit-block__pre">
-            {tokens.map((line, i) => (
-              <div key={i} {...getLineProps({ line })}>
-                {line.map((token, key) => (
-                  <span key={key} {...getTokenProps({ token })} />
-                ))}
-              </div>
-            ))}
-          </pre>
-        )}
-      </Highlight>
+      {codeBlock && (
+        <Highlight theme={themes.vsDark} code={codeBlock} language="tsx">
+          {({ style, tokens, getLineProps, getTokenProps }) => (
+            <pre style={style} className="uikit-block__pre">
+              {tokens.map((line, i) => (
+                <div key={i} {...getLineProps({ line })}>
+                  {line.map((token, key) => (
+                    <span key={key} {...getTokenProps({ token })} />
+                  ))}
+                </div>
+              ))}
+            </pre>
+          )}
+        </Highlight>
+      )}
     </div>
   );
 }
