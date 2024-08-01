@@ -95,6 +95,35 @@ const [hasModification, setHasModification] = useState<boolean>(false);
 - Skeletons should match the content about to be rendered as closely as possible
 - Where possible use the same container elements for the skeletons as the content being rendered
 
+Ex:
+Good
+
+```tsx
+<div className="my-container">
+  {isFetchingData ? (
+    <Skeleton className="my-container__item" animation="wave" />
+  ) : (
+    <CustomImage className="my-container__item" src="..." />
+  )}
+</div>
+```
+
+Wrong
+
+```tsx
+{
+  isFetchingData ? (
+    <div className="my-container">
+      <Skeleton className="my-container__item" animation="wave" />
+    </div>
+  ) : (
+    <div className="my-container">
+      <CustomImage className="my-container__item" src="..." />
+    </div>
+  );
+}
+```
+
 ## Styles
 
 - All styling that affects basic MUI components should be in the theme
