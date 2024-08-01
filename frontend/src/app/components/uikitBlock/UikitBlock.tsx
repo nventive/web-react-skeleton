@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { Typography } from "@mui/material";
 import { Highlight, themes } from "prism-react-renderer";
-
 import "./uikit-block.scss";
 
 interface IUikitBlock {

@@ -5,7 +5,6 @@ import homeRoute from "@pages/home/home.route";
 import uikitRoute from "@pages/uikit/uikit.route";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-
 import "./debug-banner.scss";
 
 const HIDE_BANNER_UNTIL_KEY = "hideBannerUntil";
@@ -54,8 +53,8 @@ export default function DebugBanner() {
         })}
       >
         <div className="debug-banner__pages">
-          {pages.map((page) => (
-            <Link key={`debug-banner-${page.name}`} to={page.to}>
+          {pages.map((page, i) => (
+            <Link key={`debug-banner-${i}`} to={page.to}>
               <Button>{page.name}</Button>
             </Link>
           ))}
