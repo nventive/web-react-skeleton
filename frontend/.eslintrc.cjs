@@ -11,6 +11,7 @@ module.exports = {
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended-type-checked",
+    "plugin:import/recommended",
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
@@ -29,10 +30,31 @@ module.exports = {
     "@typescript-eslint/no-unsafe-assignment": DISABLED,
     "no-unused-expressions": WARNING,
     "@typescript-eslint/no-unused-vars": WARNING,
+    "import/named": "off",
+    "import/namespace": "off",
+    "import/newline-after-import": "warn",
+    "import/no-named-as-default": "off",
+    "import/no-named-as-default-member": "off",
+    "import/no-unresolved": "off",
+    "import/order": [
+      "warn",
+      {
+        alphabetize: {
+          caseInsensitive: true,
+          order: "asc",
+        },
+        groups: [
+          ["builtin", "external", "internal"],
+          "parent",
+          "sibling",
+          "index",
+        ],
+      },
+    ],
     "react-hooks/exhaustive-deps": WARNING,
     "react-hooks/rules-of-hooks": ERROR,
     eqeqeq: ERROR,
-    // "sort-keys": WARNING,
+    "sort-keys": WARNING,
   },
   settings: {
     react: {

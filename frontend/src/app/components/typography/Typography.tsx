@@ -118,21 +118,21 @@ function ButtonLarge({ children, className }: ITypography) {
 }
 
 const Typography = {
+  Body1,
+  Body2,
+  ButtonLarge,
+  ButtonMedium,
+  ButtonSmall,
+  Caption,
   Heading1,
   Heading2,
   Heading3,
   Heading4,
   Heading5,
   Heading6,
+  Overline,
   Subtitle1,
   Subtitle2,
-  Body1,
-  Body2,
-  Caption,
-  Overline,
-  ButtonSmall,
-  ButtonMedium,
-  ButtonLarge,
 };
 
 export default Typography;

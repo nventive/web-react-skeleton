@@ -24,8 +24,8 @@ function Auth({ children, className }: ILayout) {
 }
 
 const Layout = {
-  Container,
   Auth,
+  Container,
 };
 
 export default Layout;

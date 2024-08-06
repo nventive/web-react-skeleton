@@ -18,7 +18,6 @@ export default function Router() {
     () =>
       routes.flatMap((route) =>
         Object.values(route.paths).map((path) => ({
-          path,
           element: (
             <>
               <Helmet htmlAttributes={{ lang: localePath }}>
@@ -29,6 +28,7 @@ export default function Router() {
               <route.component />
             </>
           ),
+          path,
         })),
       ),
     [t, localePath],
@@ -38,13 +38,13 @@ export default function Router() {
     () =>
       createBrowserRouter([
         {
-          path: "/",
           element: <Navigate to={homeRoute.paths[localePath]} />,
+          path: "/",
         },
         ...routesObj,
         {
-          path: notFoundRoute.paths[localePath],
           element: <notFoundRoute.component />,
+          path: notFoundRoute.paths[localePath],
         },
       ]),
     [routesObj, localePath],
