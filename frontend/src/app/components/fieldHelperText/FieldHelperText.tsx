@@ -31,9 +31,9 @@ export default function FieldHelperText({
         key={index}
         message={t(error.message, {
           ...error.params,
+          field: t(error.params?.label as string),
           max: error.params?.max,
           min: error.params?.min,
-          field: t(error.params?.label as string),
         })}
       />
     ))

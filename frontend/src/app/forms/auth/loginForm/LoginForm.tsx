@@ -28,8 +28,8 @@ export default function LoginForm({ setIsLoading }: ILoginForm) {
   const navigate = useNavigate();
   const { setUser } = useUserStore();
   const [loginForm, setLoginForm] = useState<ILogin>({
-    username: "",
     password: "",
+    username: "",
   });
   const [loginFormValidated, setLoginFormValidated] = useState<boolean>(false);
   const [formErrors, setFormErrors] = useState<ValidationError[]>([]);

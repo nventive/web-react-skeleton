@@ -15,23 +15,23 @@ void i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    resources: {
-      [FR]: {
-        translation: fr,
-      },
-      [EN]: {
-        translation: en,
-      },
-    },
-    interpolation: {
-      escapeValue: false,
-    },
-    fallbackLng: EN,
-    supportedLngs: [FR, EN],
     detection: {
       order: ["path", "navigator"],
     },
+    fallbackLng: EN,
+    interpolation: {
+      escapeValue: false,
+    },
+    resources: {
+      [EN]: {
+        translation: en,
+      },
+      [FR]: {
+        translation: fr,
+      },
+    },
     returnNull: false,
+    supportedLngs: [FR, EN],
   });
 
 export default i18n;

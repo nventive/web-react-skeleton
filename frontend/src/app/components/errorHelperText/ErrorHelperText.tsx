@@ -1,7 +1,7 @@
+import "./error-helper-text.scss";
 import Typography from "@components/typography/Typography";
 import { RefObject, useEffect, useRef, useState } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import "./error-helper-text.scss";
 
 interface IErrorBox {
   message: string;

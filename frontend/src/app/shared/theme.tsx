@@ -6,11 +6,11 @@ const parseMedia = (media: string) => parseInt(media.replace("px", ""));
 const theme = createTheme({
   breakpoints: {
     values: {
-      xs: parseMedia(style["media-xs"]),
-      sm: parseMedia(style["media-sm"]),
-      md: parseMedia(style["media-md"]),
       lg: parseMedia(style["media-lg"]),
+      md: parseMedia(style["media-md"]),
+      sm: parseMedia(style["media-sm"]),
       xl: parseMedia(style["media-xl"]),
+      xs: parseMedia(style["media-xs"]),
     },
   },
   palette: {
@@ -19,16 +19,16 @@ const theme = createTheme({
       white: style["basic-brightest"],
     },
     primary: {
+      contrastText: style["basic-brightest"],
+      dark: style["primary-dark"],
       light: style["primary-light"],
       main: style["primary-main"],
-      dark: style["primary-dark"],
-      contrastText: style["basic-brightest"],
     },
     secondary: {
+      contrastText: style["basic-brightest"],
+      dark: style["secondary-dark"],
       light: style["secondary-light"],
       main: style["secondary-main"],
-      dark: style["secondary-dark"],
-      contrastText: style["basic-brightest"],
     },
   },
 });

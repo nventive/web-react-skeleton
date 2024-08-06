@@ -7,6 +7,6 @@ interface IUserStore {
 }
 
 export const useUserStore = create<IUserStore>((set) => ({
-  user: undefined,
   setUser: (user) => set({ user }),
+  user: undefined,
 }));

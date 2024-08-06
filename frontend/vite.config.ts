@@ -1,12 +1,14 @@
-import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
+import { defineConfig, loadEnv } from "vite";
 
 export default ({ mode }: { mode: string }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
 
   return defineConfig({
-    plugins: [react()],
+    build: {
+      sourcemap: process.env.VITE_GENERATE_SOURCEMAP === "true",
+    },
     css: {
       preprocessorOptions: {
         scss: {
@@ -14,18 +16,13 @@ export default ({ mode }: { mode: string }) => {
         },
       },
     },
-    build: {
-      sourcemap: process.env.VITE_GENERATE_SOURCEMAP === "true",
-    },
-    server: {
-      port: Number(process.env.VITE_PORT),
-    },
     define: {
-      __ENV__: JSON.stringify(process.env.VITE_ENV),
       __API_URL__: JSON.stringify(process.env.VITE_API_URL),
-      __VERSION_NUMBER__: JSON.stringify(process.env.VITE_VERSION_NUMBER),
+      __ENV__: JSON.stringify(process.env.VITE_ENV),
       __GA_TRACKING_ID__: JSON.stringify(process.env.VITE_GA_TRACKING_ID),
+      __VERSION_NUMBER__: JSON.stringify(process.env.VITE_VERSION_NUMBER),
     },
+    plugins: [react()],
     resolve: {
       alias: {
         "@assets": path.resolve(__dirname, "src/assets"),
@@ -42,6 +39,9 @@ export default ({ mode }: { mode: string }) => {
         "@stores": path.resolve(__dirname, "src/app/stores"),
         "@styles": path.resolve(__dirname, "src/styles"),
       },
+    },
+    server: {
+      port: Number(process.env.VITE_PORT),
     },
   });
 };
