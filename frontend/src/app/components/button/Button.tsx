@@ -2,7 +2,7 @@ import { ButtonProps, Button as MuiButton, styled } from "@mui/material";
 import style from "@styles/style.module.scss";
 
 const StyledMuiButton = styled(MuiButton)({
-  borderRadius: style["border-radius-lg"],
+  borderRadius: style["border-radius-xs"],
 });
 
 interface IButton extends ButtonProps {

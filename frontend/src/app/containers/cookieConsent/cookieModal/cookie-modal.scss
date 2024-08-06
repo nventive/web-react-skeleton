@@ -1,0 +1,17 @@
+.cookie-modal {
+  margin: get-spacing(lg);
+
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: get-spacing(md);
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: get-spacing(sm);
+  }
+}

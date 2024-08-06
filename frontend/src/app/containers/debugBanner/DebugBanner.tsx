@@ -1,7 +1,7 @@
-import { useState } from "react";
-import classNames from "classnames";
-import "./debug-banner.scss";
 import Button from "@components/button/Button";
+import classNames from "classnames";
+import { useState } from "react";
+import "./debug-banner.scss";
 
 const HIDE_BANNER_UNTIL_KEY = "hideBannerUntil";
 const FOUR_HOURS = 4 * 60 * 60 * 1000;
@@ -36,7 +36,7 @@ export default function DebugBanner() {
           "debug-banner__staging": __ENV__ === "staging",
         })}
       >
-        <Button variant="contained" size="small" onClick={closeBanner}>
+        <Button size="small" onClick={closeBanner}>
           Hide
         </Button>
       </div>

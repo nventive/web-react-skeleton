@@ -4,7 +4,7 @@
 
 @each $colorKey, $colorValue in $color {
   @each $colorSubkey, $colorSubvalue in $colorValue {
-    #root .color-#{$colorKey}-#{$colorSubkey} {
+    #body .color-#{$colorKey}-#{$colorSubkey} {
       color: $colorSubvalue;
     }
   }
@@ -13,7 +13,7 @@
 @each $propertyKey, $propertyValue in $property {
   @each $spacingKey, $spacingValue in $spacing {
     @each $directionKey, $directionValues in $direction {
-      #root .#{$propertyKey}#{$directionKey}-#{$spacingKey} {
+      #body .#{$propertyKey}#{$directionKey}-#{$spacingKey} {
         @if $directionValues == all {
           #{$propertyValue}: $spacingValue;
         } @else {

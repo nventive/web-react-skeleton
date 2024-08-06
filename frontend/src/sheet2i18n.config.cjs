@@ -4,6 +4,8 @@ module.exports = {
   tabsUrl: [
     // Global
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQe6sBfW-7S3xGPlYVaOB8v39yfZHx0FqCOeGEChuWlkObw-F5EsuVag_olya-psWYyKOuCl9y8ZGcf/pub?gid=877120618&single=true&output=csv",
+    // Components
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vQe6sBfW-7S3xGPlYVaOB8v39yfZHx0FqCOeGEChuWlkObw-F5EsuVag_olya-psWYyKOuCl9y8ZGcf/pub?gid=1989943737&single=true&output=csv",
     // Routes
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQe6sBfW-7S3xGPlYVaOB8v39yfZHx0FqCOeGEChuWlkObw-F5EsuVag_olya-psWYyKOuCl9y8ZGcf/pub?gid=430014378&single=true&output=csv",
     // Validations
