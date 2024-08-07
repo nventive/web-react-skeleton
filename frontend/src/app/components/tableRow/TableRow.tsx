@@ -17,7 +17,7 @@ const StyledMuiTableRow = styled(MuiTableRow)({
   },
 });
 
-export default function TableRowRow({ columns, ...props }: ITableRow) {
+export default function TableRow({ columns, ...props }: ITableRow) {
   return (
     <StyledMuiTableRow {...props}>
       {columns.map((column, index) => (
