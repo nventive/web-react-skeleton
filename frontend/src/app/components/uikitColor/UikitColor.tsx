@@ -1,5 +1,5 @@
 import { Grid, Palette, PaletteColor, useTheme } from "@mui/material";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
 interface IUikitColor {
   color: keyof Palette;
@@ -7,7 +7,10 @@ interface IUikitColor {
 
 export default function UikitColor({ color }: IUikitColor) {
   const theme = useTheme();
-  const paletteColor = theme.palette[color] as PaletteColor;
+  const paletteColor = useMemo(
+    () => theme.palette[color] as PaletteColor,
+    [color, theme.palette],
+  );
 
   const colorItem = useCallback((bgColor: string, label: string) => {
     return (

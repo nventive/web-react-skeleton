@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
-import { Typography } from "@mui/material";
 import { Highlight, themes } from "prism-react-renderer";
 import "./uikit-block.scss";
+import Typography from "@components/typography/Typography";
 
 interface IUikitBlock {
   title: string;
@@ -16,7 +16,7 @@ export default function UikitBlock({
 }: IUikitBlock) {
   return (
     <div className="uikit-block">
-      <Typography variant="h4">{title}</Typography>
+      <Typography.Heading4>{title}</Typography.Heading4>
       {children}
       {codeBlock && (
         <Highlight theme={themes.vsDark} code={codeBlock} language="tsx">
