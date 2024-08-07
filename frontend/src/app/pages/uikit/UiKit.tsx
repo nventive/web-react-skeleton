@@ -145,7 +145,10 @@ export default function UiKit() {
         </UikitBlock>
 
         <UikitBlock title="Spinner.tsx" codeBlock="<Spinner />">
-          <Spinner />
+          {/* styling inline like this to prevent the spinner from changing the height of the page while spinning */}
+          <div style={{ height: "64px" }}>
+            <Spinner />
+          </div>
         </UikitBlock>
 
         <UikitBlock title="Loading.tsx" codeBlock="<Loading />">

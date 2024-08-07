@@ -1,5 +1,5 @@
 import "./spinner.scss";
 
 export default function Spinner() {
-  return <div className="spinner"></div>;
+  return <span className="spinner"></span>;
 }
