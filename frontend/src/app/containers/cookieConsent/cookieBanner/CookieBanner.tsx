@@ -37,8 +37,7 @@ export default function CookieBanner({
                 <Link
                   href={t("cookie_consent_link")}
                   underline="always"
-                  target="_blank"
-                  rel="noreferrer"
+                  external
                 >
                   <Typography.Body2>
                     {t("cookie_consent__learn_more")}
