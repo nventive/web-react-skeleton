@@ -1,0 +1,42 @@
+/* ============================================
+=                  Media queries              =
+Use these mixins like this:
+.example-class{
+  display: flex;
+  flex-direction: row;
+
+  @include xs{
+    flex-direction: column;
+  }
+}
+============================================ */
+
+@mixin xs {
+  @media (min-width: map-get($media, xs)) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (min-width: map-get($media, sm)) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: map-get($media, md)) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: map-get($media, lg)) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (min-width: map-get($media, xl)) {
+    @content;
+  }
+}
