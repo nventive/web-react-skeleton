@@ -1,3 +1,4 @@
+import DebugBanner from "@containers/debugBanner/DebugBanner";
 import homeRoute from "@pages/home/home.route";
 import notFoundRoute from "@pages/notFound/notFound.route";
 import routes from "@routes/routes";
@@ -27,6 +28,7 @@ export default function Router() {
                 </title>
               </Helmet>
               <route.component />
+              <DebugBanner />
             </>
           ),
         })),

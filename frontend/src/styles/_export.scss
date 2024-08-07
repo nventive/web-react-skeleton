@@ -10,7 +10,23 @@
   }
 }
 
+@each $colorKey, $colorValue in $color {
+  @each $colorSubkey, $colorSubvalue in $colorValue {
+    #root .bg-#{$colorKey}-#{$colorSubkey} {
+      background-color: $colorSubvalue;
+    }
+  }
+}
+
 @each $propertyKey, $propertyValue in $property {
+  @each $spacingKey, $spacingValue in $spacing {
+    #root .#{$propertyKey}-#{$spacingKey} {
+      #{$propertyValue}: $spacingValue;
+    }
+  }
+}
+
+@each $propertyKey, $propertyValue in $property-with-direction {
   @each $spacingKey, $spacingValue in $spacing {
     @each $directionKey, $directionValues in $direction {
       #root .#{$propertyKey}#{$directionKey}-#{$spacingKey} {

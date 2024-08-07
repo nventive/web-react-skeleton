@@ -14,6 +14,8 @@ module.exports = {
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQe6sBfW-7S3xGPlYVaOB8v39yfZHx0FqCOeGEChuWlkObw-F5EsuVag_olya-psWYyKOuCl9y8ZGcf/pub?gid=34788089&single=true&output=csv",
     // Login
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQe6sBfW-7S3xGPlYVaOB8v39yfZHx0FqCOeGEChuWlkObw-F5EsuVag_olya-psWYyKOuCl9y8ZGcf/pub?gid=1136921178&single=true&output=csv",
+    // Uikit
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vQe6sBfW-7S3xGPlYVaOB8v39yfZHx0FqCOeGEChuWlkObw-F5EsuVag_olya-psWYyKOuCl9y8ZGcf/pub?gid=268501364&single=true&output=csv",
   ],
   localesKey: ["en", "fr"],
 };

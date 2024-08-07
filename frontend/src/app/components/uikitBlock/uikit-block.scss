@@ -1,0 +1,10 @@
+.uikit-block {
+  display: flex;
+  flex-direction: column;
+  gap: get-spacing(xs);
+
+  &__pre {
+    padding: get-spacing(sm);
+    border-radius: get-border-radius(sm);
+  }
+}

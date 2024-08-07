@@ -1,0 +1,30 @@
+/* ============================================
+=                  Media queries              =
+Use these mixins like this:
+.example-class{
+  display: flex;
+  flex-direction: row;
+
+  @include media-min(xs){
+    flex-direction: column;
+  }
+}
+============================================ */
+
+@mixin media-min($breakpoint) {
+  @media (min-width: get-media($breakpoint)) {
+    @content;
+  }
+}
+
+@mixin media-max($breakpoint) {
+  @media (max-width: (get-media($breakpoint) - 1)) {
+    @content;
+  }
+}
+
+@mixin media-range($breakpoint-start, $breakpoint-end) {
+  @media (min-width: get-media($breakpoint-start)) and (max-width: (get-media($breakpoint-end) - 1)) {
+    @content;
+  }
+}

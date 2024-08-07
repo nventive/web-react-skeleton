@@ -10,7 +10,7 @@ export default ({ mode }: { mode: string }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@import "./src/styles/_variables.scss";`,
+          additionalData: `@import "./src/styles/_variables.scss"; @import "./src/styles/mixins/_media-queries.scss";`,
         },
       },
     },

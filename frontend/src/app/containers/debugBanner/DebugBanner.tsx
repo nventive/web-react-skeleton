@@ -1,17 +1,33 @@
 import { useState } from "react";
 import classNames from "classnames";
-import "./debug-banner.scss";
 import Button from "@components/button/Button";
+import homeRoute from "@pages/home/home.route";
+import uikitRoute from "@pages/uikit/uikit.route";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import "./debug-banner.scss";
 
 const HIDE_BANNER_UNTIL_KEY = "hideBannerUntil";
 const FOUR_HOURS = 4 * 60 * 60 * 1000;
 
 export default function DebugBanner() {
+  const [t] = useTranslation();
   const hideBannerUntil = localStorage.getItem(HIDE_BANNER_UNTIL_KEY);
 
   const [isBannerOpen, setIsBannerOpen] = useState(
     hideBannerUntil ? Number(hideBannerUntil) < Date.now() : true,
   );
+
+  const pages = [
+    {
+      name: t(homeRoute.name),
+      to: homeRoute.paths[t("locale__key")],
+    },
+    {
+      name: t(uikitRoute.name),
+      to: uikitRoute.paths[t("locale__key")],
+    },
+  ];
 
   const closeBanner = () => {
     setIsBannerOpen(false);
@@ -36,8 +52,16 @@ export default function DebugBanner() {
           "debug-banner__staging": __ENV__ === "staging",
         })}
       >
+        <div className="debug-banner__pages">
+          {pages.map((page, i) => (
+            <Link key={`debug-banner-${i}`} to={page.to}>
+              <Button>{page.name}</Button>
+            </Link>
+          ))}
+        </div>
+
         <Button variant="contained" size="small" onClick={closeBanner}>
-          Hide
+          {t("global__hide")}
         </Button>
       </div>
     </div>
