@@ -1,8 +1,8 @@
 import routes from "@routes/routes";
 
 const findRoute = (path: string, locale: string): string => {
-  let segmentValues: string[] = [];
-  let segmentNames: string[] = [];
+  let segmentValues: Array<string> = [];
+  let segmentNames: Array<string> = [];
 
   const route = routes.find((route) => {
     return Object.values(route.paths).some((pattern) => {
