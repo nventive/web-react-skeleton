@@ -40,7 +40,7 @@
   &__heading6 {
     font-size: get-font-size(sm);
     line-height: get-line-height(xs);
-    font-weight: get-font-weight(semi-bold);
+    font-weight: get-font-weight(medium);
     letter-spacing: get-letter-spacing(md);
     color: get-color(basic, text);
   }
@@ -48,14 +48,14 @@
   &__subtitle1 {
     font-size: get-font-size(xs);
     line-height: get-line-height(xs);
-    font-weight: get-font-weight(semi-bold);
+    font-weight: get-font-weight(medium);
     letter-spacing: get-letter-spacing(lg);
   }
 
   &__subtitle2 {
     font-size: get-font-size(xxs);
     line-height: get-line-height(xxs);
-    font-weight: get-font-weight(semi-bold);
+    font-weight: get-font-weight(medium);
     letter-spacing: get-letter-spacing(md);
   }
 
