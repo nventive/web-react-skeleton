@@ -55,6 +55,14 @@ body {
   &-between {
     justify-content: space-between;
   }
+
+  &-start {
+    justify-content: flex-start;
+  }
+
+  &-end {
+    justify-content: flex-end;
+  }
 }
 
 .text-center {
