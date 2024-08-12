@@ -6,6 +6,7 @@
   "global__current_locale": "Current language",
   "global__switch_locale": "Switch language",
   "global__version": "Version",
+  "global__hide": "Hide",
   "not_found__page_title": "Page not found",
   "not_found__title": "We're sorry, but the page you are looking for cannot be found.",
   "not_found__description": "Error code 404",
@@ -14,6 +15,7 @@
   "routes__page_title": "React Template",
   "routes__login": "login",
   "routes__home": "home",
+  "routes__uikit": "uikit",
   "routes__not_found": "not-found",
   "validations__required": "{{ field }} is required.",
   "validations__max_characters": "{{ field }} can have a maximum of {{ max }} characters.",
@@ -30,5 +32,6 @@
   "login__username": "Username",
   "login__password": "Password",
   "login__sign_in": "Sign in",
-  "login__more_user": "More user"
+  "login__more_user": "More user",
+  "uikit__page_title": "Uikit"
 }
