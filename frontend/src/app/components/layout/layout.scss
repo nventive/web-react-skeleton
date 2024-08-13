@@ -8,15 +8,15 @@
     align-items: center;
     background-color: get-color(basic, background);
 
-    @media screen and (min-width: get-media(md)) {
+    @media (min-width: get-media(md)) {
       padding: get-spacing(lg);
     }
 
-    @media screen and (min-width: get-media(lg)) {
+    @media (min-width: get-media(lg)) {
       padding: get-spacing(lg) 4rem;
     }
 
-    @media screen and (min-width: get-media(xl)) {
+    @media (min-width: get-media(xl)) {
       padding: get-spacing(lg) 6rem;
     }
 
@@ -34,7 +34,7 @@
     align-items: center;
     background-color: get-color(basic, background);
 
-    @media screen and (min-width: get-media(xs)) {
+    @media (min-width: get-media(xs)) {
       flex: 1 1 auto;
     }
 
@@ -43,7 +43,7 @@
       padding: get-spacing(md);
       background-color: get-color(basic, brightest);
 
-      @media screen and (min-width: get-media(xs)) {
+      @media (min-width: get-media(xs)) {
         max-width: 442px;
         border-radius: get-border-radius(md);
         padding: get-spacing(xl);

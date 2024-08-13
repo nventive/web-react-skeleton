@@ -3,7 +3,6 @@ import Link from "@components/link/Link";
 import Loading from "@components/loading/Loading";
 import Typography from "@components/typography/Typography";
 import LoginForm from "@forms/auth/loginForm/LoginForm";
-import ExternalLinkOutlined from "@icons/ExternalLinkOutlined";
 import findRoute from "@routes/findRoute";
 import i18n from "@shared/i18n";
 import { useCallback, useState } from "react";
@@ -34,13 +33,8 @@ export default function Login() {
           <Typography.Body1 className="color-basic-body mb-xxs">
             Password: oliviawpass
           </Typography.Body1>
-          <Link
-            href="https://dummyjson.com/users"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <Link href="https://dummyjson.com/users" external>
             <Typography.Body2>{t("login__more_user")}</Typography.Body2>
-            <ExternalLinkOutlined className="ml-xxs" />
           </Link>
         </div>
         <LoginForm setIsLoading={setIsLoading} />

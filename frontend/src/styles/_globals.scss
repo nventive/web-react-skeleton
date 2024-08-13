@@ -47,8 +47,22 @@ body {
   align-items: center;
 }
 
-.justify-center {
-  justify-content: center;
+.justify {
+  &-center {
+    justify-content: center;
+  }
+
+  &-between {
+    justify-content: space-between;
+  }
+
+  &-start {
+    justify-content: flex-start;
+  }
+
+  &-end {
+    justify-content: flex-end;
+  }
 }
 
 .text-center {

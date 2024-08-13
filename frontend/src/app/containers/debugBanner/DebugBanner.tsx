@@ -1,8 +1,8 @@
-import { useState } from "react";
-import classNames from "classnames";
 import Button from "@components/button/Button";
 import homeRoute from "@pages/home/home.route";
 import uikitRoute from "@pages/uikit/uikit.route";
+import classNames from "classnames";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import "./debug-banner.scss";
@@ -60,7 +60,7 @@ export default function DebugBanner() {
           ))}
         </div>
 
-        <Button variant="contained" size="small" onClick={closeBanner}>
+        <Button size="small" onClick={closeBanner}>
           {t("global__hide")}
         </Button>
       </div>

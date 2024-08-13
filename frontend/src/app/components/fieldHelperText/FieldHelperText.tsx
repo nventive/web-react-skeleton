@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import { ValidationError } from "yup";
 
 interface IFormHelper {
-  fieldNames: string[] | string;
-  formErrors?: ValidationError[];
+  fieldNames: Array<string> | string;
+  formErrors?: Array<ValidationError>;
   helperText?: string;
 }
 

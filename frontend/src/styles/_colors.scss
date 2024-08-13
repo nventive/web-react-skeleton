@@ -27,8 +27,15 @@ $color-basic: (
   warning: #fbc02d,
 );
 
+$color-stone: (
+  veryLight: #f3f2f2,
+  light: #c8c8c8,
+  dark: #444,
+);
+
 $color: (
   primary: $color-primary,
   secondary: $color-secondary,
   basic: $color-basic,
+  stone: $color-stone,
 );

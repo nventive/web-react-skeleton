@@ -2,9 +2,18 @@
 =                  Exports                    =
 ============================================ */
 
+$property: (
+  gap: gap,
+);
+
+$property-with-direction: (
+  m: margin,
+  p: padding,
+);
+
 @each $colorKey, $colorValue in $color {
   @each $colorSubkey, $colorSubvalue in $colorValue {
-    #root .color-#{$colorKey}-#{$colorSubkey} {
+    #body .color-#{$colorKey}-#{$colorSubkey} {
       color: $colorSubvalue;
     }
   }
@@ -12,7 +21,7 @@
 
 @each $colorKey, $colorValue in $color {
   @each $colorSubkey, $colorSubvalue in $colorValue {
-    #root .bg-#{$colorKey}-#{$colorSubkey} {
+    #body .bg-#{$colorKey}-#{$colorSubkey} {
       background-color: $colorSubvalue;
     }
   }
@@ -20,7 +29,7 @@
 
 @each $propertyKey, $propertyValue in $property {
   @each $spacingKey, $spacingValue in $spacing {
-    #root .#{$propertyKey}-#{$spacingKey} {
+    #body .#{$propertyKey}-#{$spacingKey} {
       #{$propertyValue}: $spacingValue;
     }
   }
@@ -29,7 +38,7 @@
 @each $propertyKey, $propertyValue in $property-with-direction {
   @each $spacingKey, $spacingValue in $spacing {
     @each $directionKey, $directionValues in $direction {
-      #root .#{$propertyKey}#{$directionKey}-#{$spacingKey} {
+      #body .#{$propertyKey}#{$directionKey}-#{$spacingKey} {
         @if $directionValues == all {
           #{$propertyValue}: $spacingValue;
         } @else {
