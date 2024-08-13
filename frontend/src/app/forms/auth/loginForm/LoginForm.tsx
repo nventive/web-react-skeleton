@@ -32,7 +32,7 @@ export default function LoginForm({ setIsLoading }: ILoginForm) {
     password: "",
   });
   const [loginFormValidated, setLoginFormValidated] = useState<boolean>(false);
-  const [formErrors, setFormErrors] = useState<Array<ValidationError>>([]);
+  const [formErrors, setFormErrors] = useState<ValidationError[]>([]);
 
   const onSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {

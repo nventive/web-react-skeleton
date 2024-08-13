@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 
 interface ITable extends TableProps {
-  columnTitles: Array<string>;
+  columnTitles: string[];
 }
 
 export default function Table({ children, columnTitles, ...props }: ITable) {

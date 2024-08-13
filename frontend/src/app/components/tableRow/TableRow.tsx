@@ -7,7 +7,7 @@ import {
 import style from "@styles/style.module.scss";
 
 interface ITableRow extends TableRowProps {
-  columns: Array<string>;
+  columns: string[];
 }
 
 const StyledMuiTableRow = styled(MuiTableRow)({

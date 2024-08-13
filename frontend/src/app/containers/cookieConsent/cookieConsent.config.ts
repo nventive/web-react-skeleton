@@ -1,6 +1,6 @@
 import ICookieSection from "@containers/cookieConsent/interfaces/ICookieSection";
 
-const cookieConsentConfig: Array<ICookieSection> = [
+const cookieConsentConfig: ICookieSection[] = [
   {
     id: "necessary",
     title: "cookie_modal__necessary_title",
