@@ -55,5 +55,6 @@
   "login__username": "Nom d'utilisateur",
   "login__password": "Mot de passe",
   "login__sign_in": "Se connecter",
-  "login__more_user": "Plus d'utilisateur"
+  "login__more_user": "Plus d'utilisateur",
+  "uikit__page_title": "Uikit"
 }

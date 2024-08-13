@@ -1,7 +1,6 @@
 import Loading from "@components/loading/Loading";
 import CookieConsent from "@containers/cookieConsent/CookieConsent";
 import { hasConsent } from "@containers/cookieConsent/cookieConsentHelper";
-import DebugBanner from "@containers/debugBanner/DebugBanner";
 import Router from "@routes/Router";
 import "@shared/i18n";
 import "@styles/index.scss";
@@ -21,7 +20,6 @@ function App() {
 
   return (
     <Suspense fallback={<Loading />}>
-      <DebugBanner />
       <CookieConsent />
       <ToastContainer
         position="top-right"

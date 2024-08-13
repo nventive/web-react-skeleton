@@ -1,14 +1,14 @@
 /* stylelint-disable color-no-hex */
 .debug-banner {
-  position: absolute;
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
+  gap: get-spacing(xs);
 
   &__container {
     position: fixed;
     width: 100%;
-    top: 0;
+    bottom: 0;
     z-index: get-z(100);
   }
 

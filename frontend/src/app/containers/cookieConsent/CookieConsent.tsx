@@ -42,7 +42,10 @@ export default function CookieConsent() {
   return (
     <>
       <CookieModal
-        closeModal={() => setCookieModalOpen(false)}
+        closeModal={() => {
+          setCookieModalOpen(false);
+          setCookieBannerOpen(true);
+        }}
         handleAcceptAll={() => handleAccept(ALL_COOKIE_TYPES)}
         handleAcceptSelection={() => handleAccept(cookiePreferences)}
         open={cookieModalOpen}
@@ -52,7 +55,10 @@ export default function CookieConsent() {
       />
       <CookieBanner
         showBanner={cookieBannerOpen}
-        openModal={() => setCookieModalOpen(true)}
+        openModal={() => {
+          setCookieModalOpen(true);
+          setCookieBannerOpen(false);
+        }}
         handleAcceptAll={() => handleAccept(ALL_COOKIE_TYPES)}
         handleAcceptNecessary={() => handleAccept(["necessary"])}
       />

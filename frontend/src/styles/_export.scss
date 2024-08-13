@@ -19,6 +19,14 @@ $property-with-direction: (
   }
 }
 
+@each $colorKey, $colorValue in $color {
+  @each $colorSubkey, $colorSubvalue in $colorValue {
+    #body .bg-#{$colorKey}-#{$colorSubkey} {
+      background-color: $colorSubvalue;
+    }
+  }
+}
+
 @each $propertyKey, $propertyValue in $property {
   @each $spacingKey, $spacingValue in $spacing {
     #body .#{$propertyKey}-#{$spacingKey} {
