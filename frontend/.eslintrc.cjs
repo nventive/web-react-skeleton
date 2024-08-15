@@ -32,6 +32,7 @@ module.exports = {
     "react-hooks/exhaustive-deps": WARNING,
     "react-hooks/rules-of-hooks": ERROR,
     eqeqeq: ERROR,
+    "@typescript-eslint/array-type": [WARNING, { default: "array-simple" }],
     // "sort-keys": WARNING,
   },
   settings: {

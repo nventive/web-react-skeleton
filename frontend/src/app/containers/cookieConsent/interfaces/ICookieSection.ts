@@ -3,7 +3,7 @@ import ICookieInfo from "@containers/cookieConsent/interfaces/ICookieInfo";
 export default interface ICookieSection {
   id: string;
   title: string;
-  description: Array<string>;
+  description: string[];
   required?: boolean;
-  cookies?: Array<ICookieInfo>;
+  cookies?: ICookieInfo[];
 }

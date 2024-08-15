@@ -25,9 +25,9 @@ interface ICookieModal {
   handleAcceptAll: () => void;
   handleAcceptSelection: () => void;
   closeModal: () => void;
-  cookieTypes: Array<ICookieSection>;
-  cookiePreferences: Array<string>;
-  setCookiePreferences: Dispatch<SetStateAction<Array<string>>>;
+  cookieTypes: ICookieSection[];
+  cookiePreferences: string[];
+  setCookiePreferences: Dispatch<SetStateAction<string[]>>;
 }
 
 export default function CookieModal({

@@ -15,9 +15,9 @@ export default function CookieConsent() {
   const [cookieModalOpen, setCookieModalOpen] = useState<boolean>(false);
   const [cookieBannerOpen, setCookieBannerOpen] = useState<boolean>(false);
   const [cookiePreferences, setCookiePreferences] =
-    useState<Array<string>>(ALL_COOKIE_TYPES);
+    useState<string[]>(ALL_COOKIE_TYPES);
 
-  const handleAccept = useCallback((preferences: Array<string>) => {
+  const handleAccept = useCallback((preferences: string[]) => {
     setCookieBannerOpen(false);
     setCookieModalOpen(false);
     const cookieConsentPreferences: ICookiePreferences = {

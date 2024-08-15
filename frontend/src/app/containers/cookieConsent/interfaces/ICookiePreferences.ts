@@ -1,4 +1,4 @@
 export default interface ICookiePreferences {
   consentDate: number;
-  preferences: Array<string>;
+  preferences: string[];
 }
