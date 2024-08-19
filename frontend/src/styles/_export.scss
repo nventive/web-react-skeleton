@@ -2,15 +2,16 @@
 =                  Exports                    =
 ============================================ */
 
-$property: (
-  gap: gap,
-);
+$property: (gap);
 
 $property-with-direction: (
   m: margin,
   p: padding,
 );
 
+$position: (top, bottom, left, right);
+
+// Color
 @each $colorKey, $colorValue in $color {
   @each $colorSubkey, $colorSubvalue in $colorValue {
     #body .color-#{$colorKey}-#{$colorSubkey} {
@@ -19,6 +20,7 @@ $property-with-direction: (
   }
 }
 
+// Background-color
 @each $colorKey, $colorValue in $color {
   @each $colorSubkey, $colorSubvalue in $colorValue {
     #body .bg-#{$colorKey}-#{$colorSubkey} {
@@ -27,14 +29,16 @@ $property-with-direction: (
   }
 }
 
-@each $propertyKey, $propertyValue in $property {
+// Property-spacing (eg: gap-xs -> gap: get-spacing(xs))
+@each $propertyKey in $property {
   @each $spacingKey, $spacingValue in $spacing {
     #body .#{$propertyKey}-#{$spacingKey} {
-      #{$propertyValue}: $spacingValue;
+      #{$propertyKey}: $spacingValue;
     }
   }
 }
 
+// Property with direction-spacing (eg: mr-xs -> margin-right: get-spacing(xs))
 @each $propertyKey, $propertyValue in $property-with-direction {
   @each $spacingKey, $spacingValue in $spacing {
     @each $directionKey, $directionValues in $direction {
@@ -47,6 +51,15 @@ $property-with-direction: (
           }
         }
       }
+    }
+  }
+}
+
+// Position-spacing (eg: top-xs -> top: get-spacing(xs))
+@each $positionKey in $position {
+  @each $spacingKey, $spacingValue in $spacing {
+    #body .#{$positionKey}-#{$spacingKey} {
+      #{$positionKey}: $spacingValue;
     }
   }
 }

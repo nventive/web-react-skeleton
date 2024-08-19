@@ -1,0 +1,14 @@
+.uikit-nav {
+  display: none;
+
+  @include media-min(xs) {
+    display: flex;
+    flex-direction: column;
+    gap: get-spacing(xs);
+    height: 100%;
+    margin-top: get-spacing(md);
+    max-width: rem(250);
+    position: sticky;
+    top: get-spacing(md);
+  }
+}
