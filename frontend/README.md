@@ -1,13 +1,17 @@
-### Update locale files
+# Frontend
+
+Run `yarn install` and `yarn dev` in this directory to launch the react project in your browser
+
+## Update locale files
 
 Pull key:value from google sheets to create json file.
 `https://docs.google.com/spreadsheets/d/1Kk8OIOhXxzyMA3ZgyiIiQtdwJNBJvGaUTNsarYHcFsM/`
 
-```
-yarn sheet2i18n
-```
+> **IMPORTANT** Please create a new google sheet for each new project. Do not use this one for one of your projects
 
-## Structure
+Run `yarn sheet2i18n` to update your local keys with what is in the spreadsheet.
+
+## File Structure
 
     .
     ├── ...
