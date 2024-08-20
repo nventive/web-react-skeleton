@@ -8,6 +8,7 @@
   "global__version": "Version",
   "global__hide": "Cacher",
   "global__close": "Fermer",
+  "global__clipboard_copy": "Copié dans le presse-papiers",
   "not_found__page_title": "Page non trouvée",
   "not_found__title": "Nous sommes désolés, mais la page que vous recherchez semble introuvable.",
   "not_found__description": "Code d’erreur 404",
