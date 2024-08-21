@@ -1,7 +1,13 @@
 /* ============================================
-=                 Generic get                 =
+=                 Generics                 =
 ============================================ */
 /* stylelint-disable scss/no-global-function-names */
+
+$font-base-size: 16;
+
+@function rem($sizeInPx) {
+  @return calc($sizeInPx / $font-base-size) * 1rem;
+}
 
 @function get($map, $key) {
   @if map-has-key($map, $key) {

@@ -7,12 +7,14 @@ import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 
 interface IUikitBlock {
+  id: string;
   title: string;
   codeBlock?: string;
   children: ReactNode;
 }
 
 export default function UikitBlock({
+  id,
   title,
   codeBlock,
   children,
@@ -25,7 +27,7 @@ export default function UikitBlock({
   };
 
   return (
-    <div className="uikit-block">
+    <div className="uikit-block" id={id}>
       <Typography.Heading4>{title}</Typography.Heading4>
       {children}
       {codeBlock && (

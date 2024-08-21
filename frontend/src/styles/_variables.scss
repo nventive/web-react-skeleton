@@ -3,7 +3,7 @@
 ============================================ */
 
 @import "./colors";
-@import "./mixins/generic-get";
+@import "./mixins/generics";
 
 @function get-color($namespace: primary, $variance: main) {
   $color-map: get($color, $namespace);
