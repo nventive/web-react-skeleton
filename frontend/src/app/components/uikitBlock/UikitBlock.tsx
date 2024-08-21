@@ -2,6 +2,9 @@ import { ReactNode } from "react";
 import { Highlight, themes } from "prism-react-renderer";
 import "./uikit-block.scss";
 import Typography from "@components/typography/Typography";
+import Button from "@components/button/Button";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 interface IUikitBlock {
   title: string;
@@ -14,6 +17,13 @@ export default function UikitBlock({
   codeBlock,
   children,
 }: IUikitBlock) {
+  const { t } = useTranslation();
+
+  const onClickCopyBtn = async (content: string) => {
+    await navigator.clipboard.writeText(content);
+    toast.success(t("global__clipboard_copy"));
+  };
+
   return (
     <div className="uikit-block">
       <Typography.Heading4>{title}</Typography.Heading4>
@@ -29,6 +39,16 @@ export default function UikitBlock({
                   ))}
                 </div>
               ))}
+
+              <div className="uikit-block__copy-btn">
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={() => onClickCopyBtn(codeBlock)}
+                >
+                  Copy
+                </Button>
+              </div>
             </pre>
           )}
         </Highlight>

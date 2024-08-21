@@ -8,6 +8,7 @@
   "global__version": "Version",
   "global__hide": "Hide",
   "global__close": "Close",
+  "global__clipboard_copy": "Copied to clipboard",
   "not_found__page_title": "Page not found",
   "not_found__title": "We're sorry, but the page you are looking for cannot be found.",
   "not_found__description": "Error code 404",
