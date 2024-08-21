@@ -1,7 +1,21 @@
 {
   "i18n-ally.localesPaths": ["frontend/src/assets/locales"],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "[typescript]": {
+    "editor.formatOnSave": false,
+  },
+  "[scss]": {
+    "editor.formatOnSave": false
+  },
+  "eslint.validate": ["javascript", "typescript"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always",
+    "source.fixAll.stylelint": "always"
+  },
+  "stylelint.validate": ["scss"],
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": "frontend/node_modules/typescript/lib"
 }
