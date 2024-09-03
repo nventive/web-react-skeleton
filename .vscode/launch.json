@@ -6,8 +6,7 @@
       "request": "launch",
       "name": "Launch Chrome",
       "url": "http://localhost:8085",
-      "webRoot": "${workspaceFolder}",
-      "preLaunchTask": "start"
+      "webRoot": "${workspaceFolder}/frontend"
     }
   ]
 }
