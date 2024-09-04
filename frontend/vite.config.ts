@@ -7,13 +7,6 @@ export default ({ mode }: { mode: string }) => {
 
   return defineConfig({
     plugins: [react()],
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `@import "./src/styles/_variables.scss"; @import "./src/styles/mixins/_media-queries.scss";`,
-        },
-      },
-    },
     build: {
       sourcemap: process.env.VITE_GENERATE_SOURCEMAP === "true",
     },

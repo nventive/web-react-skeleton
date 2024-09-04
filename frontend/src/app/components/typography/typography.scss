@@ -1,108 +1,110 @@
+@use "../../../styles/variables" as v;
+
 .typography {
   &__heading1 {
-    font-size: get-font-size(xtl);
-    line-height: get-line-height(xxl);
-    font-weight: get-font-weight(semi-bold);
-    letter-spacing: get-letter-spacing(xs);
-    color: get-color(basic, text);
+    font-size: v.get-font-size(xtl);
+    line-height: v.get-line-height(xxl);
+    font-weight: v.get-font-weight(semi-bold);
+    letter-spacing: v.get-letter-spacing(xs);
+    color: v.get-color(basic, text);
   }
 
   &__heading2 {
-    font-size: get-font-size(xxl);
-    line-height: get-line-height(xl);
-    font-weight: get-font-weight(bold);
-    letter-spacing: get-letter-spacing(sm);
-    color: get-color(basic, text);
+    font-size: v.get-font-size(xxl);
+    line-height: v.get-line-height(xl);
+    font-weight: v.get-font-weight(bold);
+    letter-spacing: v.get-letter-spacing(sm);
+    color: v.get-color(basic, text);
   }
 
   &__heading3 {
-    font-size: get-font-size(xl);
-    line-height: get-line-height(lg);
-    font-weight: get-font-weight(bold);
-    color: get-color(basic, text);
+    font-size: v.get-font-size(xl);
+    line-height: v.get-line-height(lg);
+    font-weight: v.get-font-weight(bold);
+    color: v.get-color(basic, text);
   }
 
   &__heading4 {
-    font-size: get-font-size(lg);
-    line-height: get-line-height(md);
-    font-weight: get-font-weight(bold);
-    letter-spacing: get-letter-spacing(lg);
-    color: get-color(basic, text);
+    font-size: v.get-font-size(lg);
+    line-height: v.get-line-height(md);
+    font-weight: v.get-font-weight(bold);
+    letter-spacing: v.get-letter-spacing(lg);
+    color: v.get-color(basic, text);
   }
 
   &__heading5 {
-    font-size: get-font-size(md);
-    line-height: get-line-height(sm);
-    font-weight: get-font-weight(semi-bold);
-    color: get-color(basic, text);
+    font-size: v.get-font-size(md);
+    line-height: v.get-line-height(sm);
+    font-weight: v.get-font-weight(semi-bold);
+    color: v.get-color(basic, text);
   }
 
   &__heading6 {
-    font-size: get-font-size(sm);
-    line-height: get-line-height(xs);
-    font-weight: get-font-weight(medium);
-    letter-spacing: get-letter-spacing(md);
-    color: get-color(basic, text);
+    font-size: v.get-font-size(sm);
+    line-height: v.get-line-height(xs);
+    font-weight: v.get-font-weight(medium);
+    letter-spacing: v.get-letter-spacing(md);
+    color: v.get-color(basic, text);
   }
 
   &__subtitle1 {
-    font-size: get-font-size(xs);
-    line-height: get-line-height(xs);
-    font-weight: get-font-weight(medium);
-    letter-spacing: get-letter-spacing(lg);
+    font-size: v.get-font-size(xs);
+    line-height: v.get-line-height(xs);
+    font-weight: v.get-font-weight(medium);
+    letter-spacing: v.get-letter-spacing(lg);
   }
 
   &__subtitle2 {
-    font-size: get-font-size(xxs);
-    line-height: get-line-height(xxs);
-    font-weight: get-font-weight(medium);
-    letter-spacing: get-letter-spacing(md);
+    font-size: v.get-font-size(xxs);
+    line-height: v.get-line-height(xxs);
+    font-weight: v.get-font-weight(medium);
+    letter-spacing: v.get-letter-spacing(md);
   }
 
   &__body1 {
-    font-size: get-font-size(xs);
-    line-height: get-line-height(xs);
-    font-weight: get-font-weight(regular);
-    letter-spacing: get-letter-spacing(lg);
+    font-size: v.get-font-size(xs);
+    line-height: v.get-line-height(xs);
+    font-weight: v.get-font-weight(regular);
+    letter-spacing: v.get-letter-spacing(lg);
   }
 
   &__body2 {
-    font-size: get-font-size(xxs);
-    line-height: get-line-height(xxs);
-    font-weight: get-font-weight(regular);
-    letter-spacing: get-letter-spacing(md);
+    font-size: v.get-font-size(xxs);
+    line-height: v.get-line-height(xxs);
+    font-weight: v.get-font-weight(regular);
+    letter-spacing: v.get-letter-spacing(md);
   }
 
   &__caption {
-    font-size: get-font-size(xts);
-    line-height: get-line-height(xxs);
-    font-weight: get-font-weight(regular);
-    letter-spacing: get-letter-spacing(xl);
+    font-size: v.get-font-size(xts);
+    line-height: v.get-line-height(xxs);
+    font-weight: v.get-font-weight(regular);
+    letter-spacing: v.get-letter-spacing(xl);
   }
 
   &__overline {
-    font-size: get-font-size(xts);
-    line-height: get-line-height(xxs);
-    font-weight: get-font-weight(regular);
-    letter-spacing: get-letter-spacing(xxl);
+    font-size: v.get-font-size(xts);
+    line-height: v.get-line-height(xxs);
+    font-weight: v.get-font-weight(regular);
+    letter-spacing: v.get-letter-spacing(xxl);
     text-transform: uppercase;
   }
 
   &__button-small {
-    font-size: get-font-size(xts);
-    line-height: get-line-height(xs);
-    font-weight: get-font-weight(semi-bold);
+    font-size: v.get-font-size(xts);
+    line-height: v.get-line-height(xs);
+    font-weight: v.get-font-weight(semi-bold);
   }
 
   &__button-medium {
-    font-size: get-font-size(xxs);
-    line-height: get-line-height(xs);
-    font-weight: get-font-weight(semi-bold);
+    font-size: v.get-font-size(xxs);
+    line-height: v.get-line-height(xs);
+    font-weight: v.get-font-weight(semi-bold);
   }
 
   &__button-large {
-    font-size: get-font-size(xs);
-    line-height: get-line-height(xs);
-    font-weight: get-font-weight(semi-bold);
+    font-size: v.get-font-size(xs);
+    line-height: v.get-line-height(xs);
+    font-weight: v.get-font-weight(semi-bold);
   }
 }

@@ -1,3 +1,5 @@
+@use "../../../styles/variables" as v;
+
 @keyframes spinner-rotate {
   0% {
     width: 64px;
@@ -24,12 +26,12 @@
   display: block;
   position: relative;
   background-image: linear-gradient(
-      get-color(primary, dark) 16px,
+      v.get-color(primary, dark) 16px,
       transparent 0
     ),
-    linear-gradient(get-color(primary, main) 16px, transparent 0),
-    linear-gradient(get-color(primary, main) 16px, transparent 0),
-    linear-gradient(get-color(primary, dark) 16px, transparent 0);
+    linear-gradient(v.get-color(primary, main) 16px, transparent 0),
+    linear-gradient(v.get-color(primary, main) 16px, transparent 0),
+    linear-gradient(v.get-color(primary, dark) 16px, transparent 0);
   background-repeat: no-repeat;
   background-size: 16px 16px;
   background-position:

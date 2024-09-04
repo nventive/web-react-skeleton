@@ -1,13 +1,11 @@
-@import "mixins/normalize";
+@forward "mixins/normalize";
 
-@import "mixins/media-queries";
+@forward "vendors/toastify.css";
 
-@import "vendors/toastify.css";
+@forward "fonts";
 
-@import "animations";
+@forward "animations";
 
-@import "export";
+@forward "export";
 
-@import "fonts";
-
-@import "globals";
+@forward "globals";

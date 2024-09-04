@@ -1,10 +1,24 @@
+@use "mixins/fonts" as f;
+@use "variables" as v;
+
 /* ============================================
 =                  Fonts                      =
 ============================================ */
 
-@import "mixins/fonts";
+@include f.font-include(
+  InterTight,
+  Regular,
+  v.get-font-weight(regular),
+  normal
+);
 
-@include font-include(InterTight, Regular, get-font-weight(regular), normal);
-@include font-include(InterTight, Medium, get-font-weight(medium), normal);
-@include font-include(InterTight, SemiBold, get-font-weight(semi-bold), normal);
-@include font-include(InterTight, Bold, get-font-weight(bold), normal);
+@include f.font-include(InterTight, Medium, v.get-font-weight(medium), normal);
+
+@include f.font-include(
+  InterTight,
+  SemiBold,
+  v.get-font-weight(semi-bold),
+  normal
+);
+
+@include f.font-include(InterTight, Bold, v.get-font-weight(bold), normal);

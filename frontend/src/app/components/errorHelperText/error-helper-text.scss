@@ -1,8 +1,10 @@
+@use "../../../styles/variables" as v;
+
 .error-helper-text {
   &__container {
-    color: get-color(basic, error);
-    margin-top: get-spacing(xxs);
-    margin-left: get-spacing(md);
+    color: v.get-color(basic, error);
+    margin-top: v.get-spacing(xxs);
+    margin-left: v.get-spacing(md);
   }
 
   &__enter {
@@ -10,7 +12,7 @@
 
     &-active {
       opacity: 1;
-      transition: opacity get-time(normal) ease-in;
+      transition: opacity v.get-time(normal) ease-in;
     }
   }
 
@@ -19,7 +21,7 @@
 
     &-active {
       opacity: 0;
-      transition: opacity get-time(normal) ease-out;
+      transition: opacity v.get-time(normal) ease-out;
     }
   }
 }

@@ -1,6 +1,8 @@
+@use "../../../styles/variables" as v;
+
 .not-found {
   display: flex;
-  padding: get-spacing(md);
+  padding: v.get-spacing(md);
   width: 100%;
   align-items: center;
   justify-content: center;

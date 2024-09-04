@@ -1,15 +1,17 @@
+@use "../../../styles/variables" as v;
+
 /* stylelint-disable color-no-hex */
 .debug-banner {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  gap: get-spacing(xs);
+  gap: v.get-spacing(xs);
 
   &__container {
     position: fixed;
     width: 100%;
     bottom: 0;
-    z-index: get-z(100);
+    z-index: v.get-z(100);
   }
 
   &__local {

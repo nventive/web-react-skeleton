@@ -1,3 +1,5 @@
+@use "../../../styles/variables" as v;
+
 .loading {
   display: flex;
   position: fixed;
@@ -5,15 +7,15 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: get-color(basic, brightest);
-  z-index: get-z(1000);
+  background: v.get-color(basic, brightest);
+  z-index: v.get-z(1000);
 
   &__enter {
     opacity: 0;
 
     &-active {
       opacity: 1;
-      transition: opacity get-time(slow) ease-in;
+      transition: opacity v.get-time(slow) ease-in;
     }
   }
 
@@ -22,7 +24,7 @@
 
     &-active {
       opacity: 0;
-      transition: opacity get-time(slow) ease-out;
+      transition: opacity v.get-time(slow) ease-out;
     }
   }
 
