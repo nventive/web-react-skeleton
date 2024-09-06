@@ -1,8 +1,5 @@
-import {
-  AccordionProps,
-  Accordion as MuiAccordion,
-  styled,
-} from "@mui/material";
+import { AccordionProps, Accordion as MuiAccordion } from "@mui/material";
+import { styled } from "@mui/material-pigment-css";
 import style from "@styles/style.module.scss";
 
 const StyledMuiAccordion = styled(MuiAccordion)({

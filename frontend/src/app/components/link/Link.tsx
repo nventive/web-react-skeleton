@@ -1,5 +1,6 @@
 import ExternalLinkOutlined from "@icons/ExternalLinkOutlined";
-import { LinkProps, Link as MuiLink, styled } from "@mui/material";
+import { LinkProps, Link as MuiLink } from "@mui/material";
+import { styled } from "@mui/material-pigment-css";
 import style from "@styles/style.module.scss";
 
 const StyledMuiLink = styled(MuiLink)({

@@ -1,4 +1,6 @@
-import { Grid, Palette, PaletteColor, useTheme } from "@mui/material";
+import { Palette, PaletteColor } from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import { useTheme } from "@mui/material-pigment-css";
 import { useCallback, useMemo } from "react";
 
 interface IUikitColor {
@@ -15,9 +17,8 @@ export default function UikitColor({ color }: IUikitColor) {
   const colorItem = useCallback((bgColor: string, label: string) => {
     return (
       <Grid
-        item
         className="flex align-center justify-center"
-        xs
+        // xs
         height={50}
         bgcolor={bgColor}
       >

@@ -1,9 +1,13 @@
 import { createTheme } from "@mui/material";
-import style from "@styles/style.module.scss";
+// import style from "@/styles/style.module.scss";
 
-const parseMedia = (media: string) => parseInt(media.replace("px", ""));
+// const parseMedia = (media: string) => parseInt(media.replace("px", ""));
 
-const theme = createTheme({
+const theme = createTheme(
+  {
+    cssVariables: true,
+  },
+  /* {
   breakpoints: {
     values: {
       xs: parseMedia(style["media-xs"]),
@@ -31,6 +35,7 @@ const theme = createTheme({
       contrastText: style["basic-brightest"],
     },
   },
-});
+} */
+);
 
 export default theme;

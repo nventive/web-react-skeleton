@@ -2,8 +2,8 @@ import CaretIcon from "@icons/CaretIcon";
 import {
   AccordionSummaryProps,
   AccordionSummary as MuiAccordionSummary,
-  styled,
 } from "@mui/material";
+import { styled } from "@mui/material-pigment-css";
 import style from "@styles/style.module.scss";
 
 const StyledMuiAccordionSummary = styled(MuiAccordionSummary)({

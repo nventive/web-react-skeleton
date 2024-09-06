@@ -1,4 +1,5 @@
-import { Switch as MuiSwitch, styled, SwitchProps } from "@mui/material";
+import { Switch as MuiSwitch, SwitchProps } from "@mui/material";
+import { styled } from "@mui/material-pigment-css";
 import style from "@styles/style.module.scss";
 
 const StyledMuiSwitch = styled(MuiSwitch)({

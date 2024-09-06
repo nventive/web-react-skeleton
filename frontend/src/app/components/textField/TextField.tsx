@@ -1,8 +1,5 @@
-import {
-  TextField as MuiTextField,
-  TextFieldProps,
-  styled,
-} from "@mui/material";
+import { TextField as MuiTextField, TextFieldProps } from "@mui/material";
+import { styled } from "@mui/material-pigment-css";
 import style from "@styles/style.module.scss";
 import { ChangeEvent } from "react";
 
