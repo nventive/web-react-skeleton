@@ -18,3 +18,10 @@
 - Examples: UserInfo, ShoppingCart, etc...
 
 > Don’t take the component VS container separation as a dogma. Sometimes it doesn’t matter or it’s hard to draw the line. If you feel unsure about whether a specific element should be a component or a container, it might be too early to decide. Don’t sweat it!
+
+### ContextProvider
+
+- A container can use a ContextProvider to avoid props drilling.
+> Props drilling in React refers to the process of passing data from a parent component to a deeply nested child component through multiple intermediary components. This can become cumbersome and lead to several issues, such as increased complexity and reduced maintainability.
+- Place the file in the `app/containers` folder when it is strongly tied a container, otherwise place it in `app/contextProviders`.
+- TODO: Add Image.
