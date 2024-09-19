@@ -12,7 +12,7 @@ The more complex stages are also divided into several steps files, again all loc
 
 ## Azure setup
 
-### Global ressource group
+### Global resource group
 
 The following needs to be setup in azure before any deployment can be done:
 
