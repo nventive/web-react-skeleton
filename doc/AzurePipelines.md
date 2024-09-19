@@ -24,7 +24,7 @@ This global resource group is where we will store the terraform state.
 
 ### Resource groups for each deployment environment
 
-The pipeline is setup to run as a loop for multiple environments (look at the environments parameter in file [`azure-pipleine/`](../azure-pipeline/environments_loop.yml)). A ressource group has to be manually created beforehand for each environment, matching the environment name declared in the main.tf file, `"rg-<environment>-<project_short_name>"`.
+The pipeline is setup to run as a loop for multiple environments (look at the environments parameter in file [`azure-pipleine/`](../azure-pipeline/environments_loop.yml)). A resource group has to be manually created beforehand for each environment, matching the environment name declared in the main.tf file, `"rg-<environment>-<project_short_name>"`.
 
 ## Azure devops setup
 
