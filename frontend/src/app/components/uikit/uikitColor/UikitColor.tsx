@@ -1,4 +1,6 @@
-import { Grid, Palette, PaletteColor, useTheme } from "@mui/material";
+import { Palette, PaletteColor } from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import { useTheme } from "@mui/material-pigment-css";
 import { useCallback, useMemo } from "react";
 
 interface IUikitColor {
@@ -15,11 +17,10 @@ export default function UikitColor({ color }: IUikitColor) {
   const colorItem = useCallback((bgColor: string, label: string) => {
     return (
       <Grid
-        item
         className="flex align-center justify-center"
-        xs
-        height={50}
         bgcolor={bgColor}
+        size={"grow"}
+        flexBasis={50}
       >
         {label}
       </Grid>
@@ -27,7 +28,7 @@ export default function UikitColor({ color }: IUikitColor) {
   }, []);
 
   return (
-    <Grid container>
+    <Grid container direction={"column"}>
       {colorItem(paletteColor.main, `${color}.main`)}
       {colorItem(paletteColor.light, `${color}.light`)}
       {colorItem(paletteColor.dark, `${color}.dark`)}

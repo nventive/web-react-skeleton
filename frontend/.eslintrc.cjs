@@ -33,6 +33,8 @@ module.exports = {
     "react-hooks/rules-of-hooks": ERROR,
     eqeqeq: ERROR,
     "@typescript-eslint/array-type": [WARNING, { default: "array-simple" }],
+    // With Pigment CSS, the SX property is now available on html elements
+    "react/no-unknown-property": ["error", { ignore: ["sx"] }],
     // "sort-keys": WARNING,
   },
   settings: {
@@ -43,7 +45,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
-    project: ["./tsconfig.eslint.json"],
+    project: ["./tsconfig.eslint.json", "./src/material-ui-pigment-css.d.ts"],
     tsconfigRootDir: __dirname,
   },
 };

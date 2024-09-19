@@ -40,6 +40,7 @@
   "routes__login": "login",
   "routes__home": "home",
   "routes__uikit": "uikit",
+  "routes__dashboard": "dashboard",
   "routes__not_found": "not-found",
   "validations__required": "{{ field }} is required.",
   "validations__max_characters": "{{ field }} can have a maximum of {{ max }} characters.",
@@ -57,5 +58,6 @@
   "login__password": "Password",
   "login__sign_in": "Sign in",
   "login__more_user": "More user",
-  "uikit__page_title": "Uikit"
+  "uikit__page_title": "Uikit",
+  "dashboard__page_title": "Dashboard"
 }

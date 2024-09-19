@@ -1,12 +1,12 @@
 import Slide from "@components/slide/Slide";
-import { DialogProps, Dialog as MuiDialog, styled } from "@mui/material";
-import style from "@styles/style.module.scss";
+import { DialogProps, Dialog as MuiDialog } from "@mui/material";
+import { styled } from "@mui/material-pigment-css";
 
-const StyledMuiDialog = styled(MuiDialog)({
+const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
   "& .MuiDialog-paper": {
-    margin: style["spacing-md"],
+    margin: theme.spacing(2),
   },
-});
+}));
 
 export default function Dialog({ ...props }: DialogProps) {
   return (

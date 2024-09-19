@@ -40,6 +40,7 @@
   "routes__login": "connexion",
   "routes__home": "accueil",
   "routes__uikit": "uikit",
+  "routes__dashboard": "dashboard",
   "routes__not_found": "page-introuvable",
   "validations__required": "{{ field }} est obligatoire.",
   "validations__max_characters": "{{ field }} peut avoir un maximum de {{ max }} caractères.",
@@ -57,5 +58,6 @@
   "login__password": "Mot de passe",
   "login__sign_in": "Se connecter",
   "login__more_user": "Plus d'utilisateur",
-  "uikit__page_title": "Uikit"
+  "uikit__page_title": "Uikit",
+  "dashboard__page_title": "Dashboard"
 }

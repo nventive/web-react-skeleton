@@ -4,11 +4,12 @@ import Layout from "@components/layout/Layout";
 import Link from "@components/link/Link";
 import Loading from "@components/loading/Loading";
 import Spinner from "@components/spinner/Spinner";
-import Typography from "@components/typography/Typography";
+import Typography from "@mui/material/Typography";
 import UikitBlock from "@components/uikit/uikitBlock/UikitBlock";
 import UikitColor from "@components/uikit/uikitColor/UikitColor";
 import UikitNav, { INavItem } from "@components/uikit/uikitNav/UikitNav";
-import { Grid, TextField } from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import { TextField } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ValidationError } from "yup";
@@ -76,48 +77,48 @@ export default function UiKit() {
       <div className="flex gap-lg position-relative">
         <UikitNav items={navItems} />
         <div className="flex-column">
-          <Typography.Heading1>UiKit</Typography.Heading1>
-          <Typography.Body1>
+          <Typography variant="h1">UiKit</Typography>
+          <Typography variant="body1">
             This is where you can display all your custom components/containers.
-          </Typography.Body1>
-          <Typography.Body1 className="flex gap-xxs">
+          </Typography>
+          <Typography variant="body1" className="flex gap-xxs">
             For all the Styled MUI components, please refer to
             <Link href="https://mui.com/material-ui/all-components/">
               MUI documentation
             </Link>
-          </Typography.Body1>
+          </Typography>
 
           <div className="flex-column mt-lg gap-md">
             <UikitBlock id="typographies" title="Typographies">
-              <Typography.Heading1>H1. Heading</Typography.Heading1>
-              <Typography.Heading2>H2. Heading</Typography.Heading2>
-              <Typography.Heading3>H3. Heading</Typography.Heading3>
-              <Typography.Heading4>H4. Heading</Typography.Heading4>
-              <Typography.Heading5>H5. Heading</Typography.Heading5>
-              <Typography.Heading6>H6. Heading</Typography.Heading6>
-              <Typography.Subtitle1>
+              <Typography variant="h1">H1. Heading</Typography>
+              <Typography variant="h2">H2. Heading</Typography>
+              <Typography variant="h3">H3. Heading</Typography>
+              <Typography variant="h4">H4. Heading</Typography>
+              <Typography variant="h5">H5. Heading</Typography>
+              <Typography variant="h6">H6. Heading</Typography>
+              <Typography variant="subtitle1">
                 subtitle1. Lorem ipsum dolor sit amet, consectetur adipisicing
                 elit. Quos blanditiis tenetur
-              </Typography.Subtitle1>
-              <Typography.Subtitle2>
+              </Typography>
+              <Typography variant="subtitle2">
                 subtitle2. Lorem ipsum dolor sit amet, consectetur adipisicing
                 elit. Quos blanditiis tenetur
-              </Typography.Subtitle2>
-              <Typography.Body1>
+              </Typography>
+              <Typography variant="body1">
                 body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 Quos blanditiis tenetur unde suscipit, quam beatae rerum
                 inventore consectetur, neque doloribus, cupiditate numquam
                 dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
-              </Typography.Body1>
-              <Typography.Body2>
+              </Typography>
+              <Typography variant="body2">
                 body2. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 Quos blanditiis tenetur unde suscipit, quam beatae rerum
                 inventore consectetur, neque doloribus, cupiditate numquam
                 dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
-              </Typography.Body2>
-              <Typography.ButtonMedium>button text</Typography.ButtonMedium>
-              <Typography.Caption>caption text</Typography.Caption>
-              <Typography.Overline>overline text</Typography.Overline>
+              </Typography>
+              <Typography variant="button">button text</Typography>
+              <Typography variant="caption">caption text</Typography>
+              <Typography variant="overline">overline text</Typography>
             </UikitBlock>
 
             <UikitBlock id="colors" title="Colors">

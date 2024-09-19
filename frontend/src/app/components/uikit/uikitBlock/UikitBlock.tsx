@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { Highlight, themes } from "prism-react-renderer";
-import "./uikit-block.scss";
-import Typography from "@components/typography/Typography";
+import Typography from "@mui/material/Typography";
 import Button from "@components/button/Button";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
@@ -27,13 +26,29 @@ export default function UikitBlock({
   };
 
   return (
-    <div className="uikit-block" id={id}>
-      <Typography.Heading4>{title}</Typography.Heading4>
+    <div
+      id={id}
+      // this className is used to generate the nav items on the UiKit page
+      className="uikit-block"
+      sx={(theme) => ({
+        display: "flex",
+        flexDirection: "column",
+        gap: theme.spacing(1),
+      })}
+    >
+      <Typography variant="h4">{title}</Typography>
       {children}
       {codeBlock && (
         <Highlight theme={themes.vsDark} code={codeBlock} language="tsx">
           {({ style, tokens, getLineProps, getTokenProps }) => (
-            <pre style={style} className="uikit-block__pre">
+            <pre
+              style={style}
+              sx={(theme) => ({
+                borderRadius: theme.customProperties.borderRadius.sm,
+                padding: theme.spacing(2),
+                position: "relative",
+              })}
+            >
               {tokens.map((line, i) => (
                 <div key={i} {...getLineProps({ line })}>
                   {line.map((token, key) => (
@@ -42,7 +57,13 @@ export default function UikitBlock({
                 </div>
               ))}
 
-              <div className="uikit-block__copy-btn">
+              <div
+                sx={(theme) => ({
+                  top: theme.spacing(1),
+                  right: theme.spacing(1),
+                  position: "absolute",
+                })}
+              >
                 <Button
                   variant="contained"
                   size="small"

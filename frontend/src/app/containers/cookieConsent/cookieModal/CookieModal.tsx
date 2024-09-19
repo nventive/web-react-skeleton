@@ -7,7 +7,7 @@ import Link from "@components/link/Link";
 import Switch from "@components/switch/Switch";
 import Table from "@components/table/Table";
 import TableRow from "@components/tableRow/TableRow";
-import Typography from "@components/typography/Typography";
+import Typography from "@mui/material/Typography";
 import ICookieSection from "@containers/cookieConsent/interfaces/ICookieSection";
 import CloseIcon from "@icons/CloseIcon";
 import {
@@ -68,34 +68,32 @@ export default function CookieModal({
       <div className="m-lg">
         <div className="flex-column gap-md mb-md">
           <div className="flex align-center justify-between">
-            <Typography.Heading5 as="h1">
-              {t("cookie_modal__title")}
-            </Typography.Heading5>
+            <Typography variant="h5">{t("cookie_modal__title")}</Typography>
             <IconButton aria-label={t("global__close")} onClick={closeModal}>
               <CloseIcon />
             </IconButton>
           </div>
-          <Typography.Body1>
+          <Typography variant="body1">
             {t("cookie_modal__description_1")}
-          </Typography.Body1>
-          <Typography.Body1>
+          </Typography>
+          <Typography variant="body1">
             {t("cookie_modal__description_2")}
-          </Typography.Body1>
+          </Typography>
           <Link
             className="mr-a"
             href={t("cookie_consent_link")}
             underline="always"
             external
           >
-            <Typography.Body2>
+            <Typography variant="body2">
               {t("cookie_consent__learn_more")}
-            </Typography.Body2>
+            </Typography>
           </Link>
         </div>
         <div className="flex-column gap-lg">
-          <Typography.Body2>
+          <Typography variant="body2">
             {t("cookie_modal__description_3")}
-          </Typography.Body2>
+          </Typography>
 
           <div>
             {cookieTypes.map((cookieType, index) => (
@@ -105,9 +103,9 @@ export default function CookieModal({
                 onChange={handleExpand(index)}
               >
                 <AccordionSummary>
-                  <Typography.Heading6 className="mr-a" as="h2">
+                  <Typography variant="h6" className="mr-a">
                     {t(cookieType.title)}
-                  </Typography.Heading6>
+                  </Typography>
                   <Switch
                     checked={
                       cookieType.required ||
@@ -120,9 +118,13 @@ export default function CookieModal({
                   />
                 </AccordionSummary>
                 {cookieType.description.map((description, index) => (
-                  <Typography.Body2 key={index} className="mx-md mb-md">
+                  <Typography
+                    variant="body2"
+                    key={index}
+                    className="mx-md mb-md"
+                  >
                     {t(description)}
-                  </Typography.Body2>
+                  </Typography>
                 ))}
                 {cookieType.cookies && (
                   <div className="m-md">

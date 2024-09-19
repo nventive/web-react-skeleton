@@ -14,10 +14,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
-    "@mui/icons-material": "5.15.21",
-    "@mui/material": "^5.15.21",
+    "@mui/icons-material": "^6.1.0",
+    "@mui/material": "^6.1.0",
+    "@mui/material-pigment-css": "^6.1.0",
     "axios": "^1.7.4",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.11",
@@ -37,6 +36,7 @@
     "zustand": "^4.5.4"
   },
   "devDependencies": {
+    "@pigment-css/vite-plugin": "^0.0.23",
     "@types/classnames": "^2.3.1",
     "@types/node": "^20.14.9",
     "@types/qs": "^6.9.15",

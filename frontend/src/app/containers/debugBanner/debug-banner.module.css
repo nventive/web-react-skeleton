@@ -1,0 +1,31 @@
+.container {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.local {
+  background-color: #d4e157;
+}
+
+.dev {
+  background-color: #42a5f5;
+}
+
+.qa {
+  background-color: #ffca28;
+}
+
+.uat {
+  background-color: #7e57c2;
+}
+
+.staging {
+  background-color: #8d6e63;
+}

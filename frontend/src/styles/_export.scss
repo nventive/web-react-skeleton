@@ -1,4 +1,3 @@
-@use "colors" as c;
 @use "variables" as v;
 
 /* ============================================
@@ -13,24 +12,6 @@ $_property-with-direction: (
 );
 
 $_position: (top, bottom, left, right);
-
-// Color
-@each $colorKey, $colorValue in c.$color {
-  @each $colorSubkey, $colorSubvalue in $colorValue {
-    #body .color-#{$colorKey}-#{$colorSubkey} {
-      color: $colorSubvalue;
-    }
-  }
-}
-
-// Background-color
-@each $colorKey, $colorValue in c.$color {
-  @each $colorSubkey, $colorSubvalue in $colorValue {
-    #body .bg-#{$colorKey}-#{$colorSubkey} {
-      background-color: $colorSubvalue;
-    }
-  }
-}
 
 // Property-spacing (eg: gap-xs -> gap: get-spacing(xs))
 @each $propertyKey in $_property {
