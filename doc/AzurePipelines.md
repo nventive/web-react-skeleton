@@ -16,7 +16,7 @@ The more complex stages are also divided into several steps files, again all loc
 
 The following needs to be setup in azure before any deployment can be done:
 
-- A ressource group named "rg-global-<project_short_name>"
+- A resource group named "rg-global-<project_short_name>"
 - A storage account with a container
   - Make sure all names are properly setup in the provider.tf file
 
