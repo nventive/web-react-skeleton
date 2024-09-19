@@ -20,7 +20,7 @@ The following needs to be setup in azure before any deployment can be done:
 - A storage account with a container
   - Make sure all names are properly setup in the provider.tf file
 
-This global ressource group is where we will store the terraform state.
+This global resource group is where we will store the terraform state.
 
 ### Ressource groups for each deployment environment
 
