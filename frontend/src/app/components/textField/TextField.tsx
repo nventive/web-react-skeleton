@@ -1,18 +1,14 @@
-import {
-  TextField as MuiTextField,
-  TextFieldProps,
-  styled,
-} from "@mui/material";
-import style from "@styles/style.module.scss";
+import { TextField as MuiTextField, TextFieldProps } from "@mui/material";
+import { styled } from "@mui/material-pigment-css";
 import { ChangeEvent } from "react";
 
 interface ITextField extends Omit<TextFieldProps, "onChange"> {
   onChange: (value: string) => void;
 }
 
-const StyledMuiTextField = styled(MuiTextField)({
-  borderRadius: style["border-radius-sm"],
-});
+const StyledMuiTextField = styled(MuiTextField)(({ theme }) => ({
+  borderRadius: theme.customProperties.borderRadius.md,
+}));
 
 export default function TextField({ onChange, value, ...props }: ITextField) {
   return (

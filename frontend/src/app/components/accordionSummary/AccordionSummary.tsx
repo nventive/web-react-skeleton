@@ -2,20 +2,19 @@ import CaretIcon from "@icons/CaretIcon";
 import {
   AccordionSummaryProps,
   AccordionSummary as MuiAccordionSummary,
-  styled,
 } from "@mui/material";
-import style from "@styles/style.module.scss";
+import { styled } from "@mui/material-pigment-css";
 
-const StyledMuiAccordionSummary = styled(MuiAccordionSummary)({
+const StyledMuiAccordionSummary = styled(MuiAccordionSummary)(({ theme }) => ({
   flexDirection: "row-reverse",
   "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
     transform: "rotate(90deg)",
   },
   "& .MuiAccordionSummary-content": {
-    marginLeft: style["spacing-md"],
+    marginLeft: theme.spacing(1),
     alignItems: "center",
   },
-});
+}));
 
 export default function AccordionSummary({
   children,

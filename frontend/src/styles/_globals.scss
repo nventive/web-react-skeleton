@@ -23,7 +23,7 @@ body {
   flex: 1 1 auto;
   height: 100%;
   width: 100%;
-  animation: get-time(slow) fade-in forwards;
+  animation: 0.5s fade-in forwards;
 }
 
 .flex {

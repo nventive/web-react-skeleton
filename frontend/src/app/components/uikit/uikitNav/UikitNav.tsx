@@ -1,5 +1,4 @@
-import Typography from "@components/typography/Typography";
-import "./uikit-nav.scss";
+import Typography from "@mui/material/Typography";
 import Link from "@components/link/Link";
 
 export interface INavItem {
@@ -13,8 +12,22 @@ interface IUikitNav {
 
 function UikitNav({ items }: IUikitNav) {
   return (
-    <div className="uikit-nav">
-      <Typography.Heading6>Components</Typography.Heading6>
+    <div
+      sx={(theme) => ({
+        display: "none",
+
+        [theme.breakpoints.up("xs")]: {
+          display: "flex",
+          flexDirection: "column",
+          gap: theme.spacing(1),
+          height: "100%",
+          marginTop: theme.spacing(2),
+          position: "sticky",
+          top: theme.spacing(2),
+        },
+      })}
+    >
+      <Typography variant="h6">Components</Typography>
       <ul className="flex-column gap-xs">
         {items.map((item) => (
           <li key={item.id}>

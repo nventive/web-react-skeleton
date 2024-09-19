@@ -1,3 +1,5 @@
+@use "../variables" as v;
+
 /* ============================================
 =                  Media queries              =
 Use these mixins like this:
@@ -12,19 +14,19 @@ Use these mixins like this:
 ============================================ */
 
 @mixin media-min($breakpoint) {
-  @media (min-width: get-media($breakpoint)) {
+  @media (min-width: v.get-media($breakpoint)) {
     @content;
   }
 }
 
 @mixin media-max($breakpoint) {
-  @media (max-width: (get-media($breakpoint) - 1)) {
+  @media (max-width: (v.get-media($breakpoint) - 1)) {
     @content;
   }
 }
 
 @mixin media-range($breakpoint-start, $breakpoint-end) {
-  @media (min-width: get-media($breakpoint-start)) and (max-width: (get-media($breakpoint-end) - 1)) {
+  @media (min-width: v.get-media($breakpoint-start)) and (max-width: (v.get-media($breakpoint-end) - 1)) {
     @content;
   }
 }

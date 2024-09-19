@@ -1,5 +1,5 @@
 import ErrorHelperText from "@components/errorHelperText/ErrorHelperText";
-import Typography from "@components/typography/Typography";
+import Typography from "@mui/material/Typography";
 import { useTranslation } from "react-i18next";
 import { ValidationError } from "yup";
 
@@ -44,8 +44,8 @@ export default function FieldHelperText({
   }
 
   return (
-    <Typography.Caption className="mt-xxs ml-md">
+    <Typography variant="caption" className="mt-xxs ml-md">
       {helperText}
-    </Typography.Caption>
+    </Typography>
   );
 }

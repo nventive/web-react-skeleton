@@ -1,37 +1,21 @@
+@use "variables" as v;
+
 /* ============================================
 =                  Exports                    =
 ============================================ */
 
-$property: (gap);
+$_property: (gap);
 
-$property-with-direction: (
+$_property-with-direction: (
   m: margin,
   p: padding,
 );
 
-$position: (top, bottom, left, right);
-
-// Color
-@each $colorKey, $colorValue in $color {
-  @each $colorSubkey, $colorSubvalue in $colorValue {
-    #body .color-#{$colorKey}-#{$colorSubkey} {
-      color: $colorSubvalue;
-    }
-  }
-}
-
-// Background-color
-@each $colorKey, $colorValue in $color {
-  @each $colorSubkey, $colorSubvalue in $colorValue {
-    #body .bg-#{$colorKey}-#{$colorSubkey} {
-      background-color: $colorSubvalue;
-    }
-  }
-}
+$_position: (top, bottom, left, right);
 
 // Property-spacing (eg: gap-xs -> gap: get-spacing(xs))
-@each $propertyKey in $property {
-  @each $spacingKey, $spacingValue in $spacing {
+@each $propertyKey in $_property {
+  @each $spacingKey, $spacingValue in v.$spacing {
     #body .#{$propertyKey}-#{$spacingKey} {
       #{$propertyKey}: $spacingValue;
     }
@@ -39,9 +23,9 @@ $position: (top, bottom, left, right);
 }
 
 // Property with direction-spacing (eg: mr-xs -> margin-right: get-spacing(xs))
-@each $propertyKey, $propertyValue in $property-with-direction {
-  @each $spacingKey, $spacingValue in $spacing {
-    @each $directionKey, $directionValues in $direction {
+@each $propertyKey, $propertyValue in $_property-with-direction {
+  @each $spacingKey, $spacingValue in v.$spacing {
+    @each $directionKey, $directionValues in v.$direction {
       #body .#{$propertyKey}#{$directionKey}-#{$spacingKey} {
         @if $directionValues == all {
           #{$propertyValue}: $spacingValue;
@@ -56,8 +40,8 @@ $position: (top, bottom, left, right);
 }
 
 // Position-spacing (eg: top-xs -> top: get-spacing(xs))
-@each $positionKey in $position {
-  @each $spacingKey, $spacingValue in $spacing {
+@each $positionKey in $_position {
+  @each $spacingKey, $spacingValue in v.$spacing {
     #body .#{$positionKey}-#{$spacingKey} {
       #{$positionKey}: $spacingValue;
     }

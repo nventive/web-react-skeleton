@@ -1,10 +1,9 @@
-import { ButtonProps, Button as MuiButton, styled } from "@mui/material";
-import style from "@styles/style.module.scss";
+import { ButtonProps, Button as MuiButton } from "@mui/material";
+import { styled } from "@mui/material-pigment-css";
 
-const StyledMuiButton = styled(MuiButton)({
-  borderRadius: style["border-radius-xs"],
-});
-
+const StyledMuiButton = styled(MuiButton)(({ theme }) => ({
+  borderRadius: theme.customProperties.borderRadius.xs,
+}));
 interface IButton extends ButtonProps {
   target?: string;
 }

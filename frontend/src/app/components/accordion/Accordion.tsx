@@ -1,19 +1,15 @@
-import {
-  AccordionProps,
-  Accordion as MuiAccordion,
-  styled,
-} from "@mui/material";
-import style from "@styles/style.module.scss";
+import { AccordionProps, Accordion as MuiAccordion } from "@mui/material";
+import { styled } from "@mui/material-pigment-css";
 
-const StyledMuiAccordion = styled(MuiAccordion)({
-  border: `1px solid ${style["stone-veryLight"]}`,
+const StyledMuiAccordion = styled(MuiAccordion)(({ theme }) => ({
+  border: `1px solid ${theme.palette.grey[300]}`,
   "&:not(:last-child)": {
     borderBottom: 0,
   },
   "&::before": {
     display: "none",
   },
-});
+}));
 
 export default function Accordion({ children, ...props }: AccordionProps) {
   return (

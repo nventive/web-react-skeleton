@@ -2,93 +2,7 @@
 =                Variables                    =
 ============================================ */
 
-@import "./colors";
-@import "./mixins/generics";
-
-@function get-color($namespace: primary, $variance: main) {
-  $color-map: get($color, $namespace);
-  @return get($color-map, $variance);
-}
-
-@function get-time($key: normal) {
-  @return get($time, $key);
-}
-
-@function get-font-weight($key: regular) {
-  @return get($font-weight, $key);
-}
-
-@function get-font-size($key: md) {
-  @return get($font-size, $key);
-}
-
-@function get-letter-spacing($key: md) {
-  @return get($letter-spacing, $key);
-}
-
-@function get-line-height($key: md) {
-  @return get($line-height, $key);
-}
-
-@function get-spacing($key: md) {
-  @return get($spacing, $key);
-}
-
-@function get-border-radius($key: md) {
-  @return get($border-radius, $key);
-}
-
-@function get-z($key: md) {
-  @return get($z, $key);
-}
-
-@function get-media($key: md) {
-  @return get($media, $key);
-}
-
-$time: (
-  normal: 0.35s,
-  slow: 0.5s,
-);
-
-$font-weight: (
-  regular: 400,
-  medium: 500,
-  semi-bold: 600,
-  bold: 700,
-);
-
-$line-height: (
-  xxs: 1rem,
-  xs: 1.5rem,
-  sm: 2rem,
-  md: 2.5rem,
-  lg: 3.5rem,
-  xl: 4.5rem,
-  xxl: 7rem,
-);
-
-$font-size: (
-  xts: 0.75rem,
-  xxs: 0.875rem,
-  xs: 1rem,
-  sm: 1.25rem,
-  md: 1.5rem,
-  lg: 2.125rem,
-  xl: 3rem,
-  xxl: 3.75rem,
-  xtl: 6rem,
-);
-
-$letter-spacing: (
-  xs: -1.5px,
-  sm: -0.5px,
-  md: 0.15px,
-  lg: 0.25px,
-  xl: 0.4px,
-  xxl: 1.25px,
-);
-
+// ideally, these should match the spacing from MUI
 $spacing: (
   0: 0,
   a: auto,
@@ -99,28 +13,6 @@ $spacing: (
   lg: 1.5rem,
   xl: 2rem,
   xxl: 3rem,
-);
-
-$border-radius: (
-  xs: 0.25rem,
-  sm: 0.5rem,
-  md: 0.75rem,
-  lg: 1.5rem,
-);
-
-$z: (
-  10: 10,
-  100: 100,
-  1000: 1000,
-);
-
-$media: (
-  xxs: 380px,
-  xs: 640px,
-  sm: 768px,
-  md: 1024px,
-  lg: 1280px,
-  xl: 1440px,
 );
 
 $direction: (

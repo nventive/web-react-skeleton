@@ -1,7 +1,7 @@
 import Spinner from "@components/spinner/Spinner";
 import { RefObject, useRef } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import "./loading.scss";
+import classes from "./loading.module.css";
 
 interface ILoading {
   isLoading?: boolean;
@@ -15,16 +15,23 @@ export default function Loading({ isLoading = true }: ILoading) {
       {isLoading && (
         <CSSTransition
           classNames={{
-            enter: "loading__enter",
-            enterActive: "loading__enter-active",
-            exit: "loading__exit",
-            exitActive: "loading__exit-active",
+            enter: classes["enter"],
+            enterActive: classes["enter-active"],
+            exit: classes["exit"],
+            exitActive: classes["exit-active"],
           }}
           timeout={500}
           nodeRef={nodeRef}
         >
-          <div ref={nodeRef} className="loading">
-            <div className="loading__spinner">
+          <div
+            ref={nodeRef}
+            className={classes["loading"]}
+            sx={(theme) => ({
+              backgroundColor: theme.palette.common.white,
+              zIndex: theme.zIndex.loading,
+            })}
+          >
+            <div className={classes["spinner"]}>
               <Spinner />
             </div>
           </div>
