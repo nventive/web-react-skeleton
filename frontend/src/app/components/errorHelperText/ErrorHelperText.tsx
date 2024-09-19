@@ -1,7 +1,7 @@
-import Typography from "@components/typography/Typography";
+import Typography from "@mui/material/Typography";
 import { RefObject, useEffect, useRef, useState } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import "./error-helper-text.scss";
+import classes from "./error-helper-text.module.css";
 
 interface IErrorBox {
   message: string;
@@ -21,16 +21,23 @@ export default function ErrorHelperText({ message }: IErrorBox) {
       {activeMessage && (
         <CSSTransition
           classNames={{
-            enter: "error-helper-text__enter",
-            enterActive: "error-helper-text__enter-active",
-            exit: "error-helper-text__exit",
-            exitActive: "error-helper-text__exit-active",
+            enter: classes["enter"],
+            enterActive: classes["enter-active"],
+            exit: classes["exit"],
+            exitActive: classes["exit-active"],
           }}
           timeout={350}
           nodeRef={nodeRef}
         >
-          <div ref={nodeRef} className="error-helper-text__container">
-            <Typography.Caption>{activeMessage}</Typography.Caption>
+          <div
+            ref={nodeRef}
+            sx={(theme) => ({
+              marginTop: theme.spacing(0),
+              marginLeft: theme.spacing(1),
+              color: theme.palette.error.main,
+            })}
+          >
+            <Typography variant={"caption"}>{activeMessage}</Typography>
           </div>
         </CSSTransition>
       )}

@@ -1,13 +1,14 @@
-import Layout from "@components/layout/Layout";
 import Link from "@components/link/Link";
 import Loading from "@components/loading/Loading";
-import Typography from "@components/typography/Typography";
+import Typography from "@mui/material/Typography";
 import LoginForm from "@forms/auth/loginForm/LoginForm";
 import findRoute from "@routes/findRoute";
 import i18n from "@shared/i18n";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import Layout from "@components/layout/Layout";
+// import Container from "@mui/material-pigment-css/Container";
 
 export default function Login() {
   const { t } = useTranslation();
@@ -22,29 +23,30 @@ export default function Login() {
   return (
     <>
       <Loading isLoading={isLoading} />
+
       <Layout.Auth>
         <div className="flex-column mb-lg">
-          <Typography.Heading4 className="mb-md">
+          <Typography variant="h4" className="mb-md">
             {t("login__page_title")}
-          </Typography.Heading4>
-          <Typography.Body1 className="color-basic-body">
+          </Typography>
+          <Typography variant="body1" className="color-basic-body">
             User: oliviaw
-          </Typography.Body1>
-          <Typography.Body1 className="color-basic-body mb-xxs">
+          </Typography>
+          <Typography variant="body1" className="color-basic-body mb-xxs">
             Password: oliviawpass
-          </Typography.Body1>
+          </Typography>
           <Link href="https://dummyjson.com/users" external>
-            <Typography.Body2>{t("login__more_user")}</Typography.Body2>
+            <Typography variant="body2">{t("login__more_user")}</Typography>
           </Link>
         </div>
         <LoginForm setIsLoading={setIsLoading} />
         <div className="flex-column align-center">
           <Link className="mb-xs" onClick={onChangeLanguage}>
-            <Typography.Body2>{t("locale__switch")}</Typography.Body2>
+            <Typography variant="body2">{t("locale__switch")}</Typography>
           </Link>
-          <Typography.Body2>
+          <Typography variant="body2">
             {`${t("global__version")}: ${__VERSION_NUMBER__}`}
-          </Typography.Body2>
+          </Typography>
         </div>
       </Layout.Auth>
     </>

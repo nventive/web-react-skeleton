@@ -1,19 +1,20 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import { pigment } from "@pigment-css/vite-plugin";
-import theme from "./src/app/shared/theme";
+import theme from "./src/themes/theme";
 import path from "path";
-
-const pigmentConfig = {
-  theme,
-  transformLibraries: ["@mui/material"],
-};
 
 export default ({ mode }: { mode: string }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
 
   return defineConfig({
-    plugins: [react(), pigment(pigmentConfig)],
+    plugins: [
+      react(),
+      pigment({
+        theme,
+        transformLibraries: ["@mui/material"],
+      }),
+    ],
     build: {
       sourcemap: process.env.VITE_GENERATE_SOURCEMAP === "true",
     },

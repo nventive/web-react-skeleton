@@ -1,5 +1,6 @@
 const enum EPermission {
   HomeRead = "HomeRead",
+  DashboardRead = "DashboardRead",
   UikitRead = "UikitRead",
 }
 

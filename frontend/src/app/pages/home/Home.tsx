@@ -2,7 +2,7 @@ import logo from "@assets/images/logo.png";
 import reactLogo from "@assets/react.svg";
 import Button from "@components/button/Button";
 import Layout from "@components/layout/Layout";
-import Typography from "@components/typography/Typography";
+import Typography from "@mui/material/Typography";
 import AddRounded from "@icons/AddRounded";
 import LogoutRounded from "@icons/LogoutRounded";
 import loginRoute from "@pages/login/login.route";
@@ -56,14 +56,17 @@ function Home() {
           </Button>
         </div>
 
-        <Typography.Heading4 className="mb-xl">{`${t("home__welcome")} ${user?.firstName} ${user?.lastName}`}</Typography.Heading4>
+        <Typography
+          variant="h4"
+          className="mb-xl"
+        >{`${t("home__welcome")} ${user?.firstName} ${user?.lastName}`}</Typography>
 
-        <Typography.Heading6 className="mb-xs">
+        <Typography variant="h6" className="mb-xs">
           VERSION: {__VERSION_NUMBER__}
-        </Typography.Heading6>
-        <Typography.Heading6 className="mb-xl">
+        </Typography>
+        <Typography variant="h6" className="mb-xl">
           API_URL: {__API_URL__}
-        </Typography.Heading6>
+        </Typography>
 
         <div className="mb-xs">
           <Button
@@ -71,17 +74,15 @@ function Home() {
             onClick={() => setCount((count) => count + 1)}
           >
             <AddRounded className="mr-xs" />
-            <Typography.ButtonMedium>
+            <Typography variant="button">
               {`${t("home__count")}: ${count}`}
-            </Typography.ButtonMedium>
+            </Typography>
           </Button>
         </div>
         <div>
           <Button variant="contained" onClick={onLogout}>
             <LogoutRounded className="mr-xs" />
-            <Typography.ButtonMedium>
-              {t("home__logout")}
-            </Typography.ButtonMedium>
+            <Typography variant="button">{t("home__logout")}</Typography>
           </Button>
         </div>
       </div>

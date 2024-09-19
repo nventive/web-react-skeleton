@@ -1,13 +1,12 @@
 import { Switch as MuiSwitch, SwitchProps } from "@mui/material";
 import { styled } from "@mui/material-pigment-css";
-import style from "@styles/style.module.scss";
 
-const StyledMuiSwitch = styled(MuiSwitch)({
-  padding: style["spacing-xs"],
+const StyledMuiSwitch = styled(MuiSwitch)(({ theme }) => ({
   transform: "scale(1.125)",
+  padding: theme.spacing("xs"),
 
   "& .MuiSwitch-track": {
-    borderRadius: style["border-radius-md"],
+    borderRadius: theme.customProperties.borderRadius.md,
 
     "&::before, &::after": {
       content: '""',
@@ -33,7 +32,7 @@ const StyledMuiSwitch = styled(MuiSwitch)({
     height: 16,
     margin: 2,
   },
-});
+}));
 
 export default function Switch({ ...props }: SwitchProps) {
   return <StyledMuiSwitch {...props} />;

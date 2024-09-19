@@ -4,18 +4,17 @@ import {
   TableRowProps,
 } from "@mui/material";
 import { styled } from "@mui/material-pigment-css";
-import style from "@styles/style.module.scss";
 
 interface ITableRow extends TableRowProps {
   columns: string[];
 }
 
-const StyledMuiTableRow = styled(MuiTableRow)({
+const StyledMuiTableRow = styled(MuiTableRow)(({ theme }) => ({
   "&:last-child td, &:last-child th": { border: 0 },
   "&:nth-of-type(odd)": {
-    backgroundColor: style["basic-background"],
+    backgroundColor: theme.palette.background.default,
   },
-});
+}));
 
 export default function TableRow({ columns, ...props }: ITableRow) {
   return (

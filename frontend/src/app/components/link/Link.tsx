@@ -1,14 +1,13 @@
 import ExternalLinkOutlined from "@icons/ExternalLinkOutlined";
 import { LinkProps, Link as MuiLink } from "@mui/material";
 import { styled } from "@mui/material-pigment-css";
-import style from "@styles/style.module.scss";
 
-const StyledMuiLink = styled(MuiLink)({
+const StyledMuiLink = styled(MuiLink)(({ theme }) => ({
   display: "flex",
-  color: style["primary-main"],
+  color: theme.palette.primary.main,
   textDecorationColor: "unset",
   cursor: "pointer",
-});
+}));
 
 interface ILink extends LinkProps {
   external?: boolean;

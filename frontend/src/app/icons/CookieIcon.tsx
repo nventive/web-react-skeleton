@@ -1,9 +1,7 @@
-import style from "@styles/style.module.scss";
 import IIcon from "./IIcon";
 
 export default function CookieIcon({
   className,
-  color = style["primary-main"],
   width = 24,
   height = 25,
   alt = "Cookie Icon",
@@ -14,7 +12,9 @@ export default function CookieIcon({
       width={width}
       height={height}
       viewBox="0 0 24 25"
-      fill={color}
+      sx={(theme) => ({
+        fill: theme.palette.primary.main,
+      })}
       xmlns="http://www.w3.org/2000/svg"
     >
       <title>{alt}</title>

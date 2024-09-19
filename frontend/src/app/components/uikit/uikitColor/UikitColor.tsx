@@ -18,9 +18,9 @@ export default function UikitColor({ color }: IUikitColor) {
     return (
       <Grid
         className="flex align-center justify-center"
-        // xs
-        height={50}
         bgcolor={bgColor}
+        size={"grow"}
+        flexBasis={50}
       >
         {label}
       </Grid>
@@ -28,7 +28,7 @@ export default function UikitColor({ color }: IUikitColor) {
   }, []);
 
   return (
-    <Grid container>
+    <Grid container direction={"column"}>
       {colorItem(paletteColor.main, `${color}.main`)}
       {colorItem(paletteColor.light, `${color}.light`)}
       {colorItem(paletteColor.dark, `${color}.dark`)}

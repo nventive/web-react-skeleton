@@ -1,0 +1,15 @@
+.not-found {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 32rem;
+  text-align: center;
+}
