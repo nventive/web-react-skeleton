@@ -1,34 +1,34 @@
 import { createTheme } from "@mui/material/styles";
 import palette from "./palette";
+import typography from "./typography";
+import {
+  breakpoints,
+  zIndex,
+  spacingValues,
+  borderRadius,
+  time,
+} from "./variables";
 
 const theme = createTheme({
-  cssVariables: true,
+  cssVariables: true, // creates css variables for theme values
   breakpoints: {
-    values: {
-      xs: 640,
-      sm: 768,
-      md: 1024,
-      lg: 1280,
-      xl: 1440,
-    },
+    values: breakpoints,
   },
-  zIndex: {
-    debugBanner: 100,
-    cookieBanner: 200,
-    loading: 1000,
-  },
+  zIndex: zIndex,
   palette: palette(),
+  typography,
+  spacing: (value: number | keyof typeof spacingValues) => {
+    if (typeof value === "number") {
+      return `${0.25 * value}rem`;
+    }
+    return spacingValues[value];
+  },
+  // custom properties will also be available as css variables
+  // for example: --mui-customProperties-spacing-a
   customProperties: {
-    borderRadius: {
-      xs: "4px",
-      sm: "8px",
-      md: "16px",
-      lg: "24px",
-    },
-    time: {
-      normal: "0.35s",
-      slow: "0.5s",
-    },
+    spacing: spacingValues,
+    borderRadius: borderRadius,
+    time: time,
   },
 });
 

@@ -2,17 +2,16 @@
 =                Variables                    =
 ============================================ */
 
-// ideally, these should match the spacing from MUI
+// Allow utility classes to use the same spacing properties defined in the MUI theme
 $spacing: (
-  0: 0,
-  a: auto,
-  xxs: 0.25rem,
-  xs: 0.5rem,
-  sm: 0.75rem,
-  md: 1rem,
-  lg: 1.5rem,
-  xl: 2rem,
-  xxl: 3rem,
+  a: var(--mui-customProperties-spacing-a),
+  xxs: var(--mui-customProperties-spacing-xxs),
+  xs: var(--mui-customProperties-spacing-xs),
+  sm: var(--mui-customProperties-spacing-sm),
+  md: var(--mui-customProperties-spacing-md),
+  lg: var(--mui-customProperties-spacing-lg),
+  xl: var(--mui-customProperties-spacing-xl),
+  xxl: var(--mui-customProperties-spacing-xxl),
 );
 
 $direction: (

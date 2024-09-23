@@ -4,7 +4,7 @@ export default function Spinner() {
   return (
     <span
       sx={(theme) => ({
-        backgroundImage: `linear-gradient(${theme.palette.primary.main} 16px,transparent 0),
+        backgroundImage: `linear-gradient(${theme.palette.primary.dark} 16px,transparent 0),
           linear-gradient(${theme.palette.primary.main} 16px, transparent 0),
           linear-gradient(${theme.palette.primary.main} 16px, transparent 0),
           linear-gradient(${theme.palette.primary.dark} 16px, transparent 0)`,

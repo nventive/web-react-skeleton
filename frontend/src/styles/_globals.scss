@@ -12,8 +12,6 @@ body {
   flex-direction: column;
   min-height: 100%;
   width: 100%;
-  font-family: InterTight, sans-serif;
-  font-size: 16px;
   overflow-y: scroll;
 }
 
@@ -23,7 +21,7 @@ body {
   flex: 1 1 auto;
   height: 100%;
   width: 100%;
-  animation: 0.5s fade-in forwards;
+  animation: var(--mui-customProperties-time-slow) fade-in forwards;
 }
 
 .flex {
