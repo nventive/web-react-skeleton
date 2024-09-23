@@ -34,17 +34,11 @@ declare module "@mui/material/styles" {
     lg: string;
   }
 
-  interface CustomTime {
-    normal: string;
-    slow: string;
-  }
-
   interface Theme {
     zIndex: ZIndex;
     customProperties: {
       spacing: CustomSpacing;
       borderRadius: CustomBorderRadius;
-      time: Partial<CustomTime>;
     };
   }
 
@@ -54,7 +48,6 @@ declare module "@mui/material/styles" {
     customProperties?: {
       spacing?: Partial<CustomSpacing>;
       borderRadius?: Partial<CustomBorderRadius>;
-      time?: Partial<CustomTime>;
     };
   }
 }

@@ -1,13 +1,7 @@
 import { createTheme } from "@mui/material/styles";
 import palette from "./palette";
 import typography from "./typography";
-import {
-  breakpoints,
-  zIndex,
-  spacingValues,
-  borderRadius,
-  time,
-} from "./variables";
+import { breakpoints, zIndex, spacingValues, borderRadius } from "./variables";
 
 const theme = createTheme({
   cssVariables: true, // creates css variables for theme values
@@ -28,7 +22,6 @@ const theme = createTheme({
   customProperties: {
     spacing: spacingValues,
     borderRadius: borderRadius,
-    time: time,
   },
 });
 

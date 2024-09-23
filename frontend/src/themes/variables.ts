@@ -1,4 +1,4 @@
-import { CustomBorderRadius, CustomSpacing, CustomTime } from "@mui/material";
+import { CustomBorderRadius, CustomSpacing } from "@mui/material";
 import { BreakpointsOptions, ZIndex } from "@mui/material/styles";
 
 export const breakpoints: BreakpointsOptions["values"] = {
@@ -31,9 +31,4 @@ export const borderRadius: CustomBorderRadius = {
   sm: "8px",
   md: "16px",
   lg: "24px",
-};
-
-export const time: CustomTime = {
-  normal: "0.35s",
-  slow: "0.5s",
 };
