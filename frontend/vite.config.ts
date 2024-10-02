@@ -20,6 +20,13 @@ export default ({ mode }: { mode: string }) => {
     },
     server: {
       port: Number(process.env.VITE_PORT),
+      // DOCKER SETUP
+      // add the next lines so that it works on docker
+      host: true,
+      // add the next lines if you're using windows and hot reload doesn't work
+      watch: {
+        usePolling: true,
+      },
     },
     define: {
       __ENV__: JSON.stringify(process.env.VITE_ENV),

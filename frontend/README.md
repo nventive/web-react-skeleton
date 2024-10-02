@@ -2,6 +2,15 @@
 
 Run `yarn install` and `yarn dev` in this directory to launch the react project in your browser
 
+## Windows
+
+To run on windows, use docker.
+
+1. Run `docker-compose up --build --no-recreate -d` in this directory to create the container.
+2. Run `docker exec -it vite_docker sh` to log into the container.
+3. Run `corepack enable` and `yarn set version stable` to use the latest version of yarn.
+4. Run `yarn` and `yarn dev` to launch the react project in your browser.
+
 ## Update locale files
 
 Pull key:value from google sheets to create json file.
