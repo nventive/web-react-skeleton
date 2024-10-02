@@ -6,10 +6,12 @@ Run `yarn install` and `yarn dev` in this directory to launch the react project 
 
 To run on windows, use docker.
 
-1. Run `docker-compose up --build --no-recreate -d` in this directory to create the container.
-2. Run `docker exec -it vite_docker sh` to log into the container.
-3. Run `corepack enable` and `yarn set version stable` to use the latest version of yarn.
-4. Run `yarn` and `yarn dev` to launch the react project in your browser.
+1. Set VITE_DOCKER to true in .env
+2. Run `docker-compose up --build --no-recreate -d` in this directory to create the container.
+3. Run `docker exec -it vite_docker sh` to log into the container.
+4. Run `corepack enable` to use the latest version of yarn.
+5. Make sure that yarn is set to version 4.5 with `yarn -v`, and run `yarn set version stable` if it isn't.
+6. Run `yarn` and `yarn dev` to launch the react project in your browser.
 
 ## Update locale files
 
