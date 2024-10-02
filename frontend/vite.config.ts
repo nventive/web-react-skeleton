@@ -1,4 +1,4 @@
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig, loadEnv, ServerOptions } from "vite";
 import react from "@vitejs/plugin-react";
 import { pigment } from "@pigment-css/vite-plugin";
 import theme from "./src/themes/theme";
@@ -6,6 +6,14 @@ import path from "path";
 
 export default ({ mode }: { mode: string }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
+
+  const serverOptions: ServerOptions = {
+    port: Number(process.env.VITE_PORT),
+  };
+  if (process.env.VITE_DOCKER === "true") {
+    serverOptions.host = true;
+    serverOptions.watch = { usePolling: true };
+  }
 
   return defineConfig({
     plugins: [
@@ -18,16 +26,7 @@ export default ({ mode }: { mode: string }) => {
     build: {
       sourcemap: process.env.VITE_GENERATE_SOURCEMAP === "true",
     },
-    server: {
-      port: Number(process.env.VITE_PORT),
-      // DOCKER SETUP
-      // add the next lines so that it works on docker
-      // host: true,
-      // add the next lines if you're using windows and hot reload doesn't work
-      // watch: {
-      //   usePolling: true,
-      // },
-    },
+    server: serverOptions,
     define: {
       __ENV__: JSON.stringify(process.env.VITE_ENV),
       __API_URL__: JSON.stringify(process.env.VITE_API_URL),
