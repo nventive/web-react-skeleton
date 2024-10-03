@@ -8,7 +8,7 @@ The goal is to standardize how we build web projects in the company.
 ## Getting Started
 
 - Install [Yarn](https://yarnpkg.com/getting-started/install)
-- Go inside the frontend directory. Run `yarn install` and `yarn dev` to start the project.
+- View [frontend Readme](/frontend/README.md) to start the project
 
 ## Packages
 
