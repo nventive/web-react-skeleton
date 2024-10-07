@@ -27,7 +27,8 @@ jobs:
 
       - script: |
           cd frontend
-          npm install -g yarn
+          corepack enable
+          yarn set version stable
           yarn
           yarn build
         displayName: "Install and Build using Yarn"
