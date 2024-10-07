@@ -2,6 +2,17 @@ import Spinner from "@components/spinner/Spinner";
 import { RefObject, useRef } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import classes from "./loading.module.css";
+import { css } from "@mui/material-pigment-css";
+
+const enterActive = css(({ theme }) => ({
+  opacity: 1,
+  transition: `opacity ${theme.transitions.duration.standard}ms ${theme.transitions.easing.easeIn}`,
+}));
+
+const exitActive = css(({ theme }) => ({
+  opacity: 0,
+  transition: `opacity ${theme.transitions.duration.standard}ms ${theme.transitions.easing.easeOut}`,
+}));
 
 interface ILoading {
   isLoading?: boolean;
@@ -16,9 +27,9 @@ export default function Loading({ isLoading = true }: ILoading) {
         <CSSTransition
           classNames={{
             enter: classes["enter"],
-            enterActive: classes["enter-active"],
+            enterActive: enterActive,
             exit: classes["exit"],
-            exitActive: classes["exit-active"],
+            exitActive: exitActive,
           }}
           timeout={500}
           nodeRef={nodeRef}

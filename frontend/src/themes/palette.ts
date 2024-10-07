@@ -18,9 +18,9 @@ export default function getPalette(): PaletteOptions {
       light: blue[300],
       400: blue[400],
       main: blue[500],
-      dark: blue[600],
+      600: blue[600],
       700: blue[700],
-      900: blue[900],
+      dark: blue[900],
       contrastText,
     },
     secondary: {
