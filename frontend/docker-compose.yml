@@ -5,7 +5,7 @@ services:
     container_name: vite_docker
     env_file:
       - .env
-    entrypoint: /bin/sh
+    entrypoint: /srv/app/entrypoint.sh
     ports:
       - 8000:8000
     working_dir: /srv/app
