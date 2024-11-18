@@ -15,16 +15,6 @@
   opacity: 0;
 }
 
-.enter-active {
-  opacity: 1;
-  transition: opacity 0.5s ease-in;
-}
-
 .exit {
   opacity: 1;
-}
-
-.enter-active {
-  opacity: 0;
-  transition: opacity 0.5s ease-out;
 }

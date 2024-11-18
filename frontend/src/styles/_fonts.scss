@@ -1,0 +1,39 @@
+@font-face {
+  font-family: InterTight;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url("@assets/fonts/InterTight/InterTight-Regular.woff2") format("woff2"),
+    url("@assets/fonts/InterTight/InterTight-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: InterTight;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src:
+    url("@assets/fonts/InterTight/InterTight-Medium.woff2") format("woff2"),
+    url("@assets/fonts/InterTight/InterTight-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: InterTight;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src:
+    url("@assets/fonts/InterTight/InterTight-SemiBold.woff2") format("woff2"),
+    url("@assets/fonts/InterTight/InterTight-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: InterTight;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    url("@assets/fonts/InterTight/InterTight-Bold.woff2") format("woff2"),
+    url("@assets/fonts/InterTight/InterTight-Bold.ttf") format("truetype");
+}

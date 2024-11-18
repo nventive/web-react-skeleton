@@ -1,11 +1,29 @@
 import Typography from "@mui/material/Typography";
 import { RefObject, useEffect, useRef, useState } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import classes from "./error-helper-text.module.css";
+import { css } from "@mui/material-pigment-css";
 
 interface IErrorBox {
   message: string;
 }
+
+const enter = css`
+  opacity: 0;
+`;
+
+const enterActive = css(({ theme }) => ({
+  opacity: 1,
+  transition: `opacity ${theme.transitions.duration.short}ms ${theme.transitions.easing.easeIn}`,
+}));
+
+const exit = css`
+  opacity: 0;
+`;
+
+const exitActive = css(({ theme }) => ({
+  opacity: 0,
+  transition: `opacity ${theme.transitions.duration.short}ms ${theme.transitions.easing.easeOut}`,
+}));
 
 export default function ErrorHelperText({ message }: IErrorBox) {
   const [activeMessage, setActiveMessage] = useState<string | undefined>(
@@ -21,10 +39,10 @@ export default function ErrorHelperText({ message }: IErrorBox) {
       {activeMessage && (
         <CSSTransition
           classNames={{
-            enter: classes["enter"],
-            enterActive: classes["enter-active"],
-            exit: classes["exit"],
-            exitActive: classes["exit-active"],
+            enter: enter,
+            enterActive: enterActive,
+            exit: exit,
+            exitActive: exitActive,
           }}
           timeout={350}
           nodeRef={nodeRef}
