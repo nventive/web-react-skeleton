@@ -8,7 +8,7 @@ import Switch from "@components/switch/Switch";
 import Table from "@components/table/Table";
 import TableRow from "@components/tableRow/TableRow";
 import Typography from "@mui/material/Typography";
-import ICookieSection from "@containers/cookieConsent/interfaces/ICookieSection";
+import ICookieSection from "@components/cookieConsent/interfaces/ICookieSection";
 import CloseIcon from "@icons/CloseIcon";
 import {
   Dispatch,
@@ -64,10 +64,23 @@ export default function CookieModal({
   );
 
   return (
-    <Dialog open={open} onClose={closeModal} maxWidth="xs">
-      <div className="m-lg">
-        <div className="flex-column gap-md mb-md">
-          <div className="flex align-center justify-between">
+    <Dialog open={open} onClose={closeModal} maxWidth="sm">
+      <div sx={(theme) => ({ margin: theme.customProperties.spacing.lg })}>
+        <div
+          sx={(theme) => ({
+            display: "flex",
+            flexDirection: "column",
+            gap: theme.customProperties.spacing.md,
+            marginBottom: theme.customProperties.spacing.md,
+          })}
+        >
+          <div
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
             <Typography variant="h5">{t("cookie_modal__title")}</Typography>
             <IconButton aria-label={t("global__close")} onClick={closeModal}>
               <CloseIcon />
@@ -80,7 +93,7 @@ export default function CookieModal({
             {t("cookie_modal__description_2")}
           </Typography>
           <Link
-            className="mr-a"
+            sx={(theme) => ({ marginRight: theme.customProperties.spacing.a })}
             href={t("cookie_consent_link")}
             underline="always"
             external
@@ -90,7 +103,13 @@ export default function CookieModal({
             </Typography>
           </Link>
         </div>
-        <div className="flex-column gap-lg">
+        <div
+          sx={(theme) => ({
+            display: "flex",
+            flexDirection: "column",
+            gap: theme.customProperties.spacing.lg,
+          })}
+        >
           <Typography variant="body2">
             {t("cookie_modal__description_3")}
           </Typography>
@@ -103,7 +122,12 @@ export default function CookieModal({
                 onChange={handleExpand(index)}
               >
                 <AccordionSummary>
-                  <Typography variant="h6" className="mr-a">
+                  <Typography
+                    variant="h6"
+                    sx={(theme) => ({
+                      marginRight: theme.customProperties.spacing.a,
+                    })}
+                  >
                     {t(cookieType.title)}
                   </Typography>
                   <Switch
@@ -121,13 +145,20 @@ export default function CookieModal({
                   <Typography
                     variant="body2"
                     key={index}
-                    className="mx-md mb-md"
+                    sx={(theme) => ({
+                      marginX: theme.customProperties.spacing.md,
+                      marginBottom: theme.customProperties.spacing.md,
+                    })}
                   >
                     {t(description)}
                   </Typography>
                 ))}
                 {cookieType.cookies && (
-                  <div className="m-md">
+                  <div
+                    sx={(theme) => ({
+                      margin: theme.customProperties.spacing.md,
+                    })}
+                  >
                     <Table
                       columnTitles={[
                         t("cookie_modal__cookie_name"),
@@ -152,7 +183,14 @@ export default function CookieModal({
             ))}
           </div>
 
-          <div className="flex-column justify-center gap-sm">
+          <div
+            sx={(theme) => ({
+              display: "flex",
+              flexDirection: "column",
+              gap: theme.customProperties.spacing.sm,
+              justifyContent: "center",
+            })}
+          >
             <Button variant="contained" onClick={handleAcceptSelection}>
               {t("cookie_modal__allow_selection")}
             </Button>

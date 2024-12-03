@@ -1,4 +1,4 @@
-import ICookiePreferences from "@containers/cookieConsent/interfaces/ICookiePreferences";
+import ICookiePreferences from "./interfaces/ICookiePreferences";
 
 export const COOKIE_PREFERENCES = "COOKIE_PREFERENCES";
 export const COOKIE_CONSENT_DURATION = 1000 * 60 * 60 * 24 * 365;

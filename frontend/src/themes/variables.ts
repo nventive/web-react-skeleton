@@ -2,16 +2,16 @@ import { CustomBorderRadius, CustomSpacing } from "@mui/material";
 import { BreakpointsOptions, ZIndex } from "@mui/material/styles";
 
 export const breakpoints: BreakpointsOptions["values"] = {
-  xs: 640,
-  sm: 768,
-  md: 1024,
-  lg: 1280,
-  xl: 1440,
+  xs: 0,
+  sm: 600,
+  md: 900,
+  lg: 1200,
+  xl: 1536,
 };
 
 export const zIndex: Partial<ZIndex> = {
-  debugBanner: 100,
-  cookieBanner: 200,
+  debugBanner: 1200,
+  cookieBanner: 1201,
   loading: 1000,
 };
 

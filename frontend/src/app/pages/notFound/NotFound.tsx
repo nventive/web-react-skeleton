@@ -17,21 +17,30 @@ export default function NotFound() {
       className={classes["not-found"]}
     >
       <div className={classes["container"]}>
-        <Typography variant="h5" className="mb-md">
+        <Typography variant="h5" mb={"md"}>
           {t("not_found__title")}
         </Typography>
-        <Typography variant="overline" className="mb-xl">
+
+        <Typography
+          variant="overline"
+          sx={(theme) => ({
+            marginBottom: theme.customProperties.spacing.xl,
+          })}
+        >
           {t("not_found__description")}
         </Typography>
-        <Typography variant="body1" className="mb-lg">
+
+        <Typography
+          variant="body1"
+          sx={(theme) => ({
+            marginBottom: theme.customProperties.spacing.lg,
+          })}
+        >
           {t("not_found__description_secondary")}
         </Typography>
+
         <Button
-          onClick={() =>
-            navigate(homeRoute.paths[t("locale__key")], {
-              replace: true,
-            })
-          }
+          onClick={() => navigate(homeRoute.paths[t("locale__key")])}
           variant="contained"
         >
           {t("not_found__go_to_home_page")}

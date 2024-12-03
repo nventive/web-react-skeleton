@@ -1,10 +1,10 @@
-import cookieTypes from "@containers/cookieConsent/cookieConsent.config";
+import cookieTypes from "./cookieConsent.config";
 import {
   COOKIE_CONSENT_DURATION,
   getCookieConsentPreferences,
   setCookiePreferencesInStorage,
-} from "@containers/cookieConsent/cookieConsentHelper";
-import ICookiePreferences from "@containers/cookieConsent/interfaces/ICookiePreferences";
+} from "./cookieConsentHelper";
+import ICookiePreferences from "./interfaces/ICookiePreferences";
 import { useCallback, useEffect, useState } from "react";
 import CookieBanner from "./cookieBanner/CookieBanner";
 import CookieModal from "./cookieModal/CookieModal";
@@ -53,6 +53,7 @@ export default function CookieConsent() {
         cookiePreferences={cookiePreferences}
         setCookiePreferences={setCookiePreferences}
       />
+
       <CookieBanner
         showBanner={cookieBannerOpen}
         openModal={() => {

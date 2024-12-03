@@ -34,9 +34,12 @@ export default function UikitBlock({
         display: "flex",
         flexDirection: "column",
         gap: theme.spacing(1),
+        marginBottom: theme.spacing(8),
       })}
     >
-      <Typography variant="h4">{title}</Typography>
+      <Typography variant="h4" sx={{ marginBottom: 4 }}>
+        {title}
+      </Typography>
       {children}
       {codeBlock && (
         <Highlight theme={themes.vsDark} code={codeBlock} language="tsx">

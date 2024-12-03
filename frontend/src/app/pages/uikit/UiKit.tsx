@@ -1,6 +1,5 @@
 import Button from "@components/button/Button";
 import FieldHelperText from "@components/fieldHelperText/FieldHelperText";
-import Layout from "@components/layout/Layout";
 import Link from "@components/link/Link";
 import Loading from "@components/loading/Loading";
 import Spinner from "@components/spinner/Spinner";
@@ -73,22 +72,41 @@ export default function UiKit() {
   }, []);
 
   return (
-    <Layout.Container className="mb-lg">
-      <div className="flex gap-lg position-relative">
+    <div sx={(theme) => ({ padding: theme.customProperties.spacing.xl })}>
+      <div
+        sx={(theme) => ({
+          display: "flex",
+          gap: theme.customProperties.spacing.xl,
+          position: "relative",
+        })}
+      >
         <UikitNav items={navItems} />
-        <div className="flex-column">
+
+        <div style={{ display: "flex", flexDirection: "column" }}>
           <Typography variant="h1">UiKit</Typography>
           <Typography variant="body1">
             This is where you can display all your custom components/containers.
           </Typography>
-          <Typography variant="body1" className="flex gap-xxs">
+          <Typography
+            variant="body1"
+            sx={(theme) => ({
+              display: "flex",
+              gap: theme.customProperties.spacing.md,
+            })}
+          >
             For all the Styled MUI components, please refer to
             <Link href="https://mui.com/material-ui/all-components/">
               MUI documentation
             </Link>
           </Typography>
 
-          <div className="flex-column mt-lg gap-md">
+          <div
+            sx={(theme) => ({
+              display: "flex",
+              flexDirection: "column",
+              gap: theme.customProperties.spacing.xs,
+            })}
+          >
             <UikitBlock id="typographies" title="Typographies">
               <Typography variant="h1">H1. Heading</Typography>
               <Typography variant="h2">H2. Heading</Typography>
@@ -188,6 +206,6 @@ export default function UiKit() {
           </div>
         </div>
       </div>
-    </Layout.Container>
+    </div>
   );
 }
