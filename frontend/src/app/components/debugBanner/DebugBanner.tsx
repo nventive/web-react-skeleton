@@ -21,7 +21,7 @@ export default function DebugBanner() {
   const pages = [
     {
       name: t(homeRoute.name),
-      to: homeRoute.paths[t("locale__key")],
+      to: `${homeRoute.paths[t("locale__key")]}`,
     },
     {
       name: t(uikitRoute.name),
@@ -42,11 +42,13 @@ export default function DebugBanner() {
   }
 
   return (
-    <div className={"container"}>
+    <div
+      className={classes["container"]}
+      sx={(theme) => ({
+        zIndex: theme.zIndex.debugBanner,
+      })}
+    >
       <div
-        sx={(theme) => ({
-          zIndex: theme.zIndex.debugBanner,
-        })}
         className={classNames(classes["content"], {
           [classes["local"]]: __ENV__ === "local",
           [classes["dev"]]: __ENV__ === "dev",
@@ -63,9 +65,7 @@ export default function DebugBanner() {
           ))}
         </div>
 
-        <Button size="small" onClick={closeBanner}>
-          {t("global__hide")}
-        </Button>
+        <Button onClick={closeBanner}>{t("global__hide")}</Button>
       </div>
     </div>
   );

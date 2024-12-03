@@ -28,7 +28,13 @@ function UikitNav({ items }: IUikitNav) {
       })}
     >
       <Typography variant="h6">Components</Typography>
-      <ul className="flex-column gap-xs">
+      <ul
+        sx={(theme) => ({
+          display: "flex",
+          flexDirection: "column",
+          gap: theme.customProperties.spacing.xs,
+        })}
+      >
         {items.map((item) => (
           <li key={item.id}>
             <Link href={`#${item.id}`}>{item.text}</Link>

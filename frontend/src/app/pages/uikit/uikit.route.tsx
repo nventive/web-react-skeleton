@@ -5,7 +5,7 @@ import { lazy } from "react";
 
 const uikitRoute: IRoute = {
   name: "uikit__page_title",
-  component: lazy(() => import("./withAuthUikit")),
+  component: lazy(() => import("./UiKit")),
   paths: {
     en: `/${en.locale__key}/${en.routes__uikit}`,
     fr: `/${fr.locale__key}/${fr.routes__uikit}`,

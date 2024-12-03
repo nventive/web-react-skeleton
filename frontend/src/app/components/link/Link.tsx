@@ -4,9 +4,14 @@ import { styled } from "@mui/material-pigment-css";
 
 const StyledMuiLink = styled(MuiLink)(({ theme }) => ({
   display: "flex",
+  alignItems: "center",
   color: theme.palette.primary.main,
   textDecorationColor: "unset",
   cursor: "pointer",
+
+  ".external-link": {
+    marginLeft: theme.customProperties.spacing.xxs,
+  },
 }));
 
 interface ILink extends LinkProps {
@@ -29,7 +34,7 @@ export default function Link({
       target={target || external ? "_blank" : undefined}
     >
       {children}
-      {external && <ExternalLinkOutlined className="ml-xxs" />}
+      {external && <ExternalLinkOutlined className="external-link" />}
     </StyledMuiLink>
   );
 }

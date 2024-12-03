@@ -1,6 +1,6 @@
 import Loading from "@components/loading/Loading";
-import CookieConsent from "@containers/cookieConsent/CookieConsent";
-import { hasConsent } from "@containers/cookieConsent/cookieConsentHelper";
+import CookieConsent from "@components/cookieConsent/CookieConsent";
+import { hasConsent } from "@components/cookieConsent/cookieConsentHelper";
 import Router from "@routes/Router";
 import "@shared/i18n";
 import "@styles/index.scss";

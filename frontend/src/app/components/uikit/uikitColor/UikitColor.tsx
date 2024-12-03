@@ -17,7 +17,11 @@ export default function UikitColor({ color }: IUikitColor) {
   const colorItem = useCallback((bgColor: string, label: string) => {
     return (
       <Grid
-        className="flex align-center justify-center"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
         bgcolor={bgColor}
         size={"grow"}
         flexBasis={50}

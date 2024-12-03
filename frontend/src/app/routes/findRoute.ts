@@ -1,10 +1,11 @@
-import routes from "@routes/routes";
+import protectedRoutes from "@routes/routes.protected";
+import publicRoutes from "@routes/routes.public";
 
 const findRoute = (path: string, locale: string): string => {
   let segmentValues: string[] = [];
   let segmentNames: string[] = [];
 
-  const route = routes.find((route) => {
+  const route = [...protectedRoutes, ...publicRoutes].find((route) => {
     return Object.values(route.paths).some((pattern) => {
       segmentNames = (pattern.match(/:([^\s/]+)/g) || []).map((s) =>
         s.substring(1),

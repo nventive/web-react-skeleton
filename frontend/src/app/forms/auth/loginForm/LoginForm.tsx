@@ -18,6 +18,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ValidationError } from "yup";
+import classes from "./loginForm.module.css";
 
 interface ILoginForm {
   setIsLoading: Dispatch<SetStateAction<boolean>>;
@@ -46,8 +47,8 @@ export default function LoginForm({ setIsLoading }: ILoginForm) {
         setIsLoading(true);
         postLogin(loginForm)
           .then(({ data }) => {
-            if (data.token && data.refreshToken) {
-              localStorage.setItem(ACCESS_TOKEN, data.token);
+            if (data.accessToken && data.refreshToken) {
+              localStorage.setItem(ACCESS_TOKEN, data.accessToken);
               localStorage.setItem(REFRESH_TOKEN, data.refreshToken);
             }
             setUser(data);
@@ -92,8 +93,8 @@ export default function LoginForm({ setIsLoading }: ILoginForm) {
   }, [loginForm, loginFormValidated]);
 
   return (
-    <form className="flex-column" onSubmit={onSubmit}>
-      <div className="mb-md">
+    <form className={classes["container"]} onSubmit={onSubmit}>
+      <div>
         <TextField
           autoFocus
           fullWidth
@@ -110,7 +111,8 @@ export default function LoginForm({ setIsLoading }: ILoginForm) {
         />
         <FieldHelperText fieldNames="username" formErrors={formErrors} />
       </div>
-      <div className="mb-md">
+
+      <div>
         <TextField
           fullWidth
           onBlur={onValidate}
@@ -127,7 +129,15 @@ export default function LoginForm({ setIsLoading }: ILoginForm) {
         />
         <FieldHelperText fieldNames="password" formErrors={formErrors} />
       </div>
-      <Button className="mb-md" variant="contained" size="large" type="submit">
+
+      <Button
+        variant="contained"
+        size="large"
+        type="submit"
+        sx={(theme) => ({
+          marginBottom: theme.customProperties.spacing.md,
+        })}
+      >
         {t("login__sign_in")}
       </Button>
     </form>

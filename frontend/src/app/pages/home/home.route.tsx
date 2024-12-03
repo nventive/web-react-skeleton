@@ -5,10 +5,10 @@ import { lazy } from "react";
 
 const homeRoute: IRoute = {
   name: "home__page_title",
-  component: lazy(() => import("./withAuthHome")),
+  component: lazy(() => import("./withPermissionHome")),
   paths: {
-    en: `/${en.locale__key}/${en.routes__home}`,
-    fr: `/${fr.locale__key}/${fr.routes__home}`,
+    en: `/app/${en.locale__key}/${en.routes__home}`,
+    fr: `/app/${fr.locale__key}/${fr.routes__home}`,
   },
 };
 

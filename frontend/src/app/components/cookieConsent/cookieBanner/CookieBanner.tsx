@@ -60,7 +60,10 @@ export default function CookieBanner({
     <Slide in={showBanner}>
       <div
         className={classes["cookie-banner"]}
-        sx={(theme) => ({ bottom: theme.spacing(2) })}
+        sx={(theme) => ({
+          bottom: theme.spacing(2),
+          zIndex: theme.zIndex.cookieBanner,
+        })}
       >
         <StyledContainer className={classes["container"]}>
           <div
@@ -73,11 +76,19 @@ export default function CookieBanner({
             <div>
               <CookieIcon />
             </div>
-            <div className="flex-column">
-              <Typography variant="body2" className="mb-xxs">
+            <div
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <Typography
+                variant="body2"
+                sx={{ marginBottom: "var(--mui-customProperties-spacing-xxs)" }}
+              >
                 {t("cookie_banner__description")}
               </Typography>
-              <div className="mr-a">
+              <div sx={{ marginRight: "auto" }}>
                 <Link
                   href={t("cookie_consent_link")}
                   underline="always"
