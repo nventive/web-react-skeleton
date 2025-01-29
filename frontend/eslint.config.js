@@ -27,6 +27,8 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      "no-debugger": "warn",
+      eqeqeq: "error",
       // allow unused variables that start with an underscore
       "@typescript-eslint/no-unused-vars": [
         "error",

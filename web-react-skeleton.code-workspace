@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "frontend"
+    }
+  ],
+  "settings": {
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "typescript.tsdk": "frontend/node_modules/typescript/lib",
+    "files.exclude": {
+      "frontend": true
+    }
+  }
+}
