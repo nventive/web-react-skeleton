@@ -1,9 +1,10 @@
-import { ReactNode } from "react";
-import { Highlight, themes } from "prism-react-renderer";
-import Typography from "@mui/material/Typography";
 import Button from "@components/button/Button";
-import { toast } from "react-toastify";
+import { Box } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import { Highlight, themes } from "prism-react-renderer";
+import { type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 interface IUikitBlock {
   id: string;
@@ -26,7 +27,8 @@ export default function UikitBlock({
   };
 
   return (
-    <div
+    <Box
+      component="div"
       id={id}
       // this className is used to generate the nav items on the UiKit page
       className="uikit-block"
@@ -34,14 +36,18 @@ export default function UikitBlock({
         display: "flex",
         flexDirection: "column",
         gap: theme.spacing(1),
+        marginBottom: theme.spacing(8),
       })}
     >
-      <Typography variant="h4">{title}</Typography>
+      <Typography variant="h4" sx={{ marginBottom: 4 }}>
+        {title}
+      </Typography>
       {children}
       {codeBlock && (
         <Highlight theme={themes.vsDark} code={codeBlock} language="tsx">
           {({ style, tokens, getLineProps, getTokenProps }) => (
-            <pre
+            <Box
+              component="pre"
               style={style}
               sx={(theme) => ({
                 borderRadius: theme.customProperties.borderRadius.sm,
@@ -57,7 +63,8 @@ export default function UikitBlock({
                 </div>
               ))}
 
-              <div
+              <Box
+                component="div"
                 sx={(theme) => ({
                   top: theme.spacing(1),
                   right: theme.spacing(1),
@@ -71,11 +78,11 @@ export default function UikitBlock({
                 >
                   Copy
                 </Button>
-              </div>
-            </pre>
+              </Box>
+            </Box>
           )}
         </Highlight>
       )}
-    </div>
+    </Box>
   );
 }

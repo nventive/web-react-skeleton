@@ -3,7 +3,7 @@ import axios from "axios";
 import qs from "qs";
 
 const axiosInstance = axios.create({
-  baseURL: __API_URL__,
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
     "Content-Type": "application/json",
   },

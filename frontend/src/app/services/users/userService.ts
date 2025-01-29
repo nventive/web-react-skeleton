@@ -1,14 +1,15 @@
 import axiosInstance from "@services/axiosInstance";
-import IUser from "@services/users/interfaces/IUser";
-import { AxiosResponse, CancelToken } from "axios";
+import type IUser from "@services/users/interfaces/IUser";
+import { type AxiosResponse, type CancelToken } from "axios";
 
-const USER_PREFIX = "/user";
-const GET_ME = `${USER_PREFIX}/me`;
-
+/**
+ * the ACCESS_TOKEN is automatically added to the request headers (see axiosInstance.ts)
+ * However, the token is not automatically refreshed when it expires.
+ */
 export async function getMe(
   cancelToken?: CancelToken,
 ): Promise<AxiosResponse<IUser>> {
-  return await axiosInstance.get(GET_ME, {
+  return await axiosInstance.get("/user/me", {
     cancelToken,
   });
 }

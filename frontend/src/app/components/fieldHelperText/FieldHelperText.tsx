@@ -44,7 +44,13 @@ export default function FieldHelperText({
   }
 
   return (
-    <Typography variant="caption" className="mt-xxs ml-md">
+    <Typography
+      variant="caption"
+      sx={(theme) => ({
+        marginTop: theme.customProperties.spacing.xxs,
+        marginLeft: theme.customProperties.spacing.md,
+      })}
+    >
       {helperText}
     </Typography>
   );

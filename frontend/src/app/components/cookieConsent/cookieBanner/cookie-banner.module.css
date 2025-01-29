@@ -1,0 +1,26 @@
+.cookie-banner {
+  width: 100%;
+  position: fixed;
+  /* stylelint-disable-next-line custom-property-pattern */
+  z-index: calc(var(--mui-zIndex-drawer) + 2);
+}
+
+.container {
+  position: relative;
+  left: 50%;
+  width: 80%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-between;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+.link {
+  display: flex;
+  justify-content: center;
+  white-space: nowrap;
+}

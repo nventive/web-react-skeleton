@@ -1,53 +1,47 @@
+import { Box, useTheme } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { RefObject, useEffect, useRef, useState } from "react";
+import { type RefObject, useEffect, useRef, useState } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { css } from "@mui/material-pigment-css";
+import classes from "./errorHelperText.module.css";
 
 interface IErrorBox {
   message: string;
 }
 
-const enter = css`
-  opacity: 0;
-`;
-
-const enterActive = css(({ theme }) => ({
-  opacity: 1,
-  transition: `opacity ${theme.transitions.duration.short}ms ${theme.transitions.easing.easeIn}`,
-}));
-
-const exit = css`
-  opacity: 0;
-`;
-
-const exitActive = css(({ theme }) => ({
-  opacity: 0,
-  transition: `opacity ${theme.transitions.duration.short}ms ${theme.transitions.easing.easeOut}`,
-}));
-
 export default function ErrorHelperText({ message }: IErrorBox) {
+  const theme = useTheme();
   const [activeMessage, setActiveMessage] = useState<string | undefined>(
     undefined,
   );
 
-  const nodeRef: RefObject<HTMLDivElement> = useRef(null);
+  const nodeRef: RefObject<HTMLDivElement | null> = useRef(null);
 
   useEffect(() => setActiveMessage(message), [message]);
 
   return (
-    <TransitionGroup>
+    <TransitionGroup
+      component="div"
+      style={
+        {
+          "--transition-duration": `${theme.transitions.duration.short}ms`,
+          "--transition-easing-in": theme.transitions.easing.easeIn,
+          "--transition-easing-out": theme.transitions.easing.easeOut,
+        } as React.CSSProperties
+      }
+    >
       {activeMessage && (
         <CSSTransition
           classNames={{
-            enter: enter,
-            enterActive: enterActive,
-            exit: exit,
-            exitActive: exitActive,
+            enter: classes["entet"],
+            enterActive: classes["enter-active"],
+            exit: classes["exit"],
+            exitActive: classes["exitActive"],
           }}
           timeout={350}
           nodeRef={nodeRef}
         >
-          <div
+          <Box
+            component="div"
             ref={nodeRef}
             sx={(theme) => ({
               marginTop: theme.spacing(0),
@@ -56,7 +50,7 @@ export default function ErrorHelperText({ message }: IErrorBox) {
             })}
           >
             <Typography variant={"caption"}>{activeMessage}</Typography>
-          </div>
+          </Box>
         </CSSTransition>
       )}
     </TransitionGroup>

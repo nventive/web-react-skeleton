@@ -28,15 +28,15 @@ jobs:
       - script: |
           cd frontend
           corepack enable
-          yarn set version stable
+          yarn set version 4.6
           yarn
           yarn build
-        displayName: "Install and Build using Yarn"
+        displayName: "Install and Build using Yarn 4.6"
 
       - task: CopyFiles@2
         displayName: "Copy files to build folder"
         inputs:
-          sourceFolder: "$(System.DefaultWorkingDirectory)/frontend/dist"
+          sourceFolder: "$(System.DefaultWorkingDirectory)/frontend/build/client"
           targetFolder: "$(Build.ArtifactStagingDirectory)"
           cleanTargetFolder: true
 

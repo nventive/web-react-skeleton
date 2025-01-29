@@ -1,4 +1,4 @@
-import IUser from "@services/users/interfaces/IUser";
+import type IUser from "@services/users/interfaces/IUser";
 import { create } from "zustand";
 
 interface IUserStore {

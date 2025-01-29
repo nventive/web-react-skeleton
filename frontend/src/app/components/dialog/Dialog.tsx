@@ -1,6 +1,4 @@
-import Slide from "@components/slide/Slide";
-import { DialogProps, Dialog as MuiDialog } from "@mui/material";
-import { styled } from "@mui/material-pigment-css";
+import { type DialogProps, Dialog as MuiDialog, styled } from "@mui/material";
 
 const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
   "& .MuiDialog-paper": {
@@ -10,14 +8,7 @@ const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
 
 export default function Dialog({ ...props }: DialogProps) {
   return (
-    <StyledMuiDialog
-      disableScrollLock
-      TransitionComponent={Slide}
-      TransitionProps={{
-        timeout: 500,
-      }}
-      {...props}
-    >
+    <StyledMuiDialog disableScrollLock {...props}>
       {props.children}
     </StyledMuiDialog>
   );

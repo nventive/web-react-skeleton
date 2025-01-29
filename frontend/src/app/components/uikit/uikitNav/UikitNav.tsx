@@ -1,5 +1,6 @@
-import Typography from "@mui/material/Typography";
 import Link from "@components/link/Link";
+import { Box } from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 export interface INavItem {
   text: string;
@@ -12,7 +13,8 @@ interface IUikitNav {
 
 function UikitNav({ items }: IUikitNav) {
   return (
-    <div
+    <Box
+      component="div"
       sx={(theme) => ({
         display: "none",
 
@@ -28,14 +30,21 @@ function UikitNav({ items }: IUikitNav) {
       })}
     >
       <Typography variant="h6">Components</Typography>
-      <ul className="flex-column gap-xs">
+      <Box
+        component="ul"
+        sx={(theme) => ({
+          display: "flex",
+          flexDirection: "column",
+          gap: theme.customProperties.spacing.xs,
+        })}
+      >
         {items.map((item) => (
           <li key={item.id}>
             <Link href={`#${item.id}`}>{item.text}</Link>
           </li>
         ))}
-      </ul>
-    </div>
+      </Box>
+    </Box>
   );
 }
 

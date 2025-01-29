@@ -1,9 +1,9 @@
 import {
   TableRow as MuiTableRow,
+  styled,
   TableCell,
-  TableRowProps,
+  type TableRowProps,
 } from "@mui/material";
-import { styled } from "@mui/material-pigment-css";
 
 interface ITableRow extends TableRowProps {
   columns: string[];

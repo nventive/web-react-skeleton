@@ -1,16 +1,16 @@
-import ILogin from "@services/auth/interfaces/ILogin";
+import type ILogin from "@services/auth/interfaces/ILogin";
 import axiosInstance from "@services/axiosInstance";
-import IUser from "@services/users/interfaces/IUser";
-import { AxiosResponse, CancelToken } from "axios";
-
-const AUTH_PREFIX = "/auth";
-const POST_LOGIN = `${AUTH_PREFIX}/login`;
+import type IUser from "@services/users/interfaces/IUser";
+import { type AxiosResponse, type CancelToken } from "axios";
 
 export async function postLogin(
   login: ILogin,
   cancelToken?: CancelToken,
 ): Promise<AxiosResponse<IUser>> {
-  return await axiosInstance.post(POST_LOGIN, login, {
+  // Simulate a delay of 1.5s to show form behavior
+  await new Promise((resolve) => setTimeout(resolve, 1500));
+
+  return await axiosInstance.post("/auth/login", login, {
     cancelToken,
   });
 }
