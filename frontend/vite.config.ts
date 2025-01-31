@@ -25,5 +25,10 @@ export default defineConfig(({ mode }) => {
     server: {
       port: Number(env.VITE_PORT),
     },
+    optimizeDeps: {
+      // this fixes a bug where the app crashes on the first load while optimizing dependencies
+      // https://github.com/remix-run/remix/issues/10156
+      entries: ["src/**/*.tsx", "src/**/*.ts"],
+    },
   };
 });

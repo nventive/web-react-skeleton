@@ -2,13 +2,12 @@ import Button from "@components/button/Button";
 import FieldHelperText from "@components/fieldHelperText/FieldHelperText";
 import Link from "@components/link/Link";
 import Loading from "@components/loading/Loading";
-import Spinner from "@components/spinner/Spinner";
-import Typography from "@mui/material/Typography";
 import UikitBlock from "@components/uikit/uikitBlock/UikitBlock";
 import UikitColor from "@components/uikit/uikitColor/UikitColor";
-import UikitNav, { INavItem } from "@components/uikit/uikitNav/UikitNav";
+import UikitNav, { type INavItem } from "@components/uikit/uikitNav/UikitNav";
+import { Box, TextField } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import { TextField } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ValidationError } from "yup";
@@ -72,8 +71,8 @@ export default function UiKit() {
   }, []);
 
   return (
-    <div sx={(theme) => ({ padding: theme.customProperties.spacing.xl })}>
-      <div
+    <Box sx={(theme) => ({ padding: theme.customProperties.spacing.xl })}>
+      <Box
         sx={(theme) => ({
           display: "flex",
           gap: theme.customProperties.spacing.xl,
@@ -95,12 +94,12 @@ export default function UiKit() {
             })}
           >
             For all the Styled MUI components, please refer to
-            <Link href="https://mui.com/material-ui/all-components/">
+            <Link to="https://mui.com/material-ui/all-components/">
               MUI documentation
             </Link>
           </Typography>
 
-          <div
+          <Box
             sx={(theme) => ({
               display: "flex",
               flexDirection: "column",
@@ -185,17 +184,6 @@ export default function UiKit() {
             </UikitBlock>
 
             <UikitBlock
-              id="spinner"
-              title="Spinner.tsx"
-              codeBlock="<Spinner />"
-            >
-              {/* styling inline like this to prevent the spinner from changing the height of the page while spinning, do not style inline in projects */}
-              <div style={{ height: "64px" }}>
-                <Spinner />
-              </div>
-            </UikitBlock>
-
-            <UikitBlock
               id="loading"
               title="Loading.tsx"
               codeBlock="<Loading />"
@@ -203,9 +191,9 @@ export default function UiKit() {
               <Button onClick={onClickShowLoading}>Show Loading</Button>
               {showLoading && <Loading />}
             </UikitBlock>
-          </div>
+          </Box>
         </div>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
