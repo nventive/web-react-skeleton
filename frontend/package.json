@@ -11,7 +11,7 @@
     "lint:scripts": "eslint ./src",
     "lint:styles": "stylelint '**/*.css'",
     "prettier": "prettier --write ./src",
-    "sheet2i18n": "node ./sheet2i18n/index.cjs src/sheet2i18n.config.cjs"
+    "sheet2i18n": "node ./sheet2i18n/index.cjs sheet2i18n.config.cjs"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

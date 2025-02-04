@@ -1,46 +1,30 @@
 import Button from "@components/button/Button";
 import FieldHelperText from "@components/fieldHelperText/FieldHelperText";
 import TextField from "@components/textField/TextField";
-import loginFormSchema from "@forms/auth/loginForm/loginForm.schema";
 import type ILogin from "@services/auth/interfaces/ILogin";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useOnSubmit } from "src/routes/public-routes/login/useOnSubmit";
-import { ValidationError } from "yup";
+import { type FetcherWithComponents } from "react-router";
+import { useFormValidation } from "src/routes/public-routes/login/useFormValidation";
 import classes from "./loginForm.module.css";
 
-export interface ILoginFormProps {
-  onSuccessfulLogin: () => void;
-}
+type LoginFormProps = {
+  submit: (form: ILogin) => void;
+  fetcher: FetcherWithComponents<unknown>;
+};
 
-export default function LoginForm(props: ILoginFormProps) {
+export default function LoginForm({ submit, fetcher }: LoginFormProps) {
   const { t } = useTranslation();
   const [loginForm, setLoginForm] = useState<ILogin>({
     username: "",
     password: "",
   });
-  const [formErrors, setFormErrors] = useState<ValidationError[]>([]);
 
-  const { isLoading, onSubmit } = useOnSubmit(
-    loginForm,
-    props.onSuccessfulLogin,
-  );
-
-  const onValidate = useCallback(() => {
-    try {
-      loginFormSchema.validateSync(loginForm, {
-        abortEarly: false,
-      });
-      setFormErrors([]);
-    } catch (error) {
-      if (error instanceof ValidationError) {
-        setFormErrors(error.inner);
-      }
-    }
-  }, [loginForm]);
+  const { onSubmit, onValidate, formErrors } = useFormValidation(loginForm);
+  const isLoading = fetcher.state !== "idle";
 
   return (
-    <form className={classes["container"]} onSubmit={onSubmit}>
+    <fetcher.Form className={classes["container"]} onSubmit={onSubmit(submit)}>
       <div>
         <TextField
           autoFocus
@@ -90,6 +74,6 @@ export default function LoginForm(props: ILoginFormProps) {
       >
         {t("login__sign_in")}
       </Button>
-    </form>
+    </fetcher.Form>
   );
 }

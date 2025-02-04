@@ -8,11 +8,12 @@ import { useChangeLanguage } from "src/app/hooks/useChangeLanguage";
 
 const UserLoggedIn: React.FC = () => {
   const { user } = useUserStore();
+  const { t } = useTranslation();
 
   if (!user) {
     return (
       <Typography variant="body1" whiteSpace="pre" mb={4}>
-        Click <Link to={`/${i18next.language}/login`}>here</Link> to login
+        <Link to={`/${i18next.language}/login`}>{t("home__login_here")}</Link>
       </Typography>
     );
   }
@@ -20,12 +21,13 @@ const UserLoggedIn: React.FC = () => {
   return (
     <>
       <Typography variant="h4">
-        {`Welcome ${user?.firstName} ${user?.lastName}`}
+        {`${t("home__welcome")} ${user?.firstName} ${user?.lastName}`}
       </Typography>
 
       <Typography variant="body1">
-        Click <Link to={`/${i18next.language}/dashboard`}>here</Link> to go to
-        the dashboard
+        <Link to={`/${i18next.language}/dashboard`}>
+          Click here to go to the dashboard
+        </Link>
       </Typography>
     </>
   );
@@ -43,7 +45,7 @@ export default function Home() {
         alignItems: "center",
       }}
     >
-      <h1>Home!</h1>
+      <h1>{t("home__page_title")}</h1>
 
       <UserLoggedIn />
 

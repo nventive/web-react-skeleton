@@ -15,16 +15,19 @@ export default [
   ...prefix(":lang", [
     // public routes
     layout(`${PUBLIC_ROUTES}/layout.tsx`, [
-      route("home", `${PUBLIC_ROUTES}/home/home.tsx`),
-      route("login", `${PUBLIC_ROUTES}/login/login.tsx`),
+      route("home", `${PUBLIC_ROUTES}/home/home.route.tsx`),
+      route("login", `${PUBLIC_ROUTES}/login/login.route.tsx`),
     ]),
 
     // authenticated routes
     layout(`${AUTHENTICATED_ROUTES}/layout.tsx`, [
-      route("dashboard", `${AUTHENTICATED_ROUTES}/dashboard/dashboard.tsx`),
-      route("settings", `${AUTHENTICATED_ROUTES}/settings/settings.tsx`),
+      route(
+        "dashboard",
+        `${AUTHENTICATED_ROUTES}/dashboard/dashboard.route.tsx`,
+      ),
+      route("settings", `${AUTHENTICATED_ROUTES}/settings/settings.route.tsx`),
     ]),
 
-    route("*", "./routes/not-found/not-found.tsx"),
+    route("*", "./routes/not-found/not-found.route.tsx"),
   ]),
 ] satisfies RouteConfig;

@@ -38,7 +38,7 @@ const ListItems: React.FC = () => {
       to: `/${i18next.language}/dashboard`,
     },
     {
-      text: t("my_account__page_title"),
+      text: t("settings__page_title"),
       to: `/${i18next.language}/settings`,
     },
   ].map(({ text, to }, index) => (

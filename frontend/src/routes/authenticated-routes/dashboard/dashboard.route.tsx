@@ -11,8 +11,8 @@ import { useUserStore } from "@stores/userStore";
 import { useQuery } from "@tanstack/react-query";
 import { lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
-import { Await, type MetaFunction } from "react-router";
-import type { Route } from "./+types/dashboard";
+import { Await } from "react-router";
+import type { Route } from "./+types/dashboard.route";
 import { Todos } from "./todos";
 
 const Posts = lazy(() => import("./posts"));
@@ -42,7 +42,7 @@ export const clientLoader = async ({
   return {};
 };
 
-export const meta: MetaFunction<typeof clientLoader> = ({ params }) => {
+export const meta = ({ params }: Route.MetaArgs) => {
   const t = i18next.getFixedT(params.lang as string);
   const title = t("dashboard__page_title");
 
@@ -71,26 +71,21 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       <Typography
         variant="h2"
         mb={8}
-      >{`${t("home__welcome")} ${user?.firstName} ${user?.lastName}`}</Typography>
+      >{`${t("dashboard__welcome")} ${user?.firstName} ${user?.lastName}`}</Typography>
 
       <Grid container spacing={2}>
         <Grid size={12}>
-          <Typography variant="h3">{t("10 todos!")}</Typography>
+          <Typography variant="h3">{t("dashboard__five_todos")}</Typography>
           <Typography variant="caption">
-            Using a promise returned by the loader. This query is not tracked by
-            react-query (since no hook is called from the componend)
+            {t("dashboard__loading_strategy_one")}
           </Typography>
-
-          {/* Inside the <Todos> component, we are using useSuspenseQuery(). 
-          Until that is resolved, the rendering is blocked by the <Suspense> component. */}
           <Todos />
         </Grid>
 
         <Grid size={{ xs: 12, md: 6 }}>
-          <Typography variant="h2">{t("10 posts!")}</Typography>
+          <Typography variant="h2">{t("dashboard__three_posts")}</Typography>
           <Typography variant="caption">
-            Using a promise returned by the loader. This query is not tracked by
-            react-query (since no hook is called from the componend)
+            {t("dashboard__loading_strategy_two")}
           </Typography>
 
           <Suspense fallback={<Loading />}>
@@ -103,11 +98,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         </Grid>
 
         <Grid size={{ xs: 12, md: 6 }}>
-          <Typography variant="h2">{t("10 posts!")}</Typography>
+          <Typography variant="h2">{t("dashboard__three_posts")}</Typography>
           <Typography variant="caption">
-            This approach used the experimental_prefetchInRender flag in the
-            QueryClient. The query is prefectehd in the loader and called again
-            from the component, which allows react-query to track it.
+            {t("dashboard__loading_strategy_three")}
           </Typography>
 
           <Suspense fallback={<Loading />}>

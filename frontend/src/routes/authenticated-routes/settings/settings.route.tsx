@@ -5,13 +5,21 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from "@shared/constants";
 import { default as i18next } from "@shared/i18n";
 import { useUserStore } from "@stores/userStore";
 import { useTranslation } from "react-i18next";
-import { useNavigate, type ClientLoaderFunctionArgs } from "react-router";
+import { useNavigate } from "react-router";
 import { useChangeLanguage } from "src/app/hooks/useChangeLanguage";
+import type { Route } from "./+types/settings.route";
 
 export const clientLoader = async ({
   params: _params,
-}: ClientLoaderFunctionArgs) => {
+}: Route.ClientLoaderArgs) => {
   return {};
+};
+
+export const meta = ({ params }: Route.MetaArgs) => {
+  const t = i18next.getFixedT(params.lang as string);
+  const title = t("dashboard__page_title");
+
+  return [{ title }];
 };
 
 export default function Settings() {
@@ -43,7 +51,7 @@ export default function Settings() {
 
         <Button variant="contained" onClick={onLogout}>
           <LogoutRounded />
-          <Typography variant="button">{t("home__logout")}</Typography>
+          <Typography variant="button">{t("global__logout")}</Typography>
         </Button>
       </Box>
     </div>

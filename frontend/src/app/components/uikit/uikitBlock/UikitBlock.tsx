@@ -23,7 +23,7 @@ export default function UikitBlock({
 
   const onClickCopyBtn = async (content: string) => {
     await navigator.clipboard.writeText(content);
-    toast.success(t("global__clipboard_copy"));
+    toast.success(t("uikit__clipboard_copy"));
   };
 
   return (
