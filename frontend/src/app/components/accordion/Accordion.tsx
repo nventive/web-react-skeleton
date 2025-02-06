@@ -1,8 +1,11 @@
-import { AccordionProps, Accordion as MuiAccordion } from "@mui/material";
-import { styled } from "@mui/material-pigment-css";
+import {
+  type AccordionProps,
+  Accordion as MuiAccordion,
+  styled,
+} from "@mui/material";
 
 const StyledMuiAccordion = styled(MuiAccordion)(({ theme }) => ({
-  border: `1px solid ${theme.palette.grey[300]}`,
+  boxShadow: theme.shadows[4],
   "&:not(:last-child)": {
     borderBottom: 0,
   },

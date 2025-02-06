@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "aaron-bond.better-comments",
+    "dbaeumer.vscode-eslint",
+    "oderwat.indent-rainbow",
+    "wix.vscode-import-cost",
+    "christian-kohler.path-intellisense",
+    "esbenp.prettier-vscode",
+    "wayou.vscode-todo-highlight"
+  ]
+}

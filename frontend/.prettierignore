@@ -1,0 +1,6 @@
+# By default prettier ignores files in version control systems directories (".git", ".jj", ".sl", ".svn" and ".hg") and node_modules
+# Prettier will also follow rules specified in the ".gitignore" file if it exists in the same directory from which it is run.
+dist
+build
+pnpm-lock.yaml
+yarn.lock

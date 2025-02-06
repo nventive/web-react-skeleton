@@ -1,4 +1,5 @@
-import IIcon from "./IIcon";
+import { Box } from "@mui/material";
+import type IIcon from "./IIcon";
 
 export default function CookieIcon({
   className,
@@ -7,7 +8,8 @@ export default function CookieIcon({
   alt = "Cookie Icon",
 }: IIcon) {
   return (
-    <svg
+    <Box
+      component="svg"
       className={className}
       width={width}
       height={height}
@@ -42,6 +44,6 @@ export default function CookieIcon({
       <circle cx="16.2578" cy="16.9687" r="0.697008" strokeWidth="0.663817" />
       <circle cx="16.2578" cy="12.6065" r="0.697008" strokeWidth="0.663817" />
       <circle cx="12.2366" cy="8.43558" r="0.663817" strokeWidth="0.663817" />
-    </svg>
+    </Box>
   );
 }

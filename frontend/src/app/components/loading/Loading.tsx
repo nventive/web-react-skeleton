@@ -1,40 +1,39 @@
-import Spinner from "@components/spinner/Spinner";
-import { RefObject, useRef } from "react";
+import { Box, CircularProgress, useTheme } from "@mui/material";
+import { type RefObject, useRef } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import classes from "./loading.module.css";
-import { css } from "@mui/material-pigment-css";
-
-const enterActive = css(({ theme }) => ({
-  opacity: 1,
-  transition: `opacity ${theme.transitions.duration.standard}ms ${theme.transitions.easing.easeIn}`,
-}));
-
-const exitActive = css(({ theme }) => ({
-  opacity: 0,
-  transition: `opacity ${theme.transitions.duration.standard}ms ${theme.transitions.easing.easeOut}`,
-}));
 
 interface ILoading {
   isLoading?: boolean;
 }
 
 export default function Loading({ isLoading = true }: ILoading) {
-  const nodeRef: RefObject<HTMLDivElement> = useRef(null);
+  const theme = useTheme();
+  const nodeRef: RefObject<HTMLDivElement | null> = useRef(null);
 
   return (
-    <TransitionGroup>
+    <TransitionGroup
+      component="div"
+      style={
+        {
+          "--transition-duration": `${theme.transitions.duration.short}ms`,
+          "--transition-easing-in": theme.transitions.easing.easeIn,
+          "--transition-easing-out": theme.transitions.easing.easeOut,
+        } as React.CSSProperties
+      }
+    >
       {isLoading && (
         <CSSTransition
           classNames={{
-            enter: classes["enter"],
-            enterActive: enterActive,
+            enter: classes["entet"],
+            enterActive: classes["enter-active"],
             exit: classes["exit"],
-            exitActive: exitActive,
+            exitActive: classes["exitActive"],
           }}
           timeout={500}
           nodeRef={nodeRef}
         >
-          <div
+          <Box
             ref={nodeRef}
             className={classes["loading"]}
             sx={(theme) => ({
@@ -43,9 +42,9 @@ export default function Loading({ isLoading = true }: ILoading) {
             })}
           >
             <div className={classes["spinner"]}>
-              <Spinner />
+              <CircularProgress size="3rem" />
             </div>
-          </div>
+          </Box>
         </CSSTransition>
       )}
     </TransitionGroup>

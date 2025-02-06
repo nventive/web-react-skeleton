@@ -5,6 +5,6 @@ export default interface IUser {
   lastName: string;
   gender: string;
   image: string;
-  token?: string;
+  accessToken?: string;
   refreshToken?: string;
 }

@@ -1,5 +1,4 @@
-import { ButtonProps, Button as MuiButton } from "@mui/material";
-import { styled } from "@mui/material-pigment-css";
+import { type ButtonProps, Button as MuiButton, styled } from "@mui/material";
 
 const StyledMuiButton = styled(MuiButton)(({ theme }) => ({
   borderRadius: theme.customProperties.borderRadius.xs,

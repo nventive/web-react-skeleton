@@ -4,7 +4,7 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableProps,
+  type TableProps,
   TableRow,
 } from "@mui/material";
 

@@ -1,4 +1,5 @@
-import IIcon from "./IIcon";
+import { Box } from "@mui/material";
+import type IIcon from "./IIcon";
 
 export default function CaretIcon({
   className,
@@ -16,7 +17,8 @@ export default function CaretIcon({
       xmlns="http://www.w3.org/2000/svg"
     >
       <title>{alt}</title>
-      <path
+      <Box
+        component="path"
         d="M6.23 20.23 8 22l10-10L8 2 6.23 3.77 14.46 12z"
         sx={(theme) => ({
           fill: theme.palette.grey[800],

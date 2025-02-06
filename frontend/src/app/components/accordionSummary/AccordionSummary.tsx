@@ -1,9 +1,9 @@
 import CaretIcon from "@icons/CaretIcon";
 import {
-  AccordionSummaryProps,
+  type AccordionSummaryProps,
   AccordionSummary as MuiAccordionSummary,
+  styled,
 } from "@mui/material";
-import { styled } from "@mui/material-pigment-css";
 
 const StyledMuiAccordionSummary = styled(MuiAccordionSummary)(({ theme }) => ({
   flexDirection: "row-reverse",

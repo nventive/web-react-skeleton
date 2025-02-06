@@ -1,5 +1,5 @@
-import { Slide as MuiSlide, SlideProps } from "@mui/material";
-import { forwardRef, Ref } from "react";
+import { Slide as MuiSlide, type SlideProps } from "@mui/material";
+import { forwardRef, type Ref } from "react";
 
 const Slide = forwardRef(function Slide(
   { direction = "up", timeout = 500, ...props }: SlideProps,
