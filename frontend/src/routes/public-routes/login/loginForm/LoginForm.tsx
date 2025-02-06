@@ -1,11 +1,11 @@
 import Button from "@components/button/Button";
 import FieldHelperText from "@components/fieldHelperText/FieldHelperText";
 import TextField from "@components/textField/TextField";
+import { useFormValidation } from "@routes/public-routes/login/loginForm/useFormValidation";
 import type ILogin from "@services/auth/interfaces/ILogin";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { type FetcherWithComponents } from "react-router";
-import { useFormValidation } from "src/routes/public-routes/login/useFormValidation";
 import classes from "./loginForm.module.css";
 
 type LoginFormProps = {

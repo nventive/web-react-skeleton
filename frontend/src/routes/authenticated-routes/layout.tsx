@@ -14,6 +14,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { route as dashboardRoute } from "@routes/authenticated-routes/dashboard/route";
+import { route as settingsRoute } from "@routes/authenticated-routes/settings/route";
 import i18next from "@shared/i18n";
 import { useUserStore } from "@stores/userStore";
 import React, { lazy, Suspense, useState } from "react";
@@ -35,11 +37,11 @@ const ListItems: React.FC = () => {
   return [
     {
       text: t("dashboard__page_title"),
-      to: `/${i18next.language}/dashboard`,
+      to: dashboardRoute.paths[i18next.language],
     },
     {
       text: t("settings__page_title"),
-      to: `/${i18next.language}/settings`,
+      to: settingsRoute.paths[i18next.language],
     },
   ].map(({ text, to }, index) => (
     <ListItem key={text} disablePadding>

@@ -1,5 +1,8 @@
 import Button from "@components/button/Button";
 import { Box } from "@mui/material";
+import { route as dashboardRoute } from "@routes/authenticated-routes/dashboard/route";
+import { route as homeRoute } from "@routes/public-routes/home/route";
+import { route as uikitRoute } from "@routes/public-routes/uikit/route";
 import i18next from "@shared/i18n";
 import clsx from "clsx";
 import { useState } from "react";
@@ -22,11 +25,15 @@ export default function DebugBanner() {
   const pages = [
     {
       name: t("home__page_title"),
-      to: `/${i18next.language}/home`,
+      to: homeRoute.paths[i18next.language],
     },
     {
       name: t("dashboard__page_title"),
-      to: `/${i18next.language}/dashboard`,
+      to: dashboardRoute.paths[i18next.language],
+    },
+    {
+      name: t("uikit__page_title"),
+      to: uikitRoute.paths[i18next.language],
     },
   ];
 

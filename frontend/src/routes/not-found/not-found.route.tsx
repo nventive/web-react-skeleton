@@ -1,6 +1,7 @@
 import Button from "@components/button/Button";
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import { route as homeRoute } from "@routes/public-routes/home/route";
 import i18next from "@shared/i18n";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
@@ -41,7 +42,7 @@ export default function NotFound() {
         </Typography>
 
         <Button
-          onClick={() => navigate(`/${i18next.language}/home`)}
+          onClick={() => navigate(homeRoute.paths[i18next.language])}
           variant="contained"
         >
           {t("not_found__go_to_home_page")}

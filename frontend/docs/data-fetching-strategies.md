@@ -1,6 +1,6 @@
 # Data Fetching Strategies
 
-This project demonstrates three different data fetching strategies using `react-query` and `react-router` loaders. Below is a high-level explanation of each strategy:
+This project demonstrates the 2 different data fetching strategies using `react-query` and `react-router` loaders. Below is a high-level explanation of each strategy:
 
 ## 1. Prefetching in loader + `useSuspenseQuery`
 
@@ -23,13 +23,14 @@ export default function MyRoute() {
 ```
 
 In this approach, we use the loader to **prefetch** our data, but notice the loader does not return the data itself.  
-In the rendered component, we use the `useSuspenseQuery` hook to get the data (you can call the `useQuery` too, but will need to handle loading states).  
+In the rendered component, we use the `useSuspenseQuery` hook to get the data (you can call the `useQuery` too, but will need to handle loading / pending states).  
 **`On the very first render`**, the `useSuspenseQuery` hook suspends the component until the query is resolved.  
 The `Suspense` component wrapping the component displays a fallback while the data is being fetched.
 **`On subsequent renders`**, the `useSuspenseQuery` hook will return stale data while fetching any new data.
 
 - **Pros**: The `useSuspenseQuery` hook ensures the component only renders when data is available.
-- **Cons**: Initial render of the whole page is blocked until data is fetched.
+- **Pros**: The `useSuspenseQuery` returns stale data immediately (if available) while new data is fetched.
+- **Cons**: Initial render of the whole page is blocked until data is fetched (which will be caugh by the Suspense compoenent wrapping this page).
 
 ## 2. Prefetching in Loader + `useQuery().promise`
 
@@ -54,14 +55,14 @@ export default function MyRoute() {
 }
 ```
 
-This strategy also prefetches data in the loader but uses the `useQuery().promise` hook within the component.  
+This strategy also prefetches data in the loader but uses the `useQuery().promise` hook within the component, allowing for .  
 The `experimental_prefetchInRender` flag in the `QueryClient` is enabled to allow this behavior.  
 The `Await` component is used to handle the promise resolution.
 
 - **Pros**: The query is tracked by `react-query`, allowing for better state management, caching and refetching.
 - **Cons**: Requires enabling an experimental flag in `react-query`.
 
-## 3. Fetching in loader + `Await`
+## Warning: Fetching in loader + `Await`
 
 ```tsx
 export const clientLoader = async () => {

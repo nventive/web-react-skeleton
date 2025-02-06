@@ -1,13 +1,14 @@
 import Button from "@components/button/Button";
 import LogoutRounded from "@icons/LogoutRounded";
 import { Box, Typography } from "@mui/material";
+import { route as loginRoute } from "@routes/public-routes/login/route";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "@shared/constants";
 import { default as i18next } from "@shared/i18n";
 import { useUserStore } from "@stores/userStore";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { useChangeLanguage } from "src/app/hooks/useChangeLanguage";
-import type { Route } from "./+types/settings.route";
+import type { Route } from "./+types/settings";
 
 export const clientLoader = async ({
   params: _params,
@@ -15,8 +16,8 @@ export const clientLoader = async ({
   return {};
 };
 
-export const meta = ({ params }: Route.MetaArgs) => {
-  const t = i18next.getFixedT(params.lang as string);
+export const meta = () => {
+  const t = i18next.getFixedT(i18next.language);
   const title = t("dashboard__page_title");
 
   return [{ title }];
@@ -32,7 +33,7 @@ export default function Settings() {
     localStorage.removeItem(ACCESS_TOKEN);
     localStorage.removeItem(REFRESH_TOKEN);
     setUser(undefined);
-    navigate(`/${i18next.language}/login`);
+    navigate(loginRoute.paths[i18next.language]);
   };
 
   return (

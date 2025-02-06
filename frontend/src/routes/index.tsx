@@ -1,4 +1,6 @@
 import Loading from "@components/loading/Loading";
+import { route as dashboardRoute } from "@routes/authenticated-routes/dashboard/route";
+import { route as homeRoute } from "@routes/public-routes/home/route";
 import i18next from "@shared/i18n";
 import { useUserStore } from "@stores/userStore";
 import { type MetaFunction, redirect } from "react-router";
@@ -10,9 +12,9 @@ export const clientLoader = ({
 }: Route.ClientLoaderArgs) => {
   const { user } = useUserStore.getState();
   if (user) {
-    return redirect(`/${i18next.language}/dashboard`);
+    return redirect(dashboardRoute.paths[i18next.language]);
   } else {
-    return redirect(`/${i18next.language}/home`);
+    return redirect(homeRoute.paths[i18next.language]);
   }
 };
 

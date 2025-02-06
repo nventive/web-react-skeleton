@@ -36,7 +36,7 @@ export default function UikitBlock({
         display: "flex",
         flexDirection: "column",
         gap: theme.spacing(1),
-        marginBottom: theme.spacing(8),
+        marginTop: theme.spacing(8),
       })}
     >
       <Typography variant="h4" sx={{ marginBottom: 4 }}>

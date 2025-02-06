@@ -40,7 +40,7 @@ function UikitNav({ items }: IUikitNav) {
       >
         {items.map((item) => (
           <li key={item.id}>
-            <Link href={`#${item.id}`}>{item.text}</Link>
+            <Link to={`#${item.id}`}>{item.text}</Link>
           </li>
         ))}
       </Box>

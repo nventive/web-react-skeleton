@@ -3,7 +3,7 @@ import { t } from "i18next";
 import { useState, type FormEvent } from "react";
 import { toast } from "react-toastify";
 import { ValidationError } from "yup";
-import loginFormSchema from "./loginForm/loginForm.schema";
+import loginFormSchema from "./loginForm.schema";
 
 export const useFormValidation = (loginForm: ILogin) => {
   const [formErrors, setFormErrors] = useState<ValidationError[]>([]);

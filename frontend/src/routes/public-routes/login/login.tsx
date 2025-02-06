@@ -13,10 +13,10 @@ import { useTranslation } from "react-i18next";
 import { useFetcher, type MetaFunction } from "react-router";
 import { toast } from "react-toastify";
 import { useChangeLanguage } from "src/app/hooks/useChangeLanguage";
-import type { Route } from "./+types/login.route";
+import type { Route } from "./+types/login";
 import LoginForm from "./loginForm/LoginForm";
-import { handleRedirect } from "./redirect";
-import { validateCredentials } from "./validateCredentials";
+import { handleRedirect } from "./submissionHelpers/handleRedirect";
+import { validateCredentials } from "./submissionHelpers/validateCredentials";
 
 /**
  * Exceptionnaly, for this loader, we will check if the user's access token
@@ -24,10 +24,7 @@ import { validateCredentials } from "./validateCredentials";
  * and set the user in the store. We will redirect the user to the home page
  * or whatever route the user was trying to access.
  */
-export const clientLoader = async ({
-  params: _params,
-  request: _request,
-}: Route.ClientLoaderArgs) => {
+export const clientLoader = async () => {
   const accessToken = localStorage.getItem(ACCESS_TOKEN);
 
   if (!accessToken) {
@@ -47,18 +44,15 @@ export const clientLoader = async ({
   return {};
 };
 
-export const meta: MetaFunction<typeof clientLoader> = ({ params }) => {
-  const t = i18next.getFixedT(params.lang as string);
+export const meta: MetaFunction<typeof clientLoader> = () => {
+  const t = i18next.getFixedT(i18next.language);
   const title = t("login__page_title");
 
   return [{ title }];
 };
 
-export const clientAction = async ({
-  request,
-  params,
-}: Route.ClientActionArgs) => {
-  const t = i18next.getFixedT(params.lang);
+export const clientAction = async ({ request }: Route.ClientActionArgs) => {
+  const t = i18next.getFixedT(i18next.language);
   const { setUser } = useUserStore.getState();
   const form = (await request.json()) as ILogin;
 

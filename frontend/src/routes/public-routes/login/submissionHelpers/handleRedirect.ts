@@ -1,6 +1,7 @@
-import { EN, FR } from "@shared/constants";
+import { route as dashboardRoute } from "@routes/authenticated-routes/dashboard/route";
 import i18next from "@shared/i18n";
 import { redirect, useNavigate } from "react-router";
+import { findRoute } from "src/routes";
 
 // the redirect url could have a language param different from the current language
 const getRedirectUrl = () => {
@@ -9,11 +10,11 @@ const getRedirectUrl = () => {
   const redirectUrl = urlSearchParams.get("redirect");
 
   if (redirectUrl) {
-    const currentLanguage = i18next.language;
-    const regex = new RegExp(`^/${EN}|${FR}`);
-    return redirectUrl.replace(regex, `/${currentLanguage}`);
+    const localizedRoute = findRoute(redirectUrl, i18next.language);
+    urlSearchParams.delete("redirect");
+    return `${localizedRoute}?${urlSearchParams.toString()}`;
   } else {
-    return `/${i18next.language}/dashboard`;
+    return dashboardRoute.paths[i18next.language];
   }
 };
 

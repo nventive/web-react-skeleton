@@ -40,7 +40,7 @@
   "routes__login": "login",
   "routes__home": "home",
   "routes__dashboard": "dashboard",
-  "routes__settings": "mysettings",
+  "routes__settings": "settings",
   "routes__uikit": "uikit",
   "routes__not_found": "not-found",
   "validations__required": "{{ field }} is required.",

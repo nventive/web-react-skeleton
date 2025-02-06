@@ -1,6 +1,8 @@
 import Button from "@components/button/Button";
 import Link from "@components/link/Link";
 import { Box, Typography } from "@mui/material";
+import { route as dashboardRoute } from "@routes/authenticated-routes/dashboard/route";
+import { route as loginRoute } from "@routes/public-routes/login/route";
 import { default as i18next } from "@shared/i18n";
 import { useUserStore } from "@stores/userStore";
 import { useTranslation } from "react-i18next";
@@ -13,7 +15,9 @@ const UserLoggedIn: React.FC = () => {
   if (!user) {
     return (
       <Typography variant="body1" whiteSpace="pre" mb={4}>
-        <Link to={`/${i18next.language}/login`}>{t("home__login_here")}</Link>
+        <Link to={loginRoute.paths[i18next.language]}>
+          {t("home__login_here")}
+        </Link>
       </Typography>
     );
   }
@@ -25,8 +29,8 @@ const UserLoggedIn: React.FC = () => {
       </Typography>
 
       <Typography variant="body1">
-        <Link to={`/${i18next.language}/dashboard`}>
-          Click here to go to the dashboard
+        <Link to={dashboardRoute.paths[i18next.language]}>
+          {t("home__dashboard_here")}
         </Link>
       </Typography>
     </>
@@ -57,6 +61,7 @@ export default function Home() {
       >
         <Typography variant="body2">{t("locale__switch")}</Typography>
       </Button>
+
       <Typography variant="body2">
         {`${t("global__version")}: ${import.meta.env.VITE_VERSION_NUMBER}`}
       </Typography>

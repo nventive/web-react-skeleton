@@ -95,7 +95,7 @@ export default function CookieModal({
           </Typography>
           <Link
             sx={(theme) => ({ marginRight: theme.customProperties.spacing.a })}
-            href={t("cookie_consent_link")}
+            to={t("cookie_consent_link")}
             underline="always"
             external
           >
@@ -104,6 +104,7 @@ export default function CookieModal({
             </Typography>
           </Link>
         </Box>
+
         <Box
           sx={(theme) => ({
             display: "flex",
