@@ -52,6 +52,13 @@ jobs:
           versionSpec: ${{ parameters.nodeVersion }}
 
       # ---------------------------------------------------
+      # Prepare Cache Directory
+      # ---------------------------------------------------
+      - script: mkdir -p $(System.DefaultWorkingDirectory)/frontend/.yarn/cache
+        displayName: "📁 Create cache directory"
+        workingDirectory: $(System.DefaultWorkingDirectory)
+
+      # ---------------------------------------------------
       # Cache Dependencies
       # ---------------------------------------------------
       - task: Cache@2
@@ -61,7 +68,7 @@ jobs:
           restoreKeys: |
             yarn | "$(Agent.OS)"
             yarn
-          path: $(Pipeline.Workspace)/.yarn/cache
+          path: $(System.DefaultWorkingDirectory)/frontend/.yarn/cache
         continueOnError: true
 
       # ---------------------------------------------------
@@ -74,7 +81,7 @@ jobs:
         displayName: "📥 Install dependencies"
         workingDirectory: $(System.DefaultWorkingDirectory)/frontend
         env:
-          YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.yarn/cache
+          YARN_CACHE_FOLDER: $(System.DefaultWorkingDirectory)/frontend/.yarn/cache
 
       # ---------------------------------------------------
       # Code Quality Checks (PR only)
