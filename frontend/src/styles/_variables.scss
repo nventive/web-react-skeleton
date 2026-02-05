@@ -4,14 +4,14 @@
 
 // Allow utility classes to use the same spacing properties defined in the MUI theme
 $spacing: (
-  a: var(--mui-customProperties-spacing-a),
-  xxs: var(--mui-customProperties-spacing-xxs),
-  xs: var(--mui-customProperties-spacing-xs),
-  sm: var(--mui-customProperties-spacing-sm),
-  md: var(--mui-customProperties-spacing-md),
-  lg: var(--mui-customProperties-spacing-lg),
-  xl: var(--mui-customProperties-spacing-xl),
-  xxl: var(--mui-customProperties-spacing-xxl),
+  a: var(--mui-custom-properties-spacing-a),
+  xxs: var(--mui-custom-properties-spacing-xxs),
+  xs: var(--mui-custom-properties-spacing-xs),
+  sm: var(--mui-custom-properties-spacing-sm),
+  md: var(--mui-custom-properties-spacing-md),
+  lg: var(--mui-custom-properties-spacing-lg),
+  xl: var(--mui-custom-properties-spacing-xl),
+  xxl: var(--mui-custom-properties-spacing-xxl),
 );
 
 $direction: (
