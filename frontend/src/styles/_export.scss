@@ -4,17 +4,17 @@
 =                  Exports                    =
 ============================================ */
 
-$_property: (gap);
+$-property: (gap);
 
-$_property-with-direction: (
+$-property-with-direction: (
   m: margin,
   p: padding,
 );
 
-$_position: (top, bottom, left, right);
+$-position: (top, bottom, left, right);
 
 // Property-spacing (eg: gap-xs -> gap: get-spacing(xs))
-@each $propertyKey in $_property {
+@each $propertyKey in $-property {
   @each $spacingKey, $spacingValue in v.$spacing {
     #body .#{$propertyKey}-#{$spacingKey} {
       #{$propertyKey}: $spacingValue;
@@ -23,7 +23,7 @@ $_position: (top, bottom, left, right);
 }
 
 // Property with direction-spacing (eg: mr-xs -> margin-right: get-spacing(xs))
-@each $propertyKey, $propertyValue in $_property-with-direction {
+@each $propertyKey, $propertyValue in $-property-with-direction {
   @each $spacingKey, $spacingValue in v.$spacing {
     @each $directionKey, $directionValues in v.$direction {
       #body .#{$propertyKey}#{$directionKey}-#{$spacingKey} {
@@ -40,7 +40,7 @@ $_position: (top, bottom, left, right);
 }
 
 // Position-spacing (eg: top-xs -> top: get-spacing(xs))
-@each $positionKey in $_position {
+@each $positionKey in $-position {
   @each $spacingKey, $spacingValue in v.$spacing {
     #body .#{$positionKey}-#{$spacingKey} {
       #{$positionKey}: $spacingValue;

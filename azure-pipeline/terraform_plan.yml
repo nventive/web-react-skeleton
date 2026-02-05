@@ -1,17 +1,42 @@
+# =====================================================
+# Template: Terraform Plan
+# =====================================================
+# Executes Terraform plan for infrastructure preview
+# =====================================================
+
 parameters:
   - name: environment
     type: string
+    values:
+      - dev
+      - qa
+      - uat
+      - prod
+
   - name: commandOptions
     type: string
 
+  - name: terraformVersion
+    type: string
+    default: "1.10.3"
+
+  - name: dependsOn
+    type: object
+    default: []
+
 jobs:
   - job: Terraform_Plan_${{ parameters.environment }}
-    displayName: "Terraform Plan [${{ parameters.environment }}]"
+    displayName: "📋 Terraform Plan [${{ parameters.environment }}]"
     pool:
-      vmImage: "ubuntu-latest"
+      vmImage: ubuntu-latest
+    ${{ if ne(length(parameters.dependsOn), 0) }}:
+      dependsOn: ${{ parameters.dependsOn }}
+    condition: succeeded()
+
     steps:
       - template: terraform_steps.yml
         parameters:
           environment: ${{ parameters.environment }}
           commandOptions: ${{ parameters.commandOptions }}
-          lastCommand: "plan"
+          command: plan
+          terraformVersion: ${{ parameters.terraformVersion }}

@@ -1,45 +1,234 @@
+# =====================================================
+# Template: Environment Deployment Loop
+# =====================================================
+# Iterates through environments and orchestrates the
+# complete deployment pipeline for each
+# =====================================================
+
 parameters:
   - name: environments
     type: object
     default:
-      - dev
-      - qa
-      # - uat
-      # - staging
-      # - prod
+      - name: dev
+        requiresApproval: false
+        dependsOn: []
+      - name: qa
+        requiresApproval: false
+        dependsOn:
+          - Deploy_dev
+      - name: uat
+        requiresApproval: true
+        dependsOn:
+          - Deploy_qa
+      - name: prod
+        requiresApproval: true
+        dependsOn:
+          - Deploy_uat
+
+  - name: nodeVersion
+    type: string
+    default: "22.x"
+
+  - name: terraformVersion
+    type: string
+    default: "1.10.3"
+
+  # Enable/disable environments
+  - name: enableDev
+    type: boolean
+    default: true
+
+  - name: enableQa
+    type: boolean
+    default: true
+
+  - name: enableUat
+    type: boolean
+    default: false
+
+  - name: enableProd
+    type: boolean
+    default: false
 
 stages:
-  - ${{ each environment in parameters.environments }}:
-      - stage: "Deploy_${{ environment }}"
-        displayName: "Deploy [${{ environment }}]"
-        condition: and(not(or(failed(), canceled())), not(eq(variables['Build.Reason'], 'PullRequest')))
+  # =====================================================
+  # Development Environment
+  # =====================================================
+  - ${{ if eq(parameters.enableDev, true) }}:
+      - stage: Deploy_dev
+        displayName: "🟢 Deploy [dev]"
+        condition: |
+          and(
+            succeeded(),
+            ne(variables['Build.Reason'], 'PullRequest')
+          )
         variables:
-          - group: "web-react-skeleton-${{ environment }}"
+          - group: web-react-skeleton-dev
           - name: commandOptions
-            value: >
-              --var-file=env/${{ environment }}.tfvars
+            value: >-
+              --var-file=env/dev.tfvars
               -var="project_short_name=$(PROJECT_SHORT_NAME)"
               -input=false
         jobs:
           - template: terraform_plan.yml
             parameters:
-              environment: ${{ environment }}
-              commandOptions: ${{ variables.commandOptions }}
+              environment: dev
+              commandOptions: $(commandOptions)
+              terraformVersion: ${{ parameters.terraformVersion }}
+
           - template: build_frontend.yml
             parameters:
-              environment: ${{ environment }}
-          - ${{ if eq(environment, 'prod') }}:
-              - template: deploy_validation.yml
-                parameters:
-                  environment: ${{ environment }}
-                  depends_on:
-                    - Terraform_Plan_${{ environment }}
+              environment: dev
+              nodeVersion: ${{ parameters.nodeVersion }}
+
           - template: deploy_frontend.yml
             parameters:
-              environment: ${{ environment }}
-              commandOptions: ${{ variables.commandOptions }}
-              depends_on:
-                - ${{ if eq(environment, 'prod') }}:
-                    - Deploy_Validation_${{ environment }}
-                - Terraform_Plan_${{ environment }}
-                - Build_Frontend_${{ environment }}
+              environment: dev
+              commandOptions: $(commandOptions)
+              terraformVersion: ${{ parameters.terraformVersion }}
+              dependsOn:
+                - Terraform_Plan_dev
+                - Build_Frontend_dev
+
+  # =====================================================
+  # QA Environment
+  # =====================================================
+  - ${{ if eq(parameters.enableQa, true) }}:
+      - stage: Deploy_qa
+        displayName: "🟡 Deploy [qa]"
+        dependsOn:
+          - ${{ if eq(parameters.enableDev, true) }}:
+              - Deploy_dev
+        condition: |
+          and(
+            not(or(failed(), canceled())),
+            ne(variables['Build.Reason'], 'PullRequest')
+          )
+        variables:
+          - group: web-react-skeleton-qa
+          - name: commandOptions
+            value: >-
+              --var-file=env/qa.tfvars
+              -var="project_short_name=$(PROJECT_SHORT_NAME)"
+              -input=false
+        jobs:
+          - template: terraform_plan.yml
+            parameters:
+              environment: qa
+              commandOptions: $(commandOptions)
+              terraformVersion: ${{ parameters.terraformVersion }}
+
+          - template: build_frontend.yml
+            parameters:
+              environment: qa
+              nodeVersion: ${{ parameters.nodeVersion }}
+
+          - template: deploy_frontend.yml
+            parameters:
+              environment: qa
+              commandOptions: $(commandOptions)
+              terraformVersion: ${{ parameters.terraformVersion }}
+              dependsOn:
+                - Terraform_Plan_qa
+                - Build_Frontend_qa
+
+  # =====================================================
+  # UAT Environment
+  # =====================================================
+  - ${{ if eq(parameters.enableUat, true) }}:
+      - stage: Deploy_uat
+        displayName: "🟠 Deploy [uat]"
+        dependsOn:
+          - ${{ if eq(parameters.enableQa, true) }}:
+              - Deploy_qa
+          - ${{ if and(eq(parameters.enableQa, false), eq(parameters.enableDev, true)) }}:
+              - Deploy_dev
+        condition: |
+          and(
+            not(or(failed(), canceled())),
+            ne(variables['Build.Reason'], 'PullRequest')
+          )
+        variables:
+          - group: web-react-skeleton-uat
+          - name: commandOptions
+            value: >-
+              --var-file=env/uat.tfvars
+              -var="project_short_name=$(PROJECT_SHORT_NAME)"
+              -input=false
+        jobs:
+          - template: terraform_plan.yml
+            parameters:
+              environment: uat
+              commandOptions: $(commandOptions)
+              terraformVersion: ${{ parameters.terraformVersion }}
+
+          - template: build_frontend.yml
+            parameters:
+              environment: uat
+              nodeVersion: ${{ parameters.nodeVersion }}
+
+          - template: deploy_validation.yml
+            parameters:
+              environment: uat
+              dependsOn:
+                - Terraform_Plan_uat
+                - Build_Frontend_uat
+
+          - template: deploy_frontend.yml
+            parameters:
+              environment: uat
+              commandOptions: $(commandOptions)
+              terraformVersion: ${{ parameters.terraformVersion }}
+              dependsOn:
+                - Deploy_Validation_uat
+
+  # =====================================================
+  # Production Environment
+  # =====================================================
+  - ${{ if eq(parameters.enableProd, true) }}:
+      - stage: Deploy_prod
+        displayName: "🔴 Deploy [prod]"
+        dependsOn:
+          - ${{ if eq(parameters.enableUat, true) }}:
+              - Deploy_uat
+          - ${{ if and(eq(parameters.enableUat, false), eq(parameters.enableQa, true)) }}:
+              - Deploy_qa
+        condition: |
+          and(
+            not(or(failed(), canceled())),
+            ne(variables['Build.Reason'], 'PullRequest')
+          )
+        variables:
+          - group: web-react-skeleton-prod
+          - name: commandOptions
+            value: >-
+              --var-file=env/prod.tfvars
+              -var="project_short_name=$(PROJECT_SHORT_NAME)"
+              -input=false
+        jobs:
+          - template: terraform_plan.yml
+            parameters:
+              environment: prod
+              commandOptions: $(commandOptions)
+              terraformVersion: ${{ parameters.terraformVersion }}
+
+          - template: build_frontend.yml
+            parameters:
+              environment: prod
+              nodeVersion: ${{ parameters.nodeVersion }}
+
+          - template: deploy_validation.yml
+            parameters:
+              environment: prod
+              timeoutMinutes: 120
+              dependsOn:
+                - Terraform_Plan_prod
+                - Build_Frontend_prod
+
+          - template: deploy_frontend.yml
+            parameters:
+              environment: prod
+              commandOptions: $(commandOptions)
+              terraformVersion: ${{ parameters.terraformVersion }}
+              dependsOn:
+                - Deploy_Validation_prod

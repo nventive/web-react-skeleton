@@ -1,47 +1,128 @@
+# =====================================================
+# Template: Build Frontend
+# =====================================================
+# Builds the React frontend application using Vite
+# Supports validation builds (PR) and artifact publishing (CD)
+# =====================================================
+
 parameters:
   - name: environment
     type: string
+    values:
+      - dev
+      - qa
+      - uat
+      - prod
+
+  - name: isValidationBuild
+    type: boolean
+    default: false
+
+  - name: nodeVersion
+    type: string
+    default: "22.x"
 
 jobs:
   - job: Build_Frontend_${{ parameters.environment }}
-    displayName: "Build Frontend [${{ parameters.environment }}]"
+    displayName: "🏗️ Build Frontend [${{ parameters.environment }}]"
     pool:
-      vmImage: "ubuntu-latest"
+      vmImage: ubuntu-latest
+
     variables:
       - name: VITE_VERSION_NUMBER
         value: $(Build.BuildNumber)
       - name: VITE_ENV
-        value: "${{ parameters.environment }}"
+        value: ${{ parameters.environment }}
       - name: VITE_API_URL
-        value: "$(api-url-${{ parameters.environment }})"
+        value: $(api-url-${{ parameters.environment }})
       - name: VITE_GA_TRACKING_ID
-        value: "$(ga-tracking-id-${{ parameters.environment }})"
+        value: $(ga-tracking-id-${{ parameters.environment }})
       - name: VITE_GENERATE_SOURCEMAP
-        value: false
+        value: ${{ eq(parameters.environment, 'dev') }}
+      - name: CI
+        value: true
 
     steps:
+      # ---------------------------------------------------
+      # Setup Node.js Environment
+      # ---------------------------------------------------
       - task: NodeTool@0
-        displayName: "Node.js Version"
+        displayName: "📦 Setup Node.js ${{ parameters.nodeVersion }}"
         inputs:
-          versionSpec: "22.x"
+          versionSpec: ${{ parameters.nodeVersion }}
 
+      # ---------------------------------------------------
+      # Prepare Cache Directory
+      # ---------------------------------------------------
+      - script: mkdir -p $(System.DefaultWorkingDirectory)/frontend/.yarn/cache
+        displayName: "📁 Create cache directory"
+        workingDirectory: $(System.DefaultWorkingDirectory)
+
+      # ---------------------------------------------------
+      # Cache Dependencies
+      # ---------------------------------------------------
+      - task: Cache@2
+        displayName: "📥 Cache Yarn dependencies"
+        inputs:
+          key: 'yarn | "$(Agent.OS)" | frontend/yarn.lock'
+          restoreKeys: |
+            yarn | "$(Agent.OS)"
+            yarn
+          path: $(System.DefaultWorkingDirectory)/frontend/.yarn/cache
+        continueOnError: true
+
+      # ---------------------------------------------------
+      # Install Dependencies
+      # ---------------------------------------------------
       - script: |
-          cd frontend
           corepack enable
           yarn set version stable
-          yarn
-          yarn build
-        displayName: "Install and Build using Yarn"
+          yarn install --immutable
+        displayName: "📥 Install dependencies"
+        workingDirectory: $(System.DefaultWorkingDirectory)/frontend
+        env:
+          YARN_CACHE_FOLDER: $(System.DefaultWorkingDirectory)/frontend/.yarn/cache
 
-      - task: CopyFiles@2
-        displayName: "Copy files to build folder"
-        inputs:
-          sourceFolder: "$(System.DefaultWorkingDirectory)/frontend/dist"
-          targetFolder: "$(Build.ArtifactStagingDirectory)"
-          cleanTargetFolder: true
+      # ---------------------------------------------------
+      # Code Quality Checks (PR only)
+      # ---------------------------------------------------
+      - ${{ if eq(parameters.isValidationBuild, true) }}:
+          - script: yarn lint
+            displayName: "🔍 Run linting"
+            workingDirectory: $(System.DefaultWorkingDirectory)/frontend
 
-      - task: PublishBuildArtifacts@1
-        displayName: "Publish artifact"
-        inputs:
-          pathtoPublish: "$(Build.ArtifactStagingDirectory)"
-          artifactName: "build_frontend_${{ parameters.environment }}"
+          - script: yarn tsc --noEmit
+            displayName: "🔍 TypeScript type check"
+            workingDirectory: $(System.DefaultWorkingDirectory)/frontend
+            continueOnError: false
+
+      # ---------------------------------------------------
+      # Build Application
+      # ---------------------------------------------------
+      - script: yarn build
+        displayName: "🏗️ Build application"
+        workingDirectory: $(System.DefaultWorkingDirectory)/frontend
+        env:
+          VITE_VERSION_NUMBER: $(VITE_VERSION_NUMBER)
+          VITE_ENV: $(VITE_ENV)
+          VITE_API_URL: $(VITE_API_URL)
+          VITE_GA_TRACKING_ID: $(VITE_GA_TRACKING_ID)
+          VITE_GENERATE_SOURCEMAP: $(VITE_GENERATE_SOURCEMAP)
+
+      # ---------------------------------------------------
+      # Publish Artifacts (CD only)
+      # ---------------------------------------------------
+      - ${{ if eq(parameters.isValidationBuild, false) }}:
+          - task: CopyFiles@2
+            displayName: "📋 Copy build files"
+            inputs:
+              sourceFolder: $(System.DefaultWorkingDirectory)/frontend/dist
+              targetFolder: $(Build.ArtifactStagingDirectory)/frontend
+              cleanTargetFolder: true
+
+          - task: PublishPipelineArtifact@1
+            displayName: "📤 Publish build artifact"
+            inputs:
+              targetPath: $(Build.ArtifactStagingDirectory)/frontend
+              artifact: frontend-${{ parameters.environment }}
+              publishLocation: pipeline

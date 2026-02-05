@@ -1,20 +1,62 @@
+# =====================================================
+# Template: Deploy Validation
+# =====================================================
+# Manual approval gate for production deployments
+# Requires user validation before proceeding
+# =====================================================
+
 parameters:
   - name: environment
     type: string
-  - name: depends_on
+    values:
+      - dev
+      - qa
+      - uat
+      - prod
+
+  - name: dependsOn
     type: object
+    default: []
+
+  - name: timeoutMinutes
+    type: number
+    default: 60
+
+  - name: notifyUsers
+    type: string
     default: ""
 
 jobs:
   - job: Deploy_Validation_${{ parameters.environment }}
-    displayName: "Deploy Validation [${{ parameters.environment }}]"
-    ${{ if ne(parameters.depends_on, '')}}:
-      dependsOn: ${{ parameters.depends_on }}
+    displayName: "⏸️ Approval Gate [${{ parameters.environment }}]"
+    ${{ if ne(length(parameters.dependsOn), 0) }}:
+      dependsOn: ${{ parameters.dependsOn }}
     pool: server
-    timeoutInMinutes: 60
+    timeoutInMinutes: ${{ parameters.timeoutMinutes }}
+    condition: succeeded()
+
     steps:
-      - task: ManualValidation@0
-        timeoutInMinutes: 60
+      - task: ManualValidation@1
+        displayName: "⏸️ Waiting for approval"
+        timeoutInMinutes: ${{ parameters.timeoutMinutes }}
         inputs:
-          instructions: "Please validate the Terraform plan for the environment before deploying. Approving this will deploy in the [${{ parameters.environment }}] environment."
-          onTimeout: "reject"
+          notifyUsers: ${{ parameters.notifyUsers }}
+          instructions: |
+            ## 🚀 Deployment Approval Required
+
+            **Environment:** `${{ parameters.environment }}`
+            **Build Version:** `$(Build.BuildNumber)`
+            **Requested By:** `$(Build.RequestedFor)`
+
+            ### ⚠️ Pre-deployment Checklist
+
+            Please verify the following before approving:
+
+            - [ ] Terraform plan has been reviewed
+            - [ ] Build artifacts are correct
+            - [ ] All required tests have passed
+
+            ---
+
+            **Approving this will deploy to the `${{ parameters.environment }}` environment.**
+          onTimeout: reject

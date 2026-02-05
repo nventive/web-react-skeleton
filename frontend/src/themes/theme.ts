@@ -18,7 +18,7 @@ const theme = createTheme({
     return spacingValues[value];
   },
   // custom properties will also be available as css variables
-  // for example: --mui-customProperties-spacing-a
+  // for example: --mui-custom-properties-spacing-a
   customProperties: {
     spacing: spacingValues,
     borderRadius: borderRadius,
