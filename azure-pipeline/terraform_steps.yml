@@ -1,40 +1,94 @@
+# =====================================================
+# Template: Terraform Steps
+# =====================================================
+# Reusable Terraform workflow steps for init, validate,
+# plan, and apply operations
+# =====================================================
+
 parameters:
   - name: environment
     type: string
+    values:
+      - dev
+      - qa
+      - uat
+      - prod
+
   - name: commandOptions
     type: string
-  - name: lastCommand
+
+  - name: command
     type: string
+    values:
+      - plan
+      - apply
+
+  - name: terraformVersion
+    type: string
+    default: "1.10.3"
+
+  - name: workingDirectory
+    type: string
+    default: $(System.DefaultWorkingDirectory)/terraform
 
 steps:
+  # ---------------------------------------------------
+  # Install Terraform
+  # ---------------------------------------------------
   - task: TerraformInstaller@1
-    displayName: "Terraform Install"
+    displayName: "⚙️ Install Terraform ${{ parameters.terraformVersion }}"
     inputs:
-      terraformVersion: "1.9.2"
+      terraformVersion: ${{ parameters.terraformVersion }}
 
+  # ---------------------------------------------------
+  # Initialize Terraform
+  # ---------------------------------------------------
   - task: TerraformTaskV4@4
-    displayName: "Terraform Initialize"
+    displayName: "⚙️ Terraform Init"
     inputs:
-      provider: "azurerm"
-      command: "init"
-      workingDirectory: $(System.DefaultWorkingDirectory)/terraform
+      provider: azurerm
+      command: init
+      workingDirectory: ${{ parameters.workingDirectory }}
       backendServiceArm: $(ARM_SERVICE_CONNECTION_NAME)
-      backendAzureRmResourceGroupName: "rg-global-$(PROJECT_SHORT_NAME)"
-      backendAzureRmStorageAccountName: "wrstfstorage"
-      backendAzureRmContainerName: "tfstate"
-      backendAzureRmKey: "${{ parameters.environment }}.tfstate"
+      backendAzureRmResourceGroupName: rg-terraform-state
+      backendAzureRmStorageAccountName: stterraformstate
+      backendAzureRmContainerName: tfstate
+      backendAzureRmKey: reactweb.${{ parameters.environment }}.tfstate
 
+  # ---------------------------------------------------
+  # Validate Terraform Configuration
+  # ---------------------------------------------------
   - task: TerraformTaskV4@4
-    displayName: "Terraform Validate"
+    displayName: "✅ Terraform Validate"
     inputs:
-      provider: "azurerm"
-      command: "validate"
+      provider: azurerm
+      command: validate
+      workingDirectory: ${{ parameters.workingDirectory }}
 
+  # ---------------------------------------------------
+  # Execute Terraform Command (Plan or Apply)
+  # ---------------------------------------------------
   - task: TerraformTaskV4@4
-    displayName: "Terraform ${{ parameters.lastCommand }}"
+    displayName: "🔧 Terraform ${{ parameters.command }}"
     inputs:
-      provider: "azurerm"
-      command: ${{ parameters.lastCommand }}
-      commandOptions: "${{ parameters.commandOptions }}"
-      workingDirectory: "$(System.DefaultWorkingDirectory)/terraform"
+      provider: azurerm
+      command: ${{ parameters.command }}
+      ${{ if eq(parameters.command, 'apply') }}:
+        commandOptions: ${{ parameters.commandOptions }} -auto-approve
+      ${{ else }}:
+        commandOptions: ${{ parameters.commandOptions }}
+      workingDirectory: ${{ parameters.workingDirectory }}
       environmentServiceNameAzureRm: $(ARM_SERVICE_CONNECTION_NAME)
+
+  # ---------------------------------------------------
+  # Summary Output
+  # ---------------------------------------------------
+  - script: |
+      echo "=============================================="
+      echo "🏗️ Terraform ${{ parameters.command }} Complete"
+      echo "=============================================="
+      echo "Environment:  ${{ parameters.environment }}"
+      echo "Command:      ${{ parameters.command }}"
+      echo "Version:      ${{ parameters.terraformVersion }}"
+      echo "=============================================="
+    displayName: "📊 Terraform summary"

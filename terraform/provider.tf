@@ -1,25 +1,26 @@
-
-data "azurerm_resource_group" "rg_global" {
-  name = "rg-global-${var.project_short_name}"
-}
-
 terraform {
+  required_version = ">= 1.14.0"
+
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "3.111.0"
+      version = "~> 4.58"
     }
   }
 
   backend "azurerm" {
-    resource_group_name  = data.azurerm_resource_group.rg_global.name
-    storage_account_name = "wrstfstorage"
+    resource_group_name  = "rg-terraform-state"
+    storage_account_name = "stterraformstate"
     container_name       = "tfstate"
-    key                  = "terraform.tfstate"
+    key                  = "reactweb.terraform.tfstate"
   }
 }
 
 provider "azurerm" {
-  features {}
-  skip_provider_registration = true
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
+  subscription_id = var.subscription_id
 }

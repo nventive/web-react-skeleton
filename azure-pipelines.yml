@@ -1,20 +1,57 @@
+# =====================================================
+# Azure DevOps Pipeline - React Frontend CI/CD
+# =====================================================
+# This pipeline handles:
+#   - CI: Build validation on pull requests
+#   - CD: Multi-environment deployment (dev, qa, uat, prod)
+#   - Infrastructure: Terraform-based IaC deployment
+# =====================================================
+
 trigger:
   branches:
     include:
+      - main
       - releases/*
 
-name: v0.01$(Rev:.rr)
+pr:
+  branches:
+    include:
+      - main
+      - releases/*
 
+# Semantic versioning with build counter
+name: "1.0.$(Rev:r)"
+
+# =====================================================
+# Global Variables
+# =====================================================
 variables:
   - group: web-react-skeleton-azure
+  - name: nodeVersion
+    value: "24.x"
+  - name: terraformVersion
+    value: "1.14.4"
 
+# =====================================================
+# Pipeline Stages
+# =====================================================
 stages:
-  - stage: Pull_request_build_stage
-    displayName: "Pull Request Build Stage"
-    condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
+  # ---------------------------------------------------
+  # Stage: PR Validation Build
+  # ---------------------------------------------------
+  - stage: PullRequest_Validation
+    displayName: "🔍 PR Validation"
+    condition: eq(variables['Build.Reason'], 'PullRequest')
     jobs:
       - template: azure-pipeline/build_frontend.yml
         parameters:
-          environment: "dev"
+          environment: dev
+          isValidationBuild: true
 
+  # ---------------------------------------------------
+  # Stage: Environment Deployments
+  # ---------------------------------------------------
   - template: azure-pipeline/environments_loop.yml
+    parameters:
+      nodeVersion: $(nodeVersion)
+      terraformVersion: $(terraformVersion)

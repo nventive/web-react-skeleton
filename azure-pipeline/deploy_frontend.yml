@@ -1,53 +1,157 @@
+# =====================================================
+# Template: Deploy Frontend
+# =====================================================
+# Deploys React frontend to Azure Blob Storage
+# with CDN cache purge
+# =====================================================
+
 parameters:
   - name: environment
     type: string
+    values:
+      - dev
+      - qa
+      - uat
+      - prod
+
   - name: commandOptions
     type: string
-  - name: depends_on
+
+  - name: dependsOn
     type: object
-    default: ""
+    default: []
+
+  - name: terraformVersion
+    type: string
+    default: "1.10.3"
 
 jobs:
-  - deployment: "Deploy_Frontend_${{ parameters.environment }}"
-    displayName: "Deploy Frontend [${{ parameters.environment }}]"
+  - deployment: Deploy_Frontend_${{ parameters.environment }}
+    displayName: "🚀 Deploy Frontend [${{ parameters.environment }}]"
     environment: ${{ parameters.environment }}
     pool:
-      vmImage: "windows-latest"
-    ${{ if ne(parameters.depends_on, '')}}:
-      dependsOn: ${{ parameters.depends_on }}
+      vmImage: ubuntu-latest
+    ${{ if ne(length(parameters.dependsOn), 0) }}:
+      dependsOn: ${{ parameters.dependsOn }}
+    condition: succeeded()
+
+    variables:
+      # Storage account: st + project_short_name + environment (no hyphens, max 24 chars)
+      - name: storageAccountName
+        value: st$(PROJECT_SHORT_NAME)${{ parameters.environment }}
+      - name: resourceGroupName
+        value: rg-$(PROJECT_SHORT_NAME)-${{ parameters.environment }}
+      - name: frontdoorProfileName
+        value: afd-$(PROJECT_SHORT_NAME)-${{ parameters.environment }}
+      - name: frontdoorEndpointName
+        value: ep-$(PROJECT_SHORT_NAME)-${{ parameters.environment }}
 
     strategy:
       runOnce:
         deploy:
           steps:
+            # ---------------------------------------------------
+            # Checkout Repository
+            # ---------------------------------------------------
             - checkout: self
+              clean: true
+              fetchDepth: 1
 
+            # ---------------------------------------------------
+            # Download Build Artifact
+            # ---------------------------------------------------
+            - task: DownloadPipelineArtifact@2
+              displayName: "📥 Download build artifact"
+              inputs:
+                artifact: frontend-${{ parameters.environment }}
+                path: $(Pipeline.Workspace)/frontend
+
+            # ---------------------------------------------------
+            # Apply Terraform Infrastructure
+            # ---------------------------------------------------
             - template: terraform_steps.yml
               parameters:
                 environment: ${{ parameters.environment }}
                 commandOptions: ${{ parameters.commandOptions }}
-                lastCommand: "apply"
+                command: apply
+                terraformVersion: ${{ parameters.terraformVersion }}
 
+            # ---------------------------------------------------
+            # Deploy to Azure Blob Storage
+            # ---------------------------------------------------
             - task: AzureCLI@2
-              displayName: "Empty container and copy React build to blob storage"
+              displayName: "🗑️ Clear existing blobs"
               inputs:
-                azureSubscription: "$(ARM_SERVICE_CONNECTION_NAME)"
-                scriptType: ps
-                scriptLocation: "inlineScript"
+                azureSubscription: $(ARM_SERVICE_CONNECTION_NAME)
+                scriptType: bash
+                scriptLocation: inlineScript
                 addSpnToEnvironment: true
+                failOnStandardError: true
                 inlineScript: |
-                  $storageAccountName = "sa$(PROJECT_SHORT_NAME)${{ parameters.environment }}"
-                  $buildSourcePath = "$(Pipeline.Workspace)/build_frontend_${{ parameters.environment }}"
-                  $containerName = '$web'
+                  set -euo pipefail
 
-                  az storage blob delete-batch --account-name $storageAccountName --source $containerName
-                  az storage blob upload-batch --account-name $storageAccountName --destination $containerName --source $buildSourcePath
+                  echo "Clearing existing content from storage..."
+                  az storage blob delete-batch \
+                    --account-name "$(storageAccountName)" \
+                    --source '$web' \
+                    --auth-mode login \
+                    --only-show-errors
 
             - task: AzureCLI@2
-              displayName: "Purge CDN after React build deployment"
+              displayName: "📤 Upload build to storage"
               inputs:
-                azureSubscription: "$(ARM_SERVICE_CONNECTION_NAME)"
-                scriptType: ps
-                scriptLocation: "inlineScript"
+                azureSubscription: $(ARM_SERVICE_CONNECTION_NAME)
+                scriptType: bash
+                scriptLocation: inlineScript
+                addSpnToEnvironment: true
+                failOnStandardError: true
                 inlineScript: |
-                  az cdn endpoint purge -g rg-${{ parameters.environment }}-$(PROJECT_SHORT_NAME) -n cdne-${{ parameters.environment }}-$(PROJECT_SHORT_NAME) --profile-name cdnp-${{ parameters.environment }}-$(PROJECT_SHORT_NAME) --content-paths '/*' --no-wait
+                  set -euo pipefail
+
+                  echo "Uploading build to Azure Blob Storage..."
+                  az storage blob upload-batch \
+                    --account-name "$(storageAccountName)" \
+                    --destination '$web' \
+                    --source "$(Pipeline.Workspace)/frontend" \
+                    --auth-mode login \
+                    --overwrite \
+                    --only-show-errors
+
+                  echo "✅ Upload completed successfully"
+
+            # ---------------------------------------------------
+            # Purge Azure Front Door Cache
+            # ---------------------------------------------------
+            - task: AzureCLI@2
+              displayName: "🔄 Purge Front Door cache"
+              inputs:
+                azureSubscription: $(ARM_SERVICE_CONNECTION_NAME)
+                scriptType: bash
+                scriptLocation: inlineScript
+                failOnStandardError: false
+                inlineScript: |
+                  set -euo pipefail
+
+                  echo "Purging Azure Front Door cache..."
+                  az afd endpoint purge \
+                    --resource-group "$(resourceGroupName)" \
+                    --endpoint-name "$(frontdoorEndpointName)" \
+                    --profile-name "$(frontdoorProfileName)" \
+                    --content-paths '/*' \
+                    --no-wait
+
+                  echo "✅ Front Door cache purge initiated"
+
+            # ---------------------------------------------------
+            # Deployment Summary
+            # ---------------------------------------------------
+            - script: |
+                echo "=============================================="
+                echo "🎉 Deployment Summary"
+                echo "=============================================="
+                echo "Environment:     ${{ parameters.environment }}"
+                echo "Build Version:   $(Build.BuildNumber)"
+                echo "Storage Account: $(storageAccountName)"
+                echo "Front Door:      $(frontdoorEndpointName)"
+                echo "=============================================="
+              displayName: "📊 Deployment summary"
