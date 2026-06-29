@@ -12,10 +12,12 @@ current. With Copilot we replace it with two living artifacts:
 - [`.github/prompts/scaffold-web-project.prompt.md`](.github/prompts/scaffold-web-project.prompt.md) —
   a reusable prompt that interviews the user and scaffolds a fresh project
   against the latest versions of the chosen stack.
-- [`.github/instructions/frontend.instructions.md`](.github/instructions/frontend.instructions.md) —
-  the frontend conventions (TypeScript, React, styling, i18n, …) the scaffold
-  applies. Copied as-is into the generated project, then tailored to the
-  chosen stack. Uses `applyTo: "frontend/**"` so it auto-activates there.
+- [`.github/prompts/frontend-conventions.md`](.github/prompts/frontend-conventions.md) —
+  the nventive frontend conventions (TypeScript, React, styling, i18n, …) the
+  scaffolder applies and writes into the generated project as
+  `.github/instructions/frontend.instructions.md` (with `applyTo: "frontend/**"`
+  so it auto-activates there). Kept outside `.github/instructions/` here so it
+  does not auto-load into the skeleton's own Copilot context.
 
 CI/CD and infrastructure principles are inlined directly in the scaffold
 prompt, since they shape scaffold-time decisions rather than rules to follow
@@ -25,11 +27,12 @@ when editing files.
 
 In VS Code with GitHub Copilot:
 
-1. Open this repository (or copy the two files above into the target workspace).
+1. Open this repository (or copy the prompt file above into the target workspace).
 2. In Copilot Chat, run the slash command for the prompt
    (`/scaffold-web-project`) or attach the prompt file to a new chat.
 3. Answer the interview questions. The agent will generate the project against
-   the latest versions of the chosen frameworks and apply `STANDARDS.md`.
+   the latest versions of the chosen frameworks and apply the embedded
+   frontend conventions.
 
 You can also install the prompt as personal, repository, or organization custom
 instructions. See:

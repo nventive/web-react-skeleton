@@ -1,14 +1,8 @@
----
-applyTo: "frontend/**"
----
-
 # Frontend conventions
 
-These rules apply to every file under `frontend/**`. Read them before editing any frontend file; follow them in any code you write or change.
+Reference document used by [scaffold-web-project.prompt.md](scaffold-web-project.prompt.md). Not auto-applied — this file intentionally has no `applyTo` frontmatter so it does not load itself into Copilot context. The scaffolder reads it and copies the sections below into the generated project's `.github/instructions/frontend.instructions.md` (with `applyTo: "frontend/**"` frontmatter added there).
 
-Sections tagged **(stack-specific)** apply only when the matching library is in use — skip them otherwise.
-
----
+**(stack-specific)** blocks apply only when the matching library is in use — skip or adapt them otherwise.
 
 ## 1. Code formatting
 
