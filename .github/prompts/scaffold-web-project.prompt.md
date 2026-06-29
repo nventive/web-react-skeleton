@@ -25,35 +25,38 @@ Ask the user the following questions before generating anything. Group them, acc
 1. Project name / npm package name.
 2. Short description (one sentence).
 
+**Tooling**
+3. Package manager: npm · Yarn (Classic or Berry — ask which) · pnpm. Default: npm. Use this for every install/script command emitted by the scaffold and referenced in the CI pipeline and READMEs.
+
 **Stack**
-3. Meta-framework: Vite SPA · Next.js · Remix · Astro · TanStack Start · other.
-4. UI library: MUI · shadcn/ui · Mantine · Chakra · none.
-5. Styling: SCSS + BEM (default per `frontend.instructions.md` §8) · Tailwind · CSS Modules · CSS-in-JS.
-6. State management: Zustand · Redux Toolkit · Jotai · React Context only · none.
-7. Routing: depends on the meta-framework — confirm SPA routing lib (e.g. React Router) only if it is not built in.
-8. Form library + schema validation: React Hook Form + Zod · React Hook Form + Yup · Formik · none.
+4. Meta-framework: Vite SPA · Next.js · Remix · Astro · TanStack Start · other.
+5. UI library: MUI · shadcn/ui · Mantine · Chakra · none.
+6. Styling: SCSS + BEM (default per `frontend.instructions.md` §8) · Tailwind · CSS Modules · CSS-in-JS.
+7. State management: Zustand · Redux Toolkit · Jotai · React Context only · none.
+8. Routing: depends on the meta-framework — confirm SPA routing lib (e.g. React Router) only if it is not built in.
+9. Form library + schema validation: React Hook Form + Zod · React Hook Form + Yup · Formik · none.
 
 **Features**
-9. Internationalisation: yes/no. If yes, list languages (e.g. `en`, `fr`) and confirm whether translations are sourced from a Google Sheet (`sheet2i18n`) or kept as static JSON.
-10. Authentication: none · OAuth provider (which one?) · SSO · custom.
+10. Internationalisation: yes/no. If yes, list languages (e.g. `en`, `fr`) and confirm whether translations are sourced from a Google Sheet (`sheet2i18n`) or kept as static JSON.
+11. Authentication: none · OAuth provider (which one?) · SSO · custom.
 
 **Testing**
-11. Unit testing: **Vitest + Testing Library** · **Jest + Testing Library** · none. If a tool is chosen, it must be installed, configured, given a sample test, exposed via `yarn test` / `npm test`, and wired into the CI pipeline (a dedicated `test` job/step that fails the build on test failure). If "none" is chosen, do not install testing dependencies and do not add a test step to CI.
+12. Unit testing: **Vitest + Testing Library** · **Jest + Testing Library** · none. If a tool is chosen, it must be installed, configured, given a sample test, exposed via `yarn test` / `npm test`, and wired into the CI pipeline (a dedicated `test` job/step that fails the build on test failure). If "none" is chosen, do not install testing dependencies and do not add a test step to CI.
 
 **Operations**
-12. CI provider: GitHub Actions · Azure DevOps Pipelines · GitLab CI · none.
-13. Target hosting: Azure Static Web Apps · Azure Storage + CDN · AWS S3 + CloudFront · Vercel · Cloudflare Pages · Netlify · other.
-14. IaC: Terraform · Bicep · Pulumi · none (e.g. for Vercel/Netlify).
-15. Environments: confirm the list, default `dev`, `qa`, `prod`. Confirm whether `prod` requires a manual approval gate.
+13. CI provider: GitHub Actions · Azure DevOps Pipelines · GitLab CI · none.
+14. Target hosting: Azure Static Web Apps · Azure Storage + CDN · AWS S3 + CloudFront · Vercel · Cloudflare Pages · Netlify · other.
+15. IaC: Terraform · Bicep · Pulumi · none (e.g. for Vercel/Netlify).
+16. Environments: confirm the list, default `dev`, `qa`, `prod`. Confirm whether `prod` requires a manual approval gate.
 
 ## Decision rules
 
 - Use the official latest scaffolding CLI for the chosen meta-framework (e.g. `npm create vite@latest`, `npx create-next-app@latest`). Run it into `frontend/`, then layer customisations on top — never hand-write what the CLI provides.
-- Use the package manager the project will use day-to-day (default: Yarn via Corepack). Pin it via `packageManager` in `package.json`.
+- Use the package manager chosen in Q3 consistently across `frontend/package.json` scripts, lockfile (`package-lock.json` / `yarn.lock` / `pnpm-lock.yaml`), CI install/cache steps, and any commands shown in the generated READMEs. Commit the lockfile.
 - TypeScript is mandatory. Path aliases follow `frontend.instructions.md` §3.
 - Linting baseline: ESLint + Prettier always. Stylelint only when the styling answer involves CSS/SCSS files (skip it for Tailwind-only projects).
 - The folder layout in `frontend/src/` follows `frontend.instructions.md` §12, scoped to what was requested (do not create empty `auth/`, `forms/`, `stores/` folders if those features were declined).
-- CI step ordering: install → lint → typecheck → test (only if testing was chosen) → build → deploy (per-environment, gated as agreed in Q15).
+- CI step ordering: install → lint → typecheck → test (only if testing was chosen) → build → deploy (per-environment, gated as agreed in Q16).
 - CI/CD and IaC follow the principles in [CI/CD and IaC principles](#cicd-and-iac-principles) below.
 
 ## CI/CD and IaC principles
