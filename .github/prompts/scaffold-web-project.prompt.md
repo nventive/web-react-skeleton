@@ -11,6 +11,17 @@ You are bootstrapping a brand-new web project in the **current empty (or near-em
 
 Produce a working, lint-clean, build-clean web project with all web-app source under `frontend/`, root-level CI/CD (and optional IaC), and the Copilot artifacts from [Generated Copilot artifacts](#generated-copilot-artifacts). Use the latest stable version of every framework and library at scaffold time — do not hardcode versions from memory.
 
+## Guiding principles
+
+These rules sit above everything else in this prompt. If any later instruction looks like it would violate them, stop and apply these instead.
+
+- **Lean by default.** Prefer installing nothing over installing something "just in case". If the user did not explicitly ask for a library, tool, integration, script, config file, or folder — and it is not strictly required to make a chosen feature work — do not add it. It is always cheaper to add a dependency later than to remove one that became load-bearing.
+- **No speculative scaffolding.** Do not create empty folders, placeholder modules, sample business components, demo pages, example API clients, or "you might want this" config files. Only generate what is needed to satisfy the user's answers and to make the validation step pass.
+- **No bundled extras.** Choosing a meta-framework / state lib / form lib does not auto-pull adjacent libraries (HTTP clients, date libs, icon packs, animation libs, analytics, error trackers, storybook, husky, lint-staged, commitlint, …). Each of those is a separate decision the user must make.
+- **Ask when in doubt.** If a question's answer is ambiguous, if two answers conflict, if an "obvious" addition would technically help but was never requested, or if the minimal interpretation feels too thin — stop and ask the user with a concrete yes/no or A/B question. Do not silently pick the bigger option.
+- **Smallest viable wiring.** When a feature is requested, install only what that feature needs to work end-to-end (lib + minimal config + one wiring point). No extra plugins, presets, or ecosystem add-ons unless asked.
+- **Reversibility bias.** When two valid approaches exist and the user has not chosen, prefer the one that is easier to change or remove later.
+
 ## Interview
 
 Ask the user the following questions before generating anything. Group them, accept sensible defaults, and confirm the full set back to the user before proceeding.
@@ -43,6 +54,11 @@ Ask the user the following questions before generating anything. Group them, acc
 15. IaC: Terraform · Bicep · Pulumi · none (e.g. for Vercel/Netlify).
 16. Environments: confirm the list, default `dev`, `qa`, `prod`. Confirm whether `prod` requires a manual approval gate.
 
+**Wrap-up**
+
+17. **Anything missing?** Ask the user, in one open-ended question, whether there is anything they want added to the project that was not covered by questions 1–16 (extra tooling, libraries, files, scripts, conventions, integrations, …). Capture any answer and fold it into the plan; if the answer is "no" / empty, move on without further prompting.
+18. **Sanity check the whole plan.** Re-read the full set of answers (1–17) as a coherent system and look for combinations that don't make sense, contradict each other, or have a clearly better alternative (e.g. a hosting target incompatible with the chosen IaC, a state library redundant with the meta-framework's built-ins, a testing choice that won't work with the chosen runner). If you spot something, surface it to the user with a concrete proposed change and wait for their decision. If everything is internally consistent, say nothing and proceed — do not invent concerns to report.
+
 ## Decision rules
 
 - Use the official latest scaffolding CLI for the chosen meta-framework (e.g. `npm create vite@latest`, `npx create-next-app@latest`). Run it into `frontend/`, then layer customisations on top — never hand-write what the CLI provides.
@@ -50,6 +66,7 @@ Ask the user the following questions before generating anything. Group them, acc
 - TypeScript is mandatory. ESLint + Prettier always; Stylelint only when CSS/SCSS files are involved.
 - Scope the `frontend/src/` layout from [frontend-conventions.md §12](frontend-conventions.md#12-recommended-folder-layout) to what was requested — do not create empty folders for declined features.
 - CI step ordering: install → lint → typecheck → test (if enabled) → build → deploy (per-environment, gated per Q16).
+- Apply the [Guiding principles](#guiding-principles) on every install/file/config decision. When unsure whether something is needed, leave it out and ask the user instead of adding it.
 
 ## CI/CD and IaC principles
 
@@ -85,8 +102,12 @@ The scaffold produces this root layout. Anything inside `frontend/` is web-app c
 │   └── README.md              # how to run/build/test the app
 ├── .github/
 │   ├── copilot-instructions.md          # repo-wide
-│   ├── instructions/
-│   │   └── frontend.instructions.md     # applyTo: "frontend/**"
+│   ├── instructions/                    # split per concern, each scoped via `applyTo`
+│   │   ├── frontend.instructions.md             # baseline — applyTo: "frontend/**"
+│   │   ├── frontend-react.instructions.md       # components/hooks/state — applyTo: "frontend/**/*.{ts,tsx}"
+│   │   ├── frontend-styling.instructions.md     # design tokens, styling, responsiveness
+│   │   ├── frontend-i18n.instructions.md        # only if i18n enabled
+│   │   └── frontend-testing.instructions.md     # only if unit testing enabled
 │   ├── prompts/
 │   │   └── code-review-uncommitted.prompt.md
 │   └── workflows/             # if CI provider = GitHub Actions
@@ -116,12 +137,12 @@ Perform in order. Do not skip validation between phases.
    - Deploy the built artifacts to the chosen hosting target.
 7. **Generate IaC** at `infra/` if requested, parameterised per environment, with remote state configured. Respect [CI/CD and IaC principles](#cicd-and-iac-principles).
 8. **Generate in-project Copilot artifacts** (see [Generated Copilot artifacts](#generated-copilot-artifacts) below). These live at the root of the new project, not inside `frontend/`.
-9. **Write the README.** Document the chosen stack, how to run/build/test, how the CI works, and how to deploy. Reference the generated `.github/instructions/frontend.instructions.md` as the source of frontend conventions.
+9. **Write the README.** Document the chosen stack, how to run/build/test, how the CI works, and how to deploy. Reference the generated `.github/instructions/` directory as the source of frontend conventions (list each file actually emitted).
 10. **Validate** per the [Validation](#validation) section. Report any failure to the user before declaring the scaffold complete.
 
 ## Generated Copilot artifacts
 
-Three files, each the single source of truth for its scope — do not duplicate guidance across them.
+Each file below is the single source of truth for its scope — do not duplicate guidance across them. Cross-reference instead.
 
 ### `.github/copilot-instructions.md` — repo-wide
 
@@ -131,27 +152,52 @@ Follow GitHub's [repository custom-instructions guidance](https://docs.github.co
 - The real generated repo-root folder layout.
 - Copy-pasteable commands from the repo root for install, dev, build, lint, typecheck, test (if enabled), deploy.
 - CI / deployment summary: provider, files, environments, gates.
-- Pointer to the generated `.github/instructions/frontend.instructions.md`.
-- Instruction to trust this file and only search the codebase when it is incomplete or wrong.
+- A short index of the `.github/instructions/*.instructions.md` files that were generated, with one line each describing what scope they cover.
+- Instruction to trust these files and only search the codebase when they are incomplete or wrong.
 
-### `.github/instructions/frontend.instructions.md` — path-specific, applies to `frontend/**`
+### `.github/instructions/` — frontend instructions, split per concern
 
-Copy [frontend-conventions.md](frontend-conventions.md) (sections 1–13) verbatim into the generated file, prepend `---\napplyTo: "frontend/**"\n---` frontmatter, then:
+Do **not** dump all of [frontend-conventions.md](frontend-conventions.md) into one file. Split it into the files below, each with focused `applyTo` frontmatter so Copilot only loads what is relevant to the file being edited. Generate only the files that match the user's choices.
 
-- Replace the §12 layout with the one actually generated.
-- Drop any **(stack-specific)** block that does not match the chosen stack; add equivalents for the chosen stack where useful.
-- Drop §7 (i18n) if i18n is disabled.
-- Replace §8's SCSS examples with idiomatic examples for the chosen styling solution.
-- Append a testing subsection if unit testing is enabled.
+For every file: prepend YAML frontmatter (`---\napplyTo: "<glob>"\n---`), open with a one-line purpose sentence, end with a short "See also" list linking to sibling instructions files. Keep each file self-contained — no runtime dependency on this skeleton — and do not restate guidance that belongs in a sibling file.
 
-The file must be self-contained — no runtime dependency on this skeleton.
+**Authoring rules applied to every file**
+
+- Source the canonical guidance from [frontend-conventions.md](frontend-conventions.md), but **enhance** it: replace SCSS-only examples with idiomatic snippets for the chosen styling solution, replace generic stack references with the chosen meta-framework / state library / form library, drop any **(stack-specific)** block that does not match the chosen stack, and add equivalents for the chosen stack where useful.
+- Show concrete `do this` / `not this` snippets, not just prose.
+- Use the real path aliases configured in `tsconfig` (not the placeholders from the skeleton).
+- Keep each file focused: if a section grew significantly, prefer moving it to its own sibling file rather than bloating one.
+
+**Files to generate**
+
+1. **`frontend.instructions.md`** — baseline, always generated.
+   - Frontmatter: `applyTo: "frontend/**"`.
+   - Contents: §1 Code formatting, §3 TypeScript, §4 Functions, §11 File contents order, §12 Recommended folder layout (replaced with the layout actually generated), §13 Anti-patterns. Add a short "Frontend security do's and don'ts" subsection covering `dangerouslySetInnerHTML`, env var handling (`VITE_PUBLIC_*` / `NEXT_PUBLIC_*` only for non-secrets), and where secrets must live instead.
+   - Ends with an index of the sibling instruction files and what they cover.
+
+2. **`frontend-react.instructions.md`** — always generated.
+   - Frontmatter: `applyTo: "frontend/**/*.{ts,tsx}"`.
+   - Contents: §5 React components, §6 State (rewritten around the chosen state library or "React Context only" if none), §9 Skeletons / loading states. Add a short accessibility subsection (semantic HTML, labelled controls, focus management, `aria-*` only when semantics aren't enough).
+   - If a form library was chosen, add a focused "Forms" subsection with one canonical example using that library + its validator.
+
+3. **`frontend-styling.instructions.md`** — always generated.
+   - Frontmatter: `applyTo` scoped to the styling solution actually used — e.g. `"frontend/**/*.{scss,css,tsx,ts}"` for SCSS/CSS-Modules, `"frontend/**/*.{ts,tsx,css}"` for Tailwind, `"frontend/**/*.{ts,tsx}"` for CSS-in-JS.
+   - Contents: §2 Designs, §8 Styling (rewritten end-to-end for the chosen solution — naming conventions, token usage, theming, dark-mode strategy if any), §10 Responsiveness (breakpoints, mobile-first, container queries when applicable).
+
+4. **`frontend-i18n.instructions.md`** — only if i18n is enabled.
+   - Frontmatter: `applyTo: "frontend/**/*.{ts,tsx,json}"`.
+   - Contents: §7 Internationalization, rewritten for the chosen source-of-truth (static JSON vs `sheet2i18n`). List the configured locales, the lookup helper, pluralisation rules, and the workflow for adding a new key.
+
+5. **`frontend-testing.instructions.md`** — only if unit testing is enabled.
+   - Frontmatter: `applyTo: "frontend/**/*.{test,spec}.{ts,tsx}"`.
+   - Contents: chosen runner + Testing Library conventions, file naming and colocation, what to test vs. not test, querying priority (`getByRole` first), user-event over `fireEvent`, mocking conventions for network/storage/i18n, the `test` vs `test:ci` scripts, and how to run a single test.
 
 ### `.github/prompts/code-review-uncommitted.prompt.md`
 
 A reusable prompt that reviews the user's **uncommitted** changes (working tree + staged, i.e. `git diff HEAD`). It should:
 
 - Run `git status --short` and `git diff HEAD` to inventory what changed.
-- Review the diff against the repo-wide `.github/copilot-instructions.md`, and for any files matching `frontend/**` also against the generated `.github/instructions/frontend.instructions.md`.
+- Review the diff against the repo-wide `.github/copilot-instructions.md`, and for any file under `frontend/**` also against every matching `.github/instructions/frontend*.instructions.md` (match each file's `applyTo` glob against the changed path).
 - Look for the obvious classes of problems: TypeScript escapes (`any`, `as unknown as`), inline styles, `!important` without justification, `dangerouslySetInnerHTML`, missing translations, hard-coded colours/spacing, untested new logic, missing error handling at system boundaries, accessibility regressions, secrets/PII in code or commit messages.
 - Group findings by severity (Blocker / Major / Minor / Nit) and end with a short summary of what looks good.
 - Not modify any files — review only.
@@ -166,7 +212,7 @@ mode: agent
 
 ## Frontend conventions
 
-The nventive frontend conventions live in [frontend-conventions.md](frontend-conventions.md) (sections 1–13). The scaffolder must read that file, apply its rules to every file generated under `frontend/`, and use it as the canonical source when emitting the generated project's `frontend.instructions.md` (see [Generated Copilot artifacts → frontend.instructions.md](#githubinstructionsfrontendinstructionsmd--path-specific-applies-to-frontend)).
+The nventive frontend conventions live in [frontend-conventions.md](frontend-conventions.md) (sections 1–13). The scaffolder must read that file, apply its rules to every file generated under `frontend/`, and use it as the canonical source when emitting the generated project's split instruction files (see [Generated Copilot artifacts → `.github/instructions/`](#githubinstructions--frontend-instructions-split-per-concern)).
 
 ## Validation
 
