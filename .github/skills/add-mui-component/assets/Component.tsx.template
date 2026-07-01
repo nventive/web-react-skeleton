@@ -1,0 +1,25 @@
+// Canonical wrapper template for a Material UI v6 primitive.
+// Replace __Name__ (PascalCase, e.g. Chip) and __name__ (lowerCamelCase, e.g. chip).
+// See SKILL.md for the four pattern variants (passthrough, prop rewrite, default slot, forwardRef).
+
+import { __Name__Props, __Name__ as Mui__Name__ } from "@mui/material";
+import { styled } from "@mui/material-pigment-css";
+
+const StyledMui__Name__ = styled(Mui__Name__)(({ theme }) => ({
+  // Style through theme tokens only — theme.customProperties.*, theme.palette.*,
+  // theme.spacing(...), theme.breakpoints.*, theme.transitions.*.
+  // Never hardcoded pixel values or hex colors.
+  borderRadius: theme.customProperties.borderRadius.xs,
+}));
+
+interface I__Name__ extends __Name__Props {
+  // Add repo-specific additions here.
+  // Use Omit<__Name__Props, "someProp"> above and redeclare "someProp" if you
+  // need to rewrite an existing prop's signature (see TextField.tsx).
+}
+
+export default function __Name__({ children, ...props }: I__Name__) {
+  // Spread {...props} FIRST, then override the props the wrapper controls so
+  // consumer props can't accidentally undo the wrapper's contract.
+  return <StyledMui__Name__ {...props}>{children}</StyledMui__Name__>;
+}

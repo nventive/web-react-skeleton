@@ -1,0 +1,42 @@
+// Per-path multi-color icon template — different shapes carry different fills,
+// OR a single-path monochrome icon you want to keep addressable per-path.
+// Replace __Name__ (PascalCase, e.g. AddRounded), __ViewBoxW__ / __ViewBoxH__
+// (viewBox natural size, must match width / height defaults), and __AltText__
+// (spaced name, e.g. "Add Rounded").
+//
+// Rules:
+// - Keep `fill="none"` on <svg> so per-shape `sx` fills win.
+// - Wire `sx` on EACH colored shape (<path>, <circle>, <rect>). Repeat the block
+//   even when shapes share a fill — do NOT hoist to <svg> in this variant.
+// - Do NOT mix an <svg>-level `sx` fill with per-shape `sx` fills.
+// - <title>{alt}</title> is the first child of <svg>. Non-negotiable.
+// - Never `fill="#..."`, `fill="white"`, or `fill="currentColor"` — always a theme token.
+
+import IIcon from "./IIcon";
+
+export default function __Name__({
+  className,
+  width = __ViewBoxW__,
+  height = __ViewBoxH__,
+  alt = "__AltText__",
+}: IIcon) {
+  return (
+    <svg
+      className={className}
+      width={width}
+      height={height}
+      viewBox="0 0 __ViewBoxW__ __ViewBoxH__"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <title>{alt}</title>
+      {/* One <path> per shape, each with its own sx → theme token fill. */}
+      <path
+        d="…"
+        sx={(theme) => ({
+          fill: theme.palette.common.white,
+        })}
+      />
+    </svg>
+  );
+}

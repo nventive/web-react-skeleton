@@ -1,0 +1,7 @@
+import EPermission from "@enums/EPermission";
+import withAuth from "@hocs/withAuth";
+import __PageName__ from "@pages/__pageName__/__PageName__";
+
+const withAuth__PageName__ = withAuth(__PageName__, EPermission.__PageName__Read);
+
+export default withAuth__PageName__;

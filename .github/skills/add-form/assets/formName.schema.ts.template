@@ -1,0 +1,27 @@
+import { object, string } from "yup";
+// Add more imports as needed: number, boolean, array, mixed, date, ref
+// Cross-field validation example: import { object, ref, string } from "yup";
+
+const __formName__Schema = object({
+  // One entry per field. Field name MUST match the request interface + form state key.
+  //
+  // Rules:
+  // - .label(...) receives an i18n key, NOT human text. FieldHelperText translates it
+  //   and injects it as {{ field }} in the error message.
+  // - Every validator that can fail carries a `validations__*` i18n key as its message.
+  // - Reuse existing keys when possible (validations__required, validations__min_characters,
+  //   validations__max_characters). Add new ones via sheet2i18n.
+  //
+  // Example field:
+  // fieldName: string()
+  //   .label("<namespace>__field_name")
+  //   .required("validations__required")
+  //   .min(8, "validations__min_characters"),
+  //
+  // Cross-field example (put "password" first so it's defined when referenced):
+  // passwordConfirm: string()
+  //   .label("<namespace>__password_confirm")
+  //   .oneOf([ref("password")], "validations__passwords_must_match"),
+});
+
+export default __formName__Schema;

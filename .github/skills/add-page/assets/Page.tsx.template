@@ -1,0 +1,18 @@
+import Layout from "@components/layout/Layout";
+import Typography from "@mui/material/Typography";
+import { useTranslation } from "react-i18next";
+
+function __PageName__() {
+  const { t } = useTranslation();
+
+  return (
+    <Layout.Container>
+      <Typography variant="h4" className="mb-xl">
+        {t("__pageName___page_title")}
+      </Typography>
+      {/* page content */}
+    </Layout.Container>
+  );
+}
+
+export default __PageName__;
