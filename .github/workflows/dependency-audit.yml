@@ -8,6 +8,12 @@
 name: Dependency audit
 
 on:
+  # TEMPORARY: lets this run from a feature branch before workflow_dispatch/schedule
+  # are discoverable (those only trigger for workflows present on the default branch).
+  # Remove this `push` block before merging to main.
+  push:
+    branches:
+      - feat/add-copilot-instructions-and-skills
   schedule:
     # 06:00 UTC on the 1st and 15th of every month (~every 2 weeks).
     - cron: "0 6 1,15 * *"
@@ -84,7 +90,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           RESPONSE: ${{ steps.audit.outputs.response }}
-          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+          # TEMPORARY: force dry-run on the `push` test trigger (inputs.dry_run
+          # only exists for workflow_dispatch). Revert to `inputs.dry_run || 'false'`
+          # once the push trigger above is removed.
+          DRY_RUN: ${{ github.event_name == 'push' && 'true' || (inputs.dry_run || 'false') }}
           REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
