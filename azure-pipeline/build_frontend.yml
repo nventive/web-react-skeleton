@@ -23,7 +23,7 @@ jobs:
       - task: NodeTool@0
         displayName: "Node.js Version"
         inputs:
-          versionSpec: "22.x"
+          versionSpec: "24.13.x"
 
       - script: |
           cd frontend

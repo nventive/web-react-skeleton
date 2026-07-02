@@ -1,16 +1,15 @@
-version: "3.4"
+# please change the name so it matches your project name
+name: web-react-skeleton
 services:
-  vite_docker:
-    image: node:20.11.1
-    container_name: vite_docker
+  vite:
+    image: node:24.13-slim
     env_file:
       - .env
     entrypoint: /srv/app/entrypoint.sh
     ports:
-      - 8000:8000
+      - "${VITE_PORT:-8000}:${VITE_PORT:-8000}"
     working_dir: /srv/app
     volumes:
       - type: bind
         source: ./
         target: /srv/app
-    tty: true
