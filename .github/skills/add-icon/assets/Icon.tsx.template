@@ -1,0 +1,37 @@
+// Monochrome-shortcut icon template — every shape in the icon shares one color.
+// Replace __Name__ (PascalCase, e.g. Chevron), __ViewBoxW__ / __ViewBoxH__ (viewBox
+// natural size, must match width / height defaults), and __AltText__ (spaced name,
+// e.g. "Chevron").
+//
+// Rules:
+// - `sx` sits on the <svg> so the fill reaches all children.
+// - Drop `fill="none"` from <svg> in this variant — the sx fill needs to reach children.
+// - Do NOT mix per-<path> `sx` with the <svg>-level `sx` fill.
+// - <title>{alt}</title> is the first child of <svg>. Non-negotiable.
+// - Never `fill="#..."`, `fill="white"`, or `fill="currentColor"` — always a theme token.
+
+import IIcon from "./IIcon";
+
+export default function __Name__({
+  className,
+  width = __ViewBoxW__,
+  height = __ViewBoxH__,
+  alt = "__AltText__",
+}: IIcon) {
+  return (
+    <svg
+      className={className}
+      width={width}
+      height={height}
+      viewBox="0 0 __ViewBoxW__ __ViewBoxH__"
+      sx={(theme) => ({
+        fill: theme.palette.primary.main,
+      })}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <title>{alt}</title>
+      {/* Paste optimized geometry here: <path d="…" />, <circle cx="…" cy="…" r="…" />, etc. */}
+      <path d="…" />
+    </svg>
+  );
+}

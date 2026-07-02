@@ -1,0 +1,27 @@
+import en from "@assets/locales/en.json";
+import fr from "@assets/locales/fr.json";
+import { IRoute } from "@routes/interfaces/IRoute";
+import { lazy } from "react";
+
+// Protected page → import the withAuth wrapper.
+// Public page    → import the page component directly (e.g. `./__PageName__`).
+const __pageName__Route: IRoute = {
+  name: "__pageName___page_title",
+  component: lazy(() => import("./withAuth__PageName__")),
+  paths: {
+    en: `/${en.locale__key}/${en.routes____pageName__}`,
+    fr: `/${fr.locale__key}/${fr.routes____pageName__}`,
+  },
+  // Dynamic route example — uncomment and adapt if the page has URL params:
+  //
+  // paths: {
+  //   en: `/${en.locale__key}/${en.routes____pageName__}/:id`,
+  //   fr: `/${fr.locale__key}/${fr.routes____pageName__}/:id`,
+  // },
+  // getPath: (locale, id) => {
+  //   const loc = locale === "en" ? en : fr;
+  //   return `/${loc.locale__key}/${loc.routes____pageName__}/${id}`;
+  // },
+};
+
+export default __pageName__Route;

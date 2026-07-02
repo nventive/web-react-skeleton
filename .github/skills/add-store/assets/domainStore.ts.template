@@ -1,0 +1,29 @@
+// Import server-model types from their owning service. Never redeclare them here.
+// import IUser from "@services/users/interfaces/IUser";
+import { create } from "zustand";
+
+// Interface stays file-local (NOT exported). Values first, setters after.
+interface I__Domain__Store {
+  // <field>?: <Type>;
+  // set<Field>: (<field>?: <Type>) => void;
+}
+
+// If any action's next state depends on the previous, keep the initial value
+// in a stable constant so `reset<Domain>()` and the initializer share it.
+// const initial__Field__: <Type> = /* ... */;
+
+export const use__Domain__Store = create<I__Domain__Store>((/* set */) => ({
+  // <field>: undefined,
+  //
+  // Straight replacement — use the shorthand:
+  // set<Field>: (<field>) => set({ <field> }),
+  //
+  // Depends on previous state — use the functional form and return only the
+  // fields that change (set() shallow-merges):
+  // add<Item>: (item) => set((state) => ({ items: [...state.items, item] })),
+  // remove<Item>: (id) =>
+  //   set((state) => ({ items: state.items.filter((item) => item.id !== id) })),
+  //
+  // Reset action — reuse the initial constant, don't duplicate the literal:
+  // reset__Domain__: () => set({ items: initial__Field__ }),
+}));

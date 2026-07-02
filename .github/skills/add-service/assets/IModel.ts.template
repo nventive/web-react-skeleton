@@ -1,0 +1,16 @@
+export default interface I__Name__ {
+  // One field per line. Use `?` for optional fields.
+  // Do NOT reference AxiosResponse here — that lives in the service function signature only.
+  //
+  // Example (request body):
+  // username: string;
+  // password: string;
+  //
+  // Example (response model):
+  // id: number;
+  // email: string;
+  // firstName: string;
+  // lastName: string;
+  // token?: string;
+  // refreshToken?: string;
+}

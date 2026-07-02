@@ -1,0 +1,107 @@
+import Button from "@components/button/Button";
+import FieldHelperText from "@components/fieldHelperText/FieldHelperText";
+import TextField from "@components/textField/TextField";
+import __formName__Schema from "@forms/__domain__/__formName__/__formName__.schema";
+// Replace the following with the correct service + interface for this form:
+// import { post__ServiceCall__ } from "@services/__domain__/__domain__Service";
+// import I__Request__ from "@services/__domain__/interfaces/I__Request__";
+import {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useCallback,
+  useState,
+} from "react";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
+import { ValidationError } from "yup";
+
+interface I__FormName__ {
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
+  // Add cross-cutting parent callbacks here if needed, e.g.:
+  // onSuccess?: () => void;
+}
+
+export default function __FormName__({ setIsLoading }: I__FormName__) {
+  const { t } = useTranslation();
+
+  // State — three pieces, in this order.
+  // Use the service request interface as the state type; do not redeclare fields.
+  const [__formName__, set__FormName__] = useState<I__Request__>({
+    // one entry per field, matching the schema keys
+  });
+  const [__formName__Validated, set__FormName__Validated] =
+    useState<boolean>(false);
+  const [formErrors, setFormErrors] = useState<ValidationError[]>([]);
+
+  const onSubmit = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      try {
+        set__FormName__Validated(true);
+        __formName__Schema.validateSync(__formName__, { abortEarly: false });
+        setFormErrors([]);
+        setIsLoading(true);
+        post__ServiceCall__(__formName__)
+          .then(({ data }) => {
+            // Success side effects: localStorage, store hydration, navigation, toast.
+            // Keep this block short; move complex flows into a shared helper.
+          })
+          .catch((error) => {
+            // Handle known error shapes first, then fall back to the generic toast.
+            // Example:
+            // if (error.response?.data?.message === "…") {
+            //   toast.error(t("errors__…"), { toastId: "…" });
+            // } else {
+            toast.error(t("errors__generic"), { toastId: "generic" });
+            // }
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
+      } catch (error) {
+        // Yup validation errors ONLY. Do not toast — FieldHelperText renders them inline.
+        if (error instanceof ValidationError) {
+          setFormErrors(error.inner);
+        }
+      }
+    },
+    [__formName__, setIsLoading, t],
+  );
+
+  const onValidate = useCallback(() => {
+    try {
+      if (__formName__Validated) {
+        __formName__Schema.validateSync(__formName__, { abortEarly: false });
+        setFormErrors([]);
+      }
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        setFormErrors(error.inner);
+      }
+    }
+  }, [__formName__, __formName__Validated]);
+
+  return (
+    <form className="flex-column" onSubmit={onSubmit}>
+      {/* Repeat this block per field. fieldNames MUST match the schema key exactly. */}
+      <div className="mb-md">
+        <TextField
+          fullWidth
+          onBlur={onValidate}
+          autoComplete="off"
+          value={__formName__.fieldName}
+          onChange={(value) =>
+            set__FormName__((prevState) => ({ ...prevState, fieldName: value }))
+          }
+          label={t("<namespace>__field_name")}
+        />
+        <FieldHelperText fieldNames="fieldName" formErrors={formErrors} />
+      </div>
+
+      <Button className="mb-md" variant="contained" size="large" type="submit">
+        {t("<namespace>__submit")}
+      </Button>
+    </form>
+  );
+}

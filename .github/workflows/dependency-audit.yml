@@ -1,0 +1,161 @@
+# Scheduled dependency-audit job. Intentional exception to the "one CI/CD
+# system" invariant in copilot-instructions.md: no build/deploy work runs here,
+# only a biweekly scan that opens GitHub issues in this repo.
+#
+# The audit itself is a natural-language prompt (see prompts/dependency-audit.prompt.md)
+# executed via the GitHub Models inference action. This workflow only feeds the
+# prompt the current pinned versions and turns the JSON response into issues.
+name: Dependency audit
+
+on:
+  # TEMPORARY: lets this run from a feature branch before workflow_dispatch/schedule
+  # are discoverable (those only trigger for workflows present on the default branch).
+  # Remove this `push` block before merging to main.
+  push:
+    branches:
+      - feat/add-copilot-instructions-and-skills
+  schedule:
+    # 06:00 UTC on the 1st and 15th of every month (~every 2 weeks).
+    - cron: "0 6 1,15 * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Log findings without opening issues"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+  models: read
+
+concurrency:
+  group: dependency-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    name: Scan pinned versions
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Collect pinned versions
+        run: |
+          {
+            echo "### frontend/package.json"
+            echo '```json'
+            cat frontend/package.json
+            echo '```'
+            echo
+            echo "### frontend/docker-compose.yml"
+            echo '```yaml'
+            cat frontend/docker-compose.yml
+            echo '```'
+            echo
+            echo "### terraform/provider.tf"
+            echo '```hcl'
+            cat terraform/provider.tf
+            echo '```'
+            echo
+            for f in azure-pipeline/*.yml; do
+              echo "### $f"
+              echo '```yaml'
+              cat "$f"
+              echo '```'
+              echo
+            done
+          } > sources.md
+
+      - name: Run audit prompt
+        id: audit
+        uses: actions/ai-inference@v1
+        with:
+          model: openai/gpt-4o
+          system-prompt-file: .github/prompts/dependency-audit.prompt.md
+          prompt-file: sources.md
+          max-tokens: 4000
+
+      - name: Ensure dependency-audit label
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create dependency-audit \
+            --color ededed \
+            --description "Automated dependency / tooling major-version audit" \
+            || true
+
+      - name: Open issues for findings
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RESPONSE: ${{ steps.audit.outputs.response }}
+          # TEMPORARY: force dry-run on the `push` test trigger (inputs.dry_run
+          # only exists for workflow_dispatch). Revert to `inputs.dry_run || 'false'`
+          # once the push trigger above is removed.
+          DRY_RUN: ${{ github.event_name == 'push' && 'true' || (inputs.dry_run || 'false') }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          # Strip optional ```json fences the model may add despite instructions.
+          CLEAN=$(printf '%s' "$RESPONSE" | sed -E '/^[[:space:]]*```(json)?[[:space:]]*$/d')
+
+          if ! echo "$CLEAN" | jq -e 'type == "array"' >/dev/null 2>&1; then
+            echo "::error::Model response was not a JSON array. Raw response:"
+            printf '%s\n' "$RESPONSE"
+            exit 1
+          fi
+
+          count=$(echo "$CLEAN" | jq 'length')
+          echo "Model reported $count outdated major(s)."
+
+          if [ "$count" -eq 0 ]; then
+            echo "Nothing to file."
+            exit 0
+          fi
+
+          # Existing open audit issues, keyed by the fingerprint parsed from the body.
+          existing=$(gh issue list \
+            --repo "$REPO" \
+            --label dependency-audit \
+            --state open \
+            --limit 200 \
+            --json number,body \
+            --jq '[.[] | {number, fp: ((.body | capture("audit-fingerprint:[[:space:]]*(?<fp>[^\\s>]+)") // {}) | .fp)} | select(.fp != null and .fp != "")]')
+
+          echo "$CLEAN" | jq -c '.[]' | while read -r item; do
+            fp=$(echo "$item" | jq -r '.fingerprint')
+            title=$(echo "$item" | jq -r '"[deps] \(.category): \(.name) — major \(.current) → \(.latest)"')
+
+            if echo "$existing" | jq -e --arg fp "$fp" 'any(.fp == $fp)' >/dev/null; then
+              echo "  skip (already open): $fp"
+              continue
+            fi
+
+            body=$(echo "$item" | jq -r '
+              "A newer **major** version is available for `" + .name + "`.\n\n" +
+              "| Field | Value |\n| --- | --- |\n" +
+              "| Category | " + .category + " |\n" +
+              "| Current | `" + .current + "` |\n" +
+              "| Latest | `" + .latest + "` |\n" +
+              "| Package | " + .url + " |\n" +
+              "| Changelog | " + .changelog + " |\n" +
+              (if (.notes // "") != "" then "| Notes | " + .notes + " |\n" else "" end) +
+              "\nReview breaking changes before bumping. Close this issue once the update is merged or intentionally deferred.\n\n" +
+              "<!-- audit-fingerprint: " + .fingerprint + " -->"
+            ')
+
+            if [ "$DRY_RUN" = "true" ]; then
+              echo "  [dry-run] would create: $title"
+              continue
+            fi
+
+            gh issue create \
+              --repo "$REPO" \
+              --title "$title" \
+              --body "$body" \
+              --label dependency-audit
+          done
+
+          echo "Done."

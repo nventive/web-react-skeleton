@@ -1,0 +1,55 @@
+import axiosInstance from "@services/axiosInstance";
+// Import request/response interfaces from this domain (or reuse from another domain):
+// import I__Request__ from "@services/__domain__/interfaces/I__Request__";
+// import I__Response__ from "@services/__domain__/interfaces/I__Response__";
+import { AxiosResponse, CancelToken } from "axios";
+
+// Endpoint constants at the top. One per endpoint. SCREAMING_SNAKE_CASE.
+const __DOMAIN___PREFIX = "/__domain__";
+// const GET___RESOURCE__ = `${__DOMAIN___PREFIX}/<path>`;
+// const POST___RESOURCE__ = `${__DOMAIN___PREFIX}/<path>`;
+// const PUT___RESOURCE__ = (id: string) => `${__DOMAIN___PREFIX}/${id}`;
+
+// One named `export async function` per endpoint. Function name = verb + Resource.
+// Return the FULL AxiosResponse — callers destructure `{ data }`.
+//
+// GET example (no body):
+// export async function get__Resource__(
+//   cancelToken?: CancelToken,
+// ): Promise<AxiosResponse<I__Response__>> {
+//   return await axiosInstance.get(GET___RESOURCE__, { cancelToken });
+// }
+//
+// POST example (body + optional cancel token):
+// export async function post__Resource__(
+//   payload: I__Request__,
+//   cancelToken?: CancelToken,
+// ): Promise<AxiosResponse<I__Response__>> {
+//   return await axiosInstance.post(POST___RESOURCE__, payload, { cancelToken });
+// }
+//
+// PUT with a path param:
+// export async function put__Resource__(
+//   id: string,
+//   payload: I__Request__,
+//   cancelToken?: CancelToken,
+// ): Promise<AxiosResponse<I__Response__>> {
+//   return await axiosInstance.put(PUT___RESOURCE__(id), payload, { cancelToken });
+// }
+//
+// GET with query params (arrays handled by the shared `qs` paramsSerializer):
+// export async function get__Resources__(
+//   filters: { ids?: string[]; search?: string },
+//   cancelToken?: CancelToken,
+// ): Promise<AxiosResponse<I__Response__[]>> {
+//   return await axiosInstance.get(GET___RESOURCE__, {
+//     params: filters,
+//     cancelToken,
+//   });
+// }
+//
+// Rules:
+// - No try/catch here — errors propagate to the caller.
+// - No side effects (no localStorage, toast, navigate, useTranslation).
+// - No imports from @stores, @containers, @pages, @forms, @components, @hocs,
+//   react-i18next, react-router-dom, or react.
